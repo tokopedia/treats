@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Middlewares · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;In this section, we&#x27;ll learn to create a middleware addon for Treats. Middleware are also modelled as object with &lt;code&gt;middleware&lt;/code&gt; method that will always be triggered on response/request cycle. We used object instead of simple function to encapsulate other side-effect methods that might be needed by the middleware function, for example, we might need to separate data-fetching function into separate methods.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Middlewares · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://treats.github.io/index.html"/><meta property="og:description" content="&lt;p&gt;In this section, we&#x27;ll learn to create a middleware addon for Treats. Middleware are also modelled as object with &lt;code&gt;middleware&lt;/code&gt; method that will always be triggered on response/request cycle. We used object instead of simple function to encapsulate other side-effect methods that might be needed by the middleware function, for example, we might need to separate data-fetching function into separate methods.&lt;/p&gt;
+"/><meta property="og:image" content="https://treats.github.io/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://treats.github.io/img/toped.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://treats.github.io/blog/atom.xml" title="Treats Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://treats.github.io/blog/feed.xml" title="Treats Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/installation.html" target="_self">Getting Started</a></li><li class=""><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Authoring Addons</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/docs/tutorial/01.html">01. Creating Your First Page</a></li><li class="navListItem"><a class="navItem" href="/docs/tutorial/02.html">02. State and Props</a></li><li class="navListItem"><a class="navItem" href="/docs/tutorial/03.html">03. Maintaining State with Redux</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Main Concepts</h3><ul><li class="navListItem"><a class="navItem" href="/docs/main-concept/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/routing.html">Routing</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/localization.html">Localization</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/code-splitting.html">Code-splitting</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/graphql-client.html">GraphQL Client</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-event.html">Server-side Events</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-template.html">Server-side Template</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-rendering.html">Server-side Rendering</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-server-app.html">Custom Server App</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-client-initialization.html">Custom Client Initialization</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-react-app.html">Custom React App</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/runtime-config.html">Runtime Config</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/build-config.html">Build Config</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/environment-variable.html">Environment Variables</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/generator.html">Code Generator</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/scripts.html">Scripts</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/addons.html">Addons</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul><li class="navListItem"><a class="navItem" href="/docs/api-reference/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/filesystem-hooks.html">Filesystem Hooks</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/component.html">Components</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/server.html">Server</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/client.html">Client</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/router.html">Router</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/intl.html">Intl</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/locale-data.html">Locale Data</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/helmet.html">Helmet</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/graphql.html">Graphql</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/generator.html">Code Generator</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Authoring Addons</h3><ul><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/helper.html">Helpers</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/authoring-addons/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/generator.html">Generators</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/wrap-up.html">Wrapping Up</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Addons</h3><ul><li class="navListItem"><a class="navItem" href="/docs/list-of-addons.html">Treats Addons List</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/docs/contributing/how-to-contribute.html">How To Contribute</a></li><li class="navListItem"><a class="navItem" href="/docs/contributing/code-styling.html">Code Styling</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul><li class="navListItem"><a class="navItem" href="/docs/faq.html">FAQs</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Middlewares</h1></header><article><div><span><p>In this section, we'll learn to create a middleware addon for Treats. Middleware are also modelled as object with <code>middleware</code> method that will always be triggered on response/request cycle. We used object instead of simple function to encapsulate other side-effect methods that might be needed by the middleware function, for example, we might need to separate data-fetching function into separate methods.</p>
+<p>In the previous section, we've finished building a simple helper that returns <code>fizz</code> or <code>buzz</code> by turns in the previous example. We'll continue to use the same project to build our middleware now.</p>
+<p>We'll build a simple middleware that triggers our helper and prints out <code>foo</code> if current state of our helper is <code>fizz</code>, and <code>bar</code> if it is the opposite.</p>
+<p>To start building our middleware, let's first create the directory and middleware file:</p>
+<pre><code class="hljs">src/
+<span class="hljs-string">|-- middleware/</span>
+    <span class="hljs-string">|-- foobar/</span>
+        <span class="hljs-string">|-- index.js</span>
+</code></pre>
+<p>Just like with helper, we'll start creating our middleware by defining a simple object:</p>
+<pre><code class="hljs"><span class="hljs-regexp">// src/middleware/foobar/index.js
+
+//</span> 👇 start <span class="hljs-keyword">by</span> creating plain object <span class="hljs-keyword">for</span> now
+<span class="hljs-keyword">const</span> FooBarMiddleware = {
+
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FooBarMiddleware;
+</code></pre>
+<p>Valid middleware would have to implement <code>middleware</code> method that would be called on each response/request cycle.</p>
+<pre><code class="hljs"><span class="hljs-comment">// src/middleware/foobar/index.js</span>
+<span class="hljs-keyword">const</span> FooBarMiddleware = {
+     <span class="hljs-comment">/* 👇 this is our middleware method that would be called on each response/request cycle
+     middleware method can be async or normal function. */</span>
+    <span class="hljs-keyword">async</span> middleware(req, res, next) {
+        <span class="hljs-keyword">const</span> { app } = req,
+            fizzBuzzHelper = app.get(<span class="hljs-string">"fizzbuzz"</span>),
+            fizzBuzzMessage = fizzBuzzHelper.print();
+        <span class="hljs-keyword">let</span> message = <span class="hljs-string">"foo"</span>;
+
+        <span class="hljs-keyword">if</span>(fizzBuzzMessage === <span class="hljs-string">"buzz"</span>) {
+            message = <span class="hljs-string">"bar"</span>
+        }
+
+        <span class="hljs-built_in">console</span>.info(<span class="hljs-string">`FOOBAR MIDDLEWARE: <span class="hljs-subst">${message}</span>`</span>);
+        next(); <span class="hljs-comment">// 👈 don't forget to call the next function so request would be continued to the next middleware in line</span>
+    }
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FooBarMiddleware;
+</code></pre>
+<p>Now let's test our middleware from our main app. To use our middleware, we would need to import and attach it to our Treats custom server:</p>
+<pre><code class="hljs"><span class="hljs-comment">// src/_server/index.js</span>
+<span class="hljs-keyword">import</span> initServer, { EVENT_TYPES } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/server"</span>;
+<span class="hljs-keyword">import</span> FizzBuzzHelper <span class="hljs-keyword">from</span> <span class="hljs-string">"../helper/fizzbuzz"</span>;
+<span class="hljs-keyword">import</span> FooBarMiddleware <span class="hljs-keyword">from</span> <span class="hljs-string">"../middleware/foobar"</span>;
+
+<span class="hljs-keyword">const</span> app = initServer({
+    <span class="hljs-attr">customHelpers</span>: FizzBuzzHelper,
+    <span class="hljs-attr">customMiddlewares</span>: FooBarMiddleware,
+    ...
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> app;
+</code></pre>
+<p>Now when you run your Treats app, when it receives a request it would print your message from the middleware.</p>
+<p>Just like helper, middleware can also have <code>init</code> method that would be triggered on main app initialized. For example:</p>
+<pre><code class="hljs"><span class="hljs-comment">// src/middleware/foobar/index.js</span>
+<span class="hljs-keyword">const</span> FooBarMiddleware = {
+    init(app) {
+        <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"[Foobar] Middleware Initialized"</span>);
+    },
+    <span class="hljs-keyword">async</span> middleware(req, res, next) {
+        ...
+    }
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FooBarMiddleware;
+</code></pre>
+<p>Middleware can also triggers custom events:</p>
+<pre><code class="hljs"><span class="hljs-comment">// src/middleware/foobar/index.js</span>
+<span class="hljs-keyword">const</span> FooBarMiddleware = {
+    init(app) {
+        <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"[Foobar] Middleware Initialized"</span>);
+    },
+    <span class="hljs-keyword">async</span> middleware(req, res, next) {
+        <span class="hljs-keyword">const</span> { app } = req,
+            fizzBuzzHelper = app.get(<span class="hljs-string">"fizzbuzz"</span>),
+            fizzBuzzMessage = fizzBuzzHelper.print();
+        <span class="hljs-keyword">let</span> message = <span class="hljs-string">"foo"</span>;
+
+        <span class="hljs-keyword">if</span>(fizzBuzzMessage === <span class="hljs-string">"buzz"</span>) {
+            message = <span class="hljs-string">"bar"</span>
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">const</span> eventManager = app.get(<span class="hljs-string">"eventManager"</span>);
+            eventManager.fire(<span class="hljs-string">"FOO_MESSAGE"</span>, req, res);
+        }
+
+        <span class="hljs-built_in">console</span>.info(<span class="hljs-string">`FOOBAR MIDDLEWARE: <span class="hljs-subst">${message}</span>`</span>);
+        next();
+    }
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FooBarMiddleware;
+</code></pre>
+<pre><code class="hljs"><span class="hljs-comment">// src/_server/index.js</span>
+<span class="hljs-keyword">import</span> initServer, { EVENT_TYPES } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/server"</span>;
+<span class="hljs-keyword">import</span> FizzBuzzHelper <span class="hljs-keyword">from</span> <span class="hljs-string">"../helper/fizzbuzz"</span>;
+<span class="hljs-keyword">import</span> FooBarMiddleware <span class="hljs-keyword">from</span> <span class="hljs-string">"../middleware/foobar"</span>;
+
+<span class="hljs-keyword">const</span> app = initServer({
+    <span class="hljs-attr">customMiddlewares</span>: FooBarMiddleware,
+    <span class="hljs-attr">customHelpers</span>: FizzBuzzHelper,
+    <span class="hljs-attr">customEvents</span>: {
+        [EVENT_TYPES.BEFORE_RENDER]: <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+            ...
+        },
+        <span class="hljs-string">"BUZZ_MESSAGE"</span>: <span class="hljs-function"><span class="hljs-params">count</span> =&gt;</span> {
+            ...
+        },
+        <span class="hljs-string">"FOO_MESSAGE"</span>: <span class="hljs-function">(<span class="hljs-params">req,res</span>) =&gt;</span> {
+            <span class="hljs-built_in">console</span>.info(<span class="hljs-string">"BAR MESSAGE EVENT!"</span>);
+        }
+    }
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> app;
+</code></pre>
+<p>Congratulations! You've successfully created a simple middleware addon for Treats. In the next section, we'll look at how we can create a code generator template.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/authoring-addons/helper.html"><span class="arrow-prev">← </span><span>Helpers</span></a><a class="docs-next button" href="/docs/authoring-addons/generator.html"><span>Generators</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2018 Tokopedia OSS</section></footer></div></body></html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>03. Maintaining Your State with Redux · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Good job! Now we will enter a harder part. But don&#x27;t get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="03. Maintaining Your State with Redux · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://treats.github.io/index.html"/><meta property="og:description" content="&lt;p&gt;Good job! Now we will enter a harder part. But don&#x27;t get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.&lt;/p&gt;
+"/><meta property="og:image" content="https://treats.github.io/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://treats.github.io/img/toped.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://treats.github.io/blog/atom.xml" title="Treats Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://treats.github.io/blog/feed.xml" title="Treats Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/installation.html" target="_self">Getting Started</a></li><li class=""><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/docs/tutorial/01.html">01. Creating Your First Page</a></li><li class="navListItem"><a class="navItem" href="/docs/tutorial/02.html">02. State and Props</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/tutorial/03.html">03. Maintaining State with Redux</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Main Concepts</h3><ul><li class="navListItem"><a class="navItem" href="/docs/main-concept/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/routing.html">Routing</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/localization.html">Localization</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/code-splitting.html">Code-splitting</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/graphql-client.html">GraphQL Client</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-event.html">Server-side Events</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-template.html">Server-side Template</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/server-side-rendering.html">Server-side Rendering</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-server-app.html">Custom Server App</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-client-initialization.html">Custom Client Initialization</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/custom-react-app.html">Custom React App</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/runtime-config.html">Runtime Config</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/build-config.html">Build Config</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/environment-variable.html">Environment Variables</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/generator.html">Code Generator</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/scripts.html">Scripts</a></li><li class="navListItem"><a class="navItem" href="/docs/main-concept/addons.html">Addons</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul><li class="navListItem"><a class="navItem" href="/docs/api-reference/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/filesystem-hooks.html">Filesystem Hooks</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/component.html">Components</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/server.html">Server</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/client.html">Client</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/router.html">Router</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/intl.html">Intl</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/locale-data.html">Locale Data</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/helmet.html">Helmet</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/graphql.html">Graphql</a></li><li class="navListItem"><a class="navItem" href="/docs/api-reference/generator.html">Code Generator</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Authoring Addons</h3><ul><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/generator.html">Generators</a></li><li class="navListItem"><a class="navItem" href="/docs/authoring-addons/wrap-up.html">Wrapping Up</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Addons</h3><ul><li class="navListItem"><a class="navItem" href="/docs/list-of-addons.html">Treats Addons List</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/docs/contributing/how-to-contribute.html">How To Contribute</a></li><li class="navListItem"><a class="navItem" href="/docs/contributing/code-styling.html">Code Styling</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul><li class="navListItem"><a class="navItem" href="/docs/faq.html">FAQs</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">03. Maintaining Your State with Redux</h1></header><article><div><span><p>Good job! Now we will enter a harder part. But don't get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.</p>
+<p>Before we start, have we even talked about Redux yet? No? Okay then, <strong><code>Redux</code></strong> is s tools to maintain global state in our app. Maintaining with React <strong><code>state</code></strong> and <strong><code>props</code></strong> is a great idea, but isn't more convenient when we have a single store of our state, and every component in our app can directly use the state?
+And there comes <strong><code>Redux</code></strong> to help! Before start this tutorial we recommend to learn more about Redux <a href="https://redux.js.org/">here</a>.<br>
+Beside <strong><code>Redux</code></strong>, there is also another global state management tools out there like <strong><code>Flux</code></strong> and <strong><code>MobX</code></strong>. But we will only cover Redux in this tutorial.</p>
+<p>Okay, let's get started then.</p>
+<ol>
+<li>First thing first, let's create our page first. Create a your page folder like this.</li>
+</ol>
+<pre><code class="hljs">reduxpage  
+<span class="hljs-string">|  </span>
+<span class="hljs-string">|-- index.js</span>
+<span class="hljs-string">|-- reduxpage.js</span>
+</code></pre>
+<ol start="2">
+<li>Implement our <code>index.js</code> and <code>reduxpage.js</code>.</li>
+</ol>
+<pre><code class="hljs"><span class="hljs-comment">/* index.js */</span>
+
+<span class="hljs-keyword">import</span> AsyncLoader <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/component/async-loader"</span>;
+
+<span class="hljs-keyword">const</span> Reduxpage = AsyncLoader({ <span class="hljs-attr">component</span>: <span class="hljs-keyword">import</span>(<span class="hljs-string">"./reduxpage"</span>) });
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Reduxpage;
+</code></pre>
+<pre><code class="hljs"><span class="hljs-comment">/* reduxpage.js */</span>
+
+<span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReduxPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"header"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"age"</span>&gt;</span>
+            Your age: <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{this.props.age}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ageUp"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onAgeUp}</span>&gt;</span>
+            Age UP
+          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ageDown"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onAgeDown}</span>&gt;</span>
+            Age Down
+          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>History<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            {this.props.history.map(el =&gt; (
+              <span class="hljs-tag">&lt;<span class="hljs-name">li</span> 
+                <span class="hljs-attr">className</span>=<span class="hljs-string">"historyItem"</span> 
+                <span class="hljs-attr">key</span>=<span class="hljs-string">{el.id}</span>
+                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.props.onDelEntry(el.id)}&gt;
+                {el.age}
+              <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            ))}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    );
+  }
+}
+
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">age</span>: state.reduxpage.age,
+    <span class="hljs-attr">history</span>: state.reduxpage.history
+  };
+};
+
+<span class="hljs-keyword">const</span> mapDispachToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">onAgeUp</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"AGE_UP"</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">1</span> }),
+    <span class="hljs-attr">onAgeDown</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"AGE_DOWN"</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">1</span> }),
+    <span class="hljs-attr">onDelEntry</span>: <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"DEL_ENTRY"</span>, <span class="hljs-attr">id</span>: id})
+  };
+};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
+  mapStateToProps,
+  mapDispachToProps
+)(ReduxPage);
+</code></pre>
+<p>&quot;Okay, I start to see something I've never seen before&quot;. Good observation! As we can see in <code>reduxpage.js</code>, we can't see <strong><code>onAgeUp</code></strong>, <strong><code>onAgeDown</code></strong>, and <strong><code>onDelEntry</code></strong> passed from props.</p>
+<p>If you're already read and know Redux basics, this function are our <strong><code>dispatch</code></strong> function which allow us to send <strong><code>action</code></strong> object to change our current state (In above file, <code>{ type: &quot;AGE_DOWN&quot;, value:1 }</code> is an action). All these 3 functions will be mapped to component props by <strong><code>mapDispatchToProps</code></strong> function.</p>
+<p>What about our <code>age</code> and <code>history</code>? It's the concept as <strong><code>mapDispatchToProps</code></strong>, however we mapped the state instead into our props. See the <strong><code>mapStateToProps</code></strong> part.</p>
+<p>Lastly, don't forget to <strong><code>connect</code></strong> our component with <strong><code>mapStateToProps</code></strong> and <strong><code>mapDispatchToProps</code></strong>. Without this, we can't access dispatch and state as component props. Also, don't forget to <strong><code>createStore</code></strong> because Redux need to be initialized first. See the <code>reduxpage.js</code> to see how we do <strong><code>createStore</code></strong>.</p>
+<p><strong>Note:</strong> If you're already have experience with Redux before, you will see that we do not need to do <strong><code>createStore</code></strong> anymore. <em>Voila!</em> And that's Treats feature for you.</p>
+<ol start="3">
+<li>Okay that's a lot to learn right? But don't get too carried away, we're not done yet. Next, we'are going to create our <strong><code>reducer</code></strong> function.<br>
+Create <code>_redux</code> folder under <code>./src</code>. Then create a folder representing your module under the <code>_redux</code> folder, in this case <code>reduxpage</code> and <code>todo</code>. Insert your <strong><code>reducer.js</code></strong> there. Also, create a global <strong><code>reducer.js</code></strong> under <code>_redux</code>.</li>
+</ol>
+<pre><code class="hljs"><span class="hljs-comment">/* Folder structures */</span>
+
+src
+|<span class="hljs-comment">-- _redux  </span>
+    |<span class="hljs-comment">-- reduxpage</span>
+        |<span class="hljs-comment">-- index.js</span>
+        |<span class="hljs-comment">-- reducer.js  </span>
+    |<span class="hljs-comment">-- todo</span>
+        |<span class="hljs-comment">-- index.js</span>
+        |<span class="hljs-comment">-- reducer.js</span>
+    reducer.js
+</code></pre>
+<p><strong>Notes:</strong> We recommend to always put Redux-related module in <code>_redux</code> folder. This is not mandatory, but it will make our app easy to maintain.</p>
+<ol start="4">
+<li>Implement our <strong><code>_redux/reduxpage/reducer.js</code></strong>, <strong><code>_redux/todo/reducer.js</code></strong>, and <strong><code>_redux/reducer.js</code></strong>.</li>
+</ol>
+<pre><code class="hljs">/* ./src/_redux/reduxpage/reducer.js */
+
+const initialState = {
+  age: <span class="hljs-number">20</span>,
+  history: []
+};
+
+const reducer = (<span class="hljs-keyword">state</span> = initialState, action) =&gt; {
+  const newState = { ...<span class="hljs-keyword">state</span> };
+
+  switch (action.type) {
+    case <span class="hljs-string">"AGE_UP"</span>:
+      return {
+        ...<span class="hljs-keyword">state</span>,
+        age: <span class="hljs-keyword">state</span>.age + action.value,
+        history: <span class="hljs-keyword">state</span>.history.concat({ id: Math.<span class="hljs-keyword">random</span>(), age: <span class="hljs-keyword">state</span>.age + action.value })
+      };
+    case <span class="hljs-string">"AGE_DOWN"</span>:
+      return {
+        ...<span class="hljs-keyword">state</span>,
+        age: <span class="hljs-keyword">state</span>.age - action.value,
+        history: <span class="hljs-keyword">state</span>.history.concat({ id: Math.<span class="hljs-keyword">random</span>(), age: <span class="hljs-keyword">state</span>.age - action.value })
+      };
+    case <span class="hljs-string">"DEL_ENTRY"</span>:
+      return {
+        ...<span class="hljs-keyword">state</span>,
+        history: newState.history.filter((el)=&gt; el.id !== action.id )
+      }
+    <span class="hljs-keyword">default</span>:
+      return newState;
+  }
+};
+
+export <span class="hljs-keyword">default</span> reducer;
+</code></pre>
+<pre><code class="hljs">/* ./src/page/todo/reducer.js */
+
+const initialState = {
+    term: <span class="hljs-string">""</span>,
+    item: []
+};
+  
+const TodoReducer = (<span class="hljs-keyword">state</span> = initialState, action) =&gt; {
+  const newState = { ...<span class="hljs-keyword">state</span> };
+
+  switch (action.type) {
+    case <span class="hljs-string">"ADD_TODO"</span>:
+        return {
+            ...<span class="hljs-keyword">state</span>,
+            term: <span class="hljs-string">""</span>,
+            history: <span class="hljs-keyword">state</span>.item.push(<span class="hljs-keyword">state</span>.term)
+        };
+    <span class="hljs-keyword">default</span>:
+      return <span class="hljs-keyword">state</span>;
+  }
+};
+  
+export <span class="hljs-keyword">default</span> TodoReducer;
+
+</code></pre>
+<pre><code class="hljs"><span class="hljs-comment">/* ./src/_redux/reducer.js */</span>
+<span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+
+<span class="hljs-keyword">import</span> ReduxpageReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"./reduxpage"</span>;
+<span class="hljs-keyword">import</span> TodoReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"./todo"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> combineReducers({
+    <span class="hljs-attr">reduxpage</span>: ReduxpageReducer,
+    <span class="hljs-attr">todo</span>: TodoReducer
+});
+</code></pre>
+<p>In reducer, we will handle all actions and return the new state after we receive an action.<br>
+Remember to <strong>always</strong> provide default case (returning previous state) to prevent unintended error or behaviour.</p>
+<p>There is also a concept called <strong><code>combineReducers</code></strong> which allow you to merge many reducers into a single reducer as we see in <code>_redux/reducer.js</code>. Why we need only one reducer? Because Treats only create one Redux store for the whole app, therefore we only need one reducer.</p>
+<p>Read more about <code>combineReducers</code> <a href="https://redux.js.org/recipes/structuringreducers/usingcombinereducers">here</a>.</p>
+<ol start="5">
+<li>Neat! Our redux page is done right now. Don't forget to add it to our <strong><code>routes</code></strong>.<br>
+To check the redux behaviour, you may install <a href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en">Redux Dev Tools</a> extensions on your browser. There, you can see the Redux state and the state update process. However, you will also need to configure your projects with Redux Dev Tools. Check it <a href="https://codeburst.io/redux-devtools-for-dummies-74566c597d7">here</a> to set your Redux Dev Tools.</li>
+</ol>
+<p>By the way, there are many <a href="https://itnext.io/react-state-management-patterns-908325dbb8f3">Redux state management patterns</a> you could use out there. Feel free to explore and choose!</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/tutorial/02.html"><span class="arrow-prev">← </span><span>02. Introducing React State and Props</span></a><a class="docs-next button" href="/docs/main-concept/overview.html"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2018 Tokopedia OSS</section></footer></div></body></html>
