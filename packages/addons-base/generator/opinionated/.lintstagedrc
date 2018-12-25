@@ -1,0 +1,10 @@
+{
+    "src/**/*.js": [
+        "prettier --write",
+        "eslint --fix",
+        "cross-env TEST_ENV=lint-staged yarn test --findRelatedTests"
+    ],
+    "src/**/*.css": [
+        "stylelint --fix"
+    ]
+}

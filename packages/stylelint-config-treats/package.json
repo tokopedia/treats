@@ -1,0 +1,27 @@
+{
+    "name": "stylelint-config-treats",
+    "license": "Apache-2.0",
+    "version": "0.1.0-alpha",
+    "description": "Stylelint config for opinionated development with Treats",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tokopedia/treats.git"
+    },
+    "author": "Tokopedia Engineering",
+    "bugs": {
+        "url": "https://github.com/tokopedia/treats/issues"
+    },
+    "homepage": "https://github.com/tokopedia/treats#readme",
+    "peerDependencies": {
+        "stylelint": "9.7.1"
+    },
+    "dependencies": {
+        "stylelint-config-css-modules": "1.2.0",
+        "stylelint-config-prettier": "4.0.0",
+        "stylelint-config-standard": "18.2.0"
+    }
+}

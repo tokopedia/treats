@@ -1,0 +1,149 @@
+{
+    "extends": ["airbnb", "prettier"],
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true
+    },
+    "globals": {
+        "shallow": false,
+        "render": false,
+        "mount": false,
+        "shallowToJson": false,
+        "renderToJson": false,
+        "mountToJson": false,
+        "shallowWithIntl": false,
+        "mountWithIntl": false
+    },
+    "parser": "babel-eslint",
+    "settings": {
+        "import/resolver": "webpack",
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": true
+        }
+    },
+    "plugins": ["react", "jsx-a11y", "flowtype"],
+    "rules": {
+        "linebreak-style": ["off"],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "camelcase": ["off", "never"],
+        "max-len": [
+            "off",
+            100,
+            {
+                "ignoreComments": true
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 0,
+                "maxBOF": 0
+            }
+        ],
+        "arrow-parens": ["error", "as-needed"],
+        "arrow-body-style": ["error", "as-needed"],
+        "comma-dangle": ["error", "never"],
+        "no-param-reassign": ["off"],
+        "no-useless-escape": ["off"],
+        "no-template-curly-in-string": ["off"],
+        "one-var": ["off"],
+        "function-paren-newline": ["error", "consistent"],
+        "dot-notation": [
+            "error",
+            {
+                "allowPattern": "^[a-zA-Z]+(_[a-zA-Z]+)+$"
+            }
+        ],
+        "no-unused-vars": ["warn"],
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
+        "no-console": ["error", { "allow": ["info", "warn", "error", "verbose", "silly", "debug"] }],
+        "no-case-declarations": ["off"],
+        "no-underscore-dangle": ["off"],
+        "quotes": ["error", "double", "avoid-escape"],
+        "eqeqeq": ["warn", "smart"],
+        "prefer-destructuring": [
+            "warn",
+            {
+                "object": true,
+                "array": false
+            }
+        ],
+        "spaced-comment": ["off"],
+        "import/no-unresolved": ["off"],
+        "import/no-absolute-path": ["off"],
+        "import/no-dynamic-require": ["off"],
+        "import/no-extraneous-dependencies": ["off"],
+        "import/prefer-default-export": ["off"],
+        "import/extensions": ["off"],
+        "object-curly-newline": ["off"],
+        "global-require": ["off"],
+        "react/no-unused-state": ["warn"],
+        "react/no-unused-prop-types":["off"],
+        "react/prop-types": ["off"],
+        "react/jsx-filename-extension": ["off"],
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-uses-vars": ["error"],
+        "react/jsx-uses-react": ["error"],
+        "react/no-this-in-sfc":["error"],
+        "react/jsx-key":["error"],
+        "react/jsx-handler-names": ["warn", {
+            "eventHandlerPrefix": "handle",
+            "eventHandlerPropPrefix": "on"
+        }],
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": ["Link"],
+                "specialLink": ["to", "hrefLeft", "hrefRight"],
+                "aspects": ["noHref", "invalidHref", "preferButton"]
+            }
+        ],
+        "react/no-array-index-key": ["off"],
+        "react/sort-comp": [
+            "error",
+            {
+                "order": ["lifecycle", "static-methods", "everything-else", "render"]
+            }
+        ],
+        "class-methods-use-this": ["off"],
+        "flowtype/boolean-style": ["error", "boolean"],
+        "flowtype/define-flow-type": "warn",
+        "flowtype/delimiter-dangle": ["error", "never"],
+        "flowtype/generic-spacing": ["error", "never"],
+        "flowtype/no-primitive-constructor-types": "error",
+        "flowtype/no-types-missing-file-annotation": "error",
+        "flowtype/no-weak-types": ["off"],
+        "flowtype/object-type-delimiter": ["error", "comma"],
+        "flowtype/require-parameter-type": "error",
+        "flowtype/require-return-type": [
+            "error",
+            "always",
+            {
+                "annotateUndefined": "never"
+            }
+        ],
+        "flowtype/require-valid-file-annotation": "error",
+        "flowtype/semi": ["error", "always"],
+        "flowtype/space-after-type-colon": ["error", "always"],
+        "flowtype/space-before-generic-bracket": ["error", "never"],
+        "flowtype/space-before-type-colon": ["error", "never"],
+        "flowtype/type-id-match": ["error", "^([A-Za-z0-9]+)+Type$"],
+        "flowtype/union-intersection-spacing": ["error", "always"],
+        "flowtype/use-flow-type": "warn",
+        "flowtype/valid-syntax": "warn"
+    }
+}

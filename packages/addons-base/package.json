@@ -1,0 +1,20 @@
+{
+    "name": "@treats/addons-base",
+    "license": "Apache-2.0",
+    "version": "0.1.0-alpha",
+    "description": "Treats Addons Base",
+    "main": "index.js",
+    "author": "Tokopedia Engineering",
+    "peerDependencies": {
+        "treats": "0.1.0-alpha"
+    },
+    "dependencies": {
+        "bluebird": "3.5.1",
+        "express": "4.16.3",
+        "flow-typed": "2.5.1",
+        "hot-shots": "5.6.1",
+        "opossum": "1.7.1",
+        "pg-promise": "7.5.4",
+        "redis": "2.8.0"
+    }
+}

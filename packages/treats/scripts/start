@@ -1,0 +1,181 @@
+#!/usr/bin/env node
+//# vi: ft=javascript
+const chalk = require("chalk"),
+    kill = require("kill-port"),
+    path = require("path"), 
+    webpack = require("webpack"),
+    WebpackDevServer = require("webpack-dev-server"),
+    chokidar = require("chokidar"),
+    ROOT_PATH = process.cwd(),
+    logger = require("./util/logger"),
+    reRequire =  require("./util/re-require"),
+    clean = require("./clean"),
+    RESOLVER = require("../resolver"),
+    WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils"),
+    getProcessForPort = require("react-dev-utils/getProcessForPort");
+
+let loadTreatsConfig,
+    assetsDevServer,
+    treatsDevServer,
+    isReload = false;
+
+const startDevServers = argv => {
+    if(!assetsDevServer && !treatsDevServer) {
+        clean(argv, () => {
+            loadTreatsConfig = reRequire(path.resolve(__dirname, "./util/load-config"));
+            const treatsConfig = loadTreatsConfig(),
+                { webpack: webpackConfig } = treatsConfig,
+                [serverCompiler, clientCompiler] = webpack([webpackConfig.server, webpackConfig.client]).compilers;
+            logger("debug", "Initiating build with the following config...");
+            if(process.env.TREATS_SCRIPT_DEBUG) {
+                //eslint-disable-next-line
+                console.log(treatsConfig);
+            }
+            logger("log", `Starting Treats Dev Server on ${process.env.TREATS_HOST}:${process.env.TREATS_PORT}`);
+            treatsDevServer = serverCompiler.watch(webpackConfig.server.watchOptions, (err, stats) => {
+                if (err) {
+                    logger("error", err.stack || err);
+                    if (err.details) {
+                        logger("error", err.details.toString());
+                    }
+                    return;
+                }
+
+                const info = stats.toJson();
+
+                if (stats.hasErrors()) {
+                    logger("error", info.errors);
+                }
+
+                if (stats.hasWarnings()) {
+                    logger("warn", info.warnings);
+                }
+                //eslint-disable-next-line
+                console.log(
+                    stats.toString({
+                        modules: false,
+                        colors: true
+                    })
+                );
+            });
+            let devPort,
+                devHost;
+
+            if(webpackConfig.client.devServer) {
+                devPort = webpackConfig.client.devServer.port;
+                devHost = webpackConfig.client.devServer.host;
+            }
+
+            assetsDevServer = new WebpackDevServer(clientCompiler, webpackConfig.client.devServer);
+
+            assetsDevServer.listen(devPort, devHost);
+        });
+    }
+}
+
+const stopDevServers = (argv, cb) => {
+    if(treatsDevServer) {
+        treatsDevServer.close(() => {
+            logger("debug", "Closing Treats Dev Server...");
+        });
+    }
+    if(assetsDevServer) {
+        assetsDevServer.close(() => {
+            logger("debug", "Closing Webpack Dev Server...");
+        });
+    }
+    if(cb) {
+        kill(process.env.TREATS_PORT).then(() => {
+            assetsDevServer = undefined;
+            treatsDevServer = undefined;
+            cb();
+        })
+    }
+}
+
+const reloadDevServers = argv => {
+    if(!isReload) {
+        isReload = true;
+        stopDevServers(argv, () => {
+            startDevServers(argv);
+            isReload = false;
+        });
+    }
+}
+
+const start = argv => {
+    const userPort = argv.port || 3000;
+    
+    getProcessForPort(userPort);
+    WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {
+        if(resolvedPort !== null) {
+            process.env.TREATS_HOST = argv.host || "http://localhost";
+            process.env.NODE_ENV = argv.env || "development";
+            process.env.TREATS_PORT = parseInt(resolvedPort, 10);
+            process.env.WDS_PORT = argv.wdsport || resolvedPort + 1;
+            try {
+                if(argv.debug) {
+                    process.env.TREATS_SCRIPT_DEBUG = true;
+                }
+
+                const entryFiles = Object.keys(RESOLVER).reduce((accumulator, key) => {
+                        accumulator.push(RESOLVER[key].custom);
+                        return accumulator;
+                    }, []),
+                    configFiles = [
+                        path.resolve(ROOT_PATH, "./treats.config.js"),
+                        path.resolve(ROOT_PATH, "./.babelrc")
+                    ];
+
+                const watcher = chokidar.watch([...configFiles, ...entryFiles], {
+                    ignoreInitial: true
+                });
+                logger("clear");
+                logger("debug", "Watching files...");
+                logger( "debug", [...configFiles, ...entryFiles].join("\n"));
+
+                watcher.on("change",  changedPath => {
+                    if(configFiles.indexOf(changedPath) !== -1) {
+                        if(!isReload) {
+                            logger("clear");
+                        }
+                        logger("log", `${chalk.green(changedPath)} Changed, reloading....`);
+                        reloadDevServers(argv);
+                    }
+                }).on("add", changedPath => {
+                    if(!isReload) {
+                        logger("clear");
+                    }
+                    logger("log", `${chalk.green(changedPath)} added, reloading....`);
+                    reloadDevServers(argv);
+                }).on("unlink", changedPath => {
+                    if(!isReload) {
+                        logger("clear");
+                    }
+                    logger("log", `${chalk.green(changedPath)} removed, reloading....`);
+                    reloadDevServers(argv);
+                }).on("addDir", changedPath => {
+                    if(!isReload) {
+                        logger("clear");
+                    }
+                    logger("log", `${chalk.green(changedPath)} added, reloading....`);
+                    reloadDevServers(argv);
+                }).on("unlinkDir", changedPath => {
+                    if(!isReload) {
+                        logger("clear");
+                    }
+                    logger("log", `${chalk.green(changedPath)} removed, reloading....`);
+                    reloadDevServers(argv);
+                });
+
+                startDevServers(argv);
+            } catch (err) {
+                logger("error", err);
+            }
+        } else {
+            logger("log", "No ports available for starting Dev Server, exiting....");
+        }
+    })
+}
+
+module.exports = start;

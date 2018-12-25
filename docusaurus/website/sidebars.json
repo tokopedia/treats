@@ -1,0 +1,55 @@
+{
+    "docs": {
+        "Getting Started": ["installation"],
+        "Tutorial": [
+            "tutorial/00"
+        ],
+        "Main Concepts": [
+            "main-concept/overview",
+            "main-concept/routing",
+            "main-concept/localization",
+            "main-concept/code-splitting",
+            "main-concept/redux",
+            "main-concept/graphql-client",
+            "main-concept/middleware",
+            "main-concept/helper",
+            "main-concept/server-side-event",
+            "main-concept/server-side-template",
+            "main-concept/server-side-rendering",
+            "main-concept/custom-server-app",
+            "main-concept/custom-client-initialization",
+            "main-concept/custom-react-app",
+            "main-concept/runtime-config",
+            "main-concept/build-config",
+            "main-concept/environment-variable",
+            "main-concept/generator",
+            "main-concept/scripts",
+            "main-concept/addons"
+        ],
+        "API Reference": [
+            "api-reference/overview",
+            "api-reference/filesystem-hooks",
+            "api-reference/component",
+            "api-reference/server",
+            "api-reference/client",
+            "api-reference/router",
+            "api-reference/intl",
+            "api-reference/locale-data",
+            "api-reference/helmet",
+            "api-reference/redux",
+            "api-reference/graphql"
+        ],
+        "Authoring Addons": [
+            "authoring-addons/overview",
+            "authoring-addons/helper",
+            "authoring-addons/middleware",
+            "authoring-addons/generator",
+            "authoring-addons/wrap-up"
+        ],
+        "Addons": ["list-of-addons"],
+        "Contributing": [
+            "contributing/how-to-contribute"
+        ],
+        "FAQ": ["faq"]
+    }
+}

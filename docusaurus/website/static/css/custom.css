@@ -1,0 +1,167 @@
+/* your custom css */
+
+.homeSection {
+    position: relative;
+    height: 800px;
+}
+
+.homeSection:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    width: 0;
+}
+
+.homeContainer::after {
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-image: url("../img/bg-home.jpg");
+    filter: blur(5px);
+}
+
+.homeSectionContent {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.homeButton {
+    margin-bottom: 10px;
+}
+
+.logo{
+    margin: 0 auto;
+    display: block;
+}
+
+.homeLogo {
+    width: 75%;
+    max-width: 400px;
+}
+
+.homeFindYourPurpose {
+    padding-top: 50px;
+}
+
+.homeFindYourPurposeContent {
+    margin-top: 100px;
+    height: 500px;
+}
+
+.homeFindYourPurposeSection {
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    width: 51%;
+    max-width: 400px;
+}
+
+.homeFindYourPurposeMascotWrapper {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    height: 0;
+    width: 75%;
+    padding-bottom: 50%;
+    margin-bottom: 50px;
+}
+
+.homeFindYourPurposeMascotWrapper:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left:0;
+    width: 100%;
+    padding-bottom: 17.5%;
+    bottom: -12%;
+    background: url("../img/shadow.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform-origin: center 100%;
+}
+
+.homeFindYourPurposeMascotImg {
+    position: absolute;
+    left: 25%;
+    bottom: 0;
+    width: 50%;
+    z-index: 2;
+    transform-origin: center 100%;
+}
+
+@media(min-width: 720px) {
+    .homeFindYourPurposeSection {
+        width: 50%;
+    }
+    .homeFindYourPurposeSection:hover .homeFindYourPurposeMascotImg {
+        animation: jump 1s;
+        animation-iteration-count: infinite;
+    }
+    
+    .homeFindYourPurposeSection:hover .homeFindYourPurposeMascotWrapper:before {
+        animation: shadow 1s;
+        animation-iteration-count: infinite;
+    }
+}
+
+.tkpdOpensource {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.tkpdOpenSourceLogo {
+    position: relative;
+    width: 60%;
+    max-width: 300px;
+}
+
+.docMainWrapper .mainContainer .postHeaderTitle {
+    font-size: 40px;
+}
+
+.wrapper {
+    max-width: 1330px !important;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0) scaleY(1);
+    }
+    10% {
+        transform: translateY(0) scaleY(0.25);
+    }
+    50% {
+        transform: translateY(-150px) scaleY(1.25)
+    }
+    90% {
+        transform: translateY(0) scaleY(0.75)
+
+    }
+}
+
+@keyframes shadow {
+    0% {
+        transform: scaleX(1);
+    }
+    10% {
+        transform: scaleX(1);
+    }
+    50% {
+        transform: scaleX(0.5);
+    }
+    90% {
+        transform: scaleX(1);
+    }
+}

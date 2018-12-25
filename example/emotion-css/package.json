@@ -1,0 +1,30 @@
+{
+    "name": "emotion-css",
+    "version": "0.0.1",
+    "description": "Emotion CSS Example",
+    "license": "ISC",
+    "scripts": {
+        "start": "treats start",
+        "build:client": "treats build --target client",
+        "build:server": "treats build --target server",
+        "build": "treats build",
+        "clean": "treats clean",
+        "generate": "treats generate",
+        "analyze:client": "treats build --target client --analyze",
+        "analyze:server": "treats build --target server --analyze",
+        "profile": "yarn build:server && node --prof dist/server.js",
+        "documentation:build": "treats documentation build src/",
+        "documentation:lint": "treats documentation lint src/",
+        "documentation:phriction": "treats documentation export src/ --target phriction",
+        "documentation:flush": "treats documentation flush src/"
+    },
+    "dependencies": {
+        "emotion": "9.2.12",
+        "emotion-server": "9.2.12",
+        "react-emotion": "9.2.12",
+        "treats": "0.1.0-alpha"
+    },
+    "devDependencies": {
+        "babel-plugin-emotion": "9.2.11"
+    }
+}

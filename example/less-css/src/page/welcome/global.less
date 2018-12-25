@@ -1,0 +1,23 @@
+@link-color:#42b549;
+@link-color-hover: #ff5722;
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("\./NotoSans-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("\./NotoSans-Regular.ttf");
+    font-weight: normal;
+}
+
+a {
+    color: @link-color;
+    text-decoration: none;
+
+    &:hover {
+        color: @link-color-hover;
+    }
+}

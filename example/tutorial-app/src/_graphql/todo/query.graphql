@@ -1,0 +1,7 @@
+query GetAllListTodoes {
+  allListTodoes {
+    id,
+    todoAction,
+    status
+  }
+}

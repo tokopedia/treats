@@ -1,0 +1,6 @@
+{
+    "welcome_page__description1": "A development kit to make your experience on building fully customizable {React} app with built-in Server-side rendering, Code-splitting, i18n, {Redux} and {GraphQL} sweeter!",
+    "welcome_page__description2": "To get started, edit {Source} and save to reload, or learn more on our {Documentation}",
+    "mypage_title": "My page",
+    "mypage_description": "This is some of my description. This will be value1: {value1}. This will be value2: {value2}"
+}

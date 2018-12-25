@@ -1,0 +1,287 @@
+#!/usr/bin/env node
+//# vi: ft=javascript
+const os = require("os"),
+    logger = require("./util/logger"), 
+    prompt = require("prompt"),
+    isBinaryFile = require("isbinaryfile"), 
+    fs = require("fs-extra"),
+    path = require("path"),
+    glob = require("glob"),
+    { templateParser } = require("./util/string"),
+    merge = require("lodash.merge"),
+    install = require("yarn-install");
+
+let ROOT_PATH = process.cwd();
+    
+const processFile = (filename, resultFileName, envVars) => {
+    const extName = path.extname(resultFileName);
+    switch(extName) {
+        case ".json":
+            logger("debug", `Found template JSON file ${filename}`);
+            const templateData = fs.readFileSync(filename),
+                finalData = JSON.parse(templateParser(templateData.toString(), envVars));
+            let mergedData = finalData;
+            if(fs.pathExistsSync(resultFileName)) {
+                logger("debug", `Found existing JSON file ${resultFileName}, merging....`);
+                const currentData = JSON.parse(fs.readFileSync(resultFileName));
+                mergedData = merge(currentData, finalData);
+            }
+            fs.mkdirpSync(path.dirname(resultFileName));
+            fs.writeJsonSync(resultFileName, mergedData, { spaces: 4 });
+            logger("debug", `Generated JSON file ${resultFileName}`);
+            break;
+        default:
+            if(isBinaryFile.sync(filename)) {
+                logger("debug", `Found template binary file ${filename}`);
+                fs.mkdirpSync(path.dirname(resultFileName));
+                fs.copySync(filename, resultFileName);
+                logger("debug", `Copied file ${resultFileName}`);
+            } else {
+                logger("debug", `Found template text file ${filename}`);
+                const templateDataDefault = fs.readFileSync(filename),
+                    finalDataDefault = templateParser(templateDataDefault.toString(), envVars);
+                fs.mkdirpSync(path.dirname(resultFileName));
+                fs.outputFileSync(resultFileName, finalDataDefault);
+                logger("debug", `Generated text file ${resultFileName}`);
+            }
+    }
+    return true;
+}
+
+const executeHooks = (command, executionConfig) => {
+    const { envVars } = executionConfig;
+    let guardedCommand,
+        options;
+
+    if(typeof command === "string") {
+        guardedCommand = command;
+    } else if(typeof command === "object") {
+        guardedCommand = command.command;
+        options = command.options;
+    }
+
+    switch(guardedCommand) {
+        case "install":
+            logger("log", "Installing dependencies...");
+            install({
+                ...options,
+                cwd: options && options.cwd ? path.resolve(ROOT_PATH, templateParser(options.cwd, envVars)) : ROOT_PATH
+            });
+            logger("log", "Dependencies Installed.");
+            break;
+        case "cd":
+            if(options.message){
+                logger("log", options.message);
+            }
+            const cwd = options && options.cwd ? path.resolve(ROOT_PATH, templateParser(options.cwd, envVars)) : ROOT_PATH;
+            /** Only allow subdirectory of ROOT_PATH for security reason */
+            if(cwd.indexOf(ROOT_PATH) === -1) {
+                logger("error", `Changing directory to outside of working directory which is not allowed: ${cwd}`);
+                process.exit(1);
+            }
+            ROOT_PATH = cwd;
+            break;
+        case "message": 
+            if(options) {
+                logger("log", options.message);
+            } else {
+                logger("error", "Message not specified, you can specify message with options.message");
+            }
+            break;
+        default:
+            logger("warn", "Warning, no hooks command specified!")
+    }
+    return true;
+}
+
+const generateFiles = (resultFilenames, executionConfig) => {
+    const { filenames, envVars, template, hooks } = executionConfig;
+    logger("log", `Generating files for '${template}'!`);
+    resultFilenames.forEach((filename, index) => {
+        processFile(filenames[index], filename, envVars);
+    });
+    if(hooks.afterGenerate && hooks.afterGenerate.length > 0 ) {
+        hooks.afterGenerate.forEach(command => {
+            executeHooks(command, executionConfig);
+        });
+    }
+    if(hooks && hooks.after && hooks.after.length > 0 ) {
+        hooks.after.forEach(command => {
+            executeHooks(command, executionConfig);
+        })
+    }
+    logger("log", `✨  Successfully generated all files for '${template}'!`);
+}
+
+const executeGenerator = executionConfig => {
+    const { filenames, envVars, template, templatePath, options, hooks } = executionConfig;
+    if(hooks.beforeGenerate && hooks.beforeGenerate.length > 0 ) {
+        hooks.beforeGenerate.forEach(command => {
+            executeHooks(command, executionConfig);
+        });
+    }
+    const resultFilenames = filenames.map(filename => templateParser(filename.replace(templatePath, ROOT_PATH), envVars));
+    if(!options || (options && options.confirmation !== false)) {
+        prompt.start();
+        logger("log", resultFilenames.join("\n"));
+        prompt.get({
+            properties: {
+                confirmation: {
+                    description: "The above files would be overwritten by the generator are you sure? (true (t) | false (f))",
+                    type: "boolean",
+                    default: "false",
+                    required: true
+                }
+            }
+        }, (err, result) => {
+            if(err){
+                logger("error", "Oops something went wrong while collecting your answer:")
+                logger("error", err);
+                process.exit(1);
+            }
+            const { confirmation } = result;
+            if(confirmation) {
+                generateFiles(resultFilenames, executionConfig);
+            } else {
+                logger("log", `Aborted generating file for '${template}'`);
+            }
+        });
+    } else {
+        generateFiles(resultFilenames, executionConfig);
+    }
+    return true;
+}
+
+const resolveTemplatePath = template => {
+    if(template.startsWith("@treats")) {
+        //ADDON MODE
+        const sanitizedTemplate = template.replace("@treats", "");
+        return path.resolve(ROOT_PATH, `./node_modules/@treats/${sanitizedTemplate}`);
+    } 
+    if(!template.startsWith("/") && !template.startsWith("./")) {
+        const result = path.resolve(__dirname, `../generator/${template}`);
+        if(fs.pathExistsSync(result)) {
+            return result;
+        }
+    }
+    //DIRECTORY MODE
+    return path.resolve(ROOT_PATH, template);
+}
+
+const generate = argv => {
+    try {
+        if(argv.debug) {
+            process.env.TREATS_SCRIPT_DEBUG = true;
+        }
+        const envVars = {};
+
+        if(argv.noconfig !== true) {
+            const loadTreatsConfig = require("./util/load-config"),
+                config = loadTreatsConfig({ webpack: false });
+            if(config.app) {
+                Object.keys(config.app).forEach(key => {
+                    const envKey = `_APP_${key.replace(/\s+/g, "_").toUpperCase()}_`;
+                    envVars[envKey] = config.app[key];
+                });
+            }
+        }
+
+        if(!argv.template) {
+            logger("error", "No Template Specified, can't generate");
+            process.exit(1);
+        }
+
+        const { template } = argv,
+            templatePath = resolveTemplatePath(template),
+            filenames = glob.sync(path.resolve(templatePath, "./**"), { dot: true, nodir: true }),
+            configPaths = [path.resolve(templatePath, "./treats-generator.json"),path.resolve(templatePath, "./treats-generator.js")],
+            executionConfig = {filenames, envVars, template, templatePath, hooks: {}, options: {}};
+
+        if(!filenames || filenames.length === 0) {
+            logger("error", "Template directory contains no file or doesn't exist!");
+            process.exit(1);
+        }
+        let configPath;
+        for(let i = 0; i < configPaths.length; i++) {
+            if(filenames.indexOf(configPaths[i]) !== -1) {
+                if(!configPath) {
+                    configPath = configPaths[i];
+                } else {
+                    logger("warn", "Found multiple config files, pls check your generator template");
+                }
+                filenames.splice(filenames.indexOf(configPaths[i]), 1);
+            }
+        }
+        if(configPath) {
+            logger("debug", `Config File found: ${configPath}`);
+            let generatorConfig;
+            if(configPath.endsWith(".json")) {
+                generatorConfig = fs.readJsonSync(configPath);
+            } else if(configPath.endsWith(".js")){
+                generatorConfig = require(configPath);
+            } else {
+                logger("error", `Config path extension are not recognized for: ${configPath}`);
+            }
+            if(generatorConfig) {
+                const {
+                    after,
+                    before,
+                    beforeGenerate,
+                    afterGenerate,
+                    options 
+                } = generatorConfig;
+                let {  prompt: promptConfig }= generatorConfig;
+                executionConfig.hooks = { after, before, beforeGenerate, afterGenerate };
+                executionConfig.options = options;
+                if(executionConfig.hooks.before && executionConfig.hooks.before.length > 0 ) {
+                    executionConfig.hooks.before.forEach(command => {
+                        executeHooks(command, executionConfig);
+                    });
+                }
+                if(promptConfig) {
+                    promptConfig = Object.keys(promptConfig).reduce((result, key) => {
+                        result[key] = promptConfig[key];
+                        if(promptConfig[key].pattern) {
+                            result[key].pattern = new RegExp(promptConfig[key].pattern);
+                        }
+                        if(promptConfig[key].type === "array" && promptConfig[key].description) {
+                            result[key].description = `${promptConfig[key].description} (${os.platform() === "darwin" ? "CMD": "Ctrl"}+C to enter)`
+                        }
+                        if(promptConfig[key].type === "boolean" && promptConfig[key].description) {
+                            result[key].description = `${promptConfig[key].description} (true (t)|false (f))`
+                        }
+                        if(promptConfig[key].type === "integer" && promptConfig[key].description) {
+                            result[key].description = `${promptConfig[key].description} (integer)`
+                        }
+                        if(promptConfig[key].type === "number" && promptConfig[key].description) {
+                            result[key].description = `${promptConfig[key].description} (number)`
+                        }
+                        return result;
+                    }, {});
+                    prompt.start();
+                    prompt.get({
+                        properties: promptConfig
+                    }, (err, result) => {
+                        if(err){
+                            logger("error", "Oops something went wrong while generating your file");
+                            logger("error", err);
+                            process.exit(1);
+                        }
+                        executionConfig.envVars = {...executionConfig.envVars, ...result};
+                        executeGenerator(executionConfig);
+                    })
+                } else {
+                    executeGenerator(executionConfig);
+                }
+            }
+        } else {
+            logger("debug", "Config File not found");
+            executeGenerator(executionConfig);
+        }
+    } catch (err) {
+        logger("error", "Oops something went wrong while generating your file");
+        logger("error", err);
+    }
+}
+
+module.exports = generate;

@@ -1,0 +1,23 @@
+.button__green {
+    cursor: pointer;
+    background-color: #42b549;
+    color: #fff;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.button__red {
+    cursor: pointer;
+    background-color: #d50000;
+    color: #fff;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.button__orange {
+    cursor: pointer;
+    background-color: #f13700;
+    color: #fff;
+    font-weight: 700;
+    margin: 10px;
+}

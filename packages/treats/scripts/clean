@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+//# vi: ft=javascript
+const logger = require("./util/logger"),
+    glob = require("glob"),
+    fs = require("fs-extra"), 
+    ROOT_PATH = process.cwd(),
+    path = require("path");
+
+const clean = (argv, cb) => {
+    try {
+        if(argv.debug) {
+            process.env.TREATS_SCRIPT_DEBUG = true;
+        }
+        logger("log", "Cleaning build directories, please wait..");
+        const found = glob.sync(path.resolve(ROOT_PATH, "./?(dist|stats|coverage|public)/"));
+        found.forEach(folder => {
+            fs.removeSync(folder);
+        });
+        logger("log", "Build directories cleaned");
+        if(cb) {
+            cb();
+        }
+    } catch(err) {
+        logger("error", err);
+    }
+};
+
+module.exports = clean;

@@ -1,0 +1,40 @@
+mutation CreateListTodo($todoAction: String!) {
+  createListTodo(
+    todoAction: $todoAction
+    status: "not yet"
+  ) {
+    id,
+    todoAction,
+    status
+  }
+}
+
+mutation DeleteListTodo($id: ID!) {
+  deleteListTodo(
+    id: $id
+  ) {
+    id,
+    todoAction,
+    status
+  }
+}
+
+mutation UpdateListTodo($id: ID!, $todoAction: String) {
+  updateListTodo(
+    id: $id,
+    todoAction: $todoAction
+  ) {
+    id,
+    todoAction
+  }
+}
+
+mutation UpdateTodoStatus($id: ID!, $status: String) {
+  updateListTodo(
+    id: $id,
+    status: $status
+  ) {
+    id,
+    status
+  }
+}

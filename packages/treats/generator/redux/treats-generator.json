@@ -1,0 +1,46 @@
+{
+    "before": [
+        {
+            "command": "message",
+            "options": {
+                "message": "Treats Generator - Redux"
+            }
+        }
+    ],
+    "prompt": {
+        "REDUX_DIRECTORY": {
+            "description": "Redux directory",
+            "default": "./src/redux",
+            "required": false
+        },
+        "REDUX_NAME": {
+            "description": "Redux filename",
+            "pattern": "^[a-zA-Z\\s\\-]+$",
+            "default": "my-redux",
+            "message": "Redux filename must be only letters, spaces, or dashes",
+            "required": true
+        },
+        "REDUX_NAME_VAR": {
+            "description": "Redux variable name",
+            "pattern": "^[a-zA-Z_]+$",
+            "default": "myRedux",
+            "message": "Redux variable name must be only letters, or underscores",
+            "required": true
+        },
+        "REDUX_THUNKS": {
+            "description": "Redux thunks",
+            "type": "array",
+            "pattern": "^[a-zA-Z_]+$",
+            "message": "Redux thunks must be only letters, or underscores",
+            "required": false
+        }
+    },
+    "beforeGenerate": [
+        {
+            "command": "cd",
+            "options": {
+                "cwd": "<%REDUX_DIRECTORY%>"
+            }
+        }
+    ]
+}

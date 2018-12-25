@@ -1,0 +1,188 @@
+{
+  "projectOwner": "tokopedia",
+  "projectName": "treats",
+  "imageSize": 100,
+  "repoType": "github",
+  "commit": false,
+  "contributorsPerLine": 6,
+  "contributors": [
+      {
+      "login": "regalius",
+      "name": "Felix Tan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6160832",
+      "profile": "https://github.com/regalius",
+      "contributions": [
+        "code",
+        "doc",
+        "question",
+        "review",
+        "example"
+      ]
+    },
+    {
+      "login": "martinock",
+      "name": "Martino Christanto K",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16898682?v=3",
+      "profile": "https://github.com/martinock",
+      "contributions": [
+        "doc",
+        "question",
+        "example",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "fadlinux",
+      "name": "Fadli Trias",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/416498?v=4",
+      "profile": "https://github.com/fadlinux",
+      "contributions": [
+        "doc",
+        "question",
+        "example",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "alchristleo",
+      "name": "Alchrist Leo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/31308706?v=3",
+      "profile": "https://github.com/alchristleo",
+      "contributions": [
+        "doc",
+        "example",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "wejick",
+      "name": "Gian Giovani",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/112008",
+      "profile": "https://github.com/fadlinux",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "example",
+        "question"
+      ]
+    },
+    {
+      "login": "stephanustedy",
+      "name": "Stephanus Tedy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11306368",
+      "profile": "https://github.com/stephanustedy",
+      "contributions": [
+        "code",
+        "ideas",
+        "review",
+        "doc",
+        "question"
+      ]
+    },
+    {
+      "login": "daecide",
+      "name": "Ferry Sutanto",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/24540145",
+      "profile": "https://github.com/daecide",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "albertwidi",
+      "name": "Albert Widiatmoko",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1622646",
+      "profile": "https://github.com/albertwidi",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "codeforpizza",
+      "name": "Bayu Rizky Ramadhan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11482819",
+      "profile": "https://github.com/codeforpizza",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "diagnosa-f",
+      "name": "Diagnosa Fenomena",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/30400435",
+      "profile": "https://github.com/diagnosa-f",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "essajiwa",
+      "name": "Essa Jiwa P",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/625072",
+      "profile": "https://github.com/essajiwa",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "afifkhaidir-tkpd",
+      "name": "Afif Khaidir",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/30681410",
+      "profile": "https://github.com/afifkhaidir-tkpd",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "riobahtiar",
+      "name": "Rio Bahtiar",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2656058",
+      "profile": "https://github.com/riobahtiar",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "elbertcl",
+      "name": "Elbert Christoper",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12596467",
+      "profile": "https://github.com/elbertcl",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "adarwawan",
+      "name": "Ahmad Darmawan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11177589",
+      "profile": "https://github.com/adarwawan",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "adiprimadharma",
+      "name": "Adi Primadharma",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/30250871",
+      "profile": "https://github.com/adiprimadharma",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "dikasetiadi",
+      "name": "Andhika Setiadi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/26212432",
+      "profile": "https://github.com/dikasetiadi",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    }
+  ]
+}

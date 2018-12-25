@@ -1,0 +1,41 @@
+{
+    "prompt": {
+        "NAME": {
+            "description": "Your name",
+            "pattern": "^[a-zA-Z\\s]+$",
+            "default": "John Doe",
+            "message": "Name must be only letters and spaces",
+            "required": true
+        },
+        "AGE": {
+            "description": "Your Age",
+            "pattern": "^[0-9]+$",
+            "default": "17",
+            "message": "Age may only contains 0-9"
+        },
+        "ADDRESS": {
+            "description": "Your Address",
+            "default": "My Own House"
+        },
+        "HOBBY": {
+            "description": "Your Hobbies",
+            "default": "code treats app"
+        }
+    },
+    "before": [
+        {
+            "command": "message",
+            "options": {
+                "message": "Howdy! We would like to ask you some personal questions if you didn't mind"
+            }
+        }
+    ],
+    "after": [
+        {
+            "command": "message",
+            "options": {
+                "message": "Thanks for your time, have a nice day!"
+            }
+        }
+    ]
+}

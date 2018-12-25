@@ -1,0 +1,9 @@
+const BEFORE_RENDER = "BEFORE_RENDER";
+const AFTER_RENDER = "AFTER_RENDER";
+const ERROR_RENDER = "ERROR_RENDER";
+
+export default {
+    BEFORE_RENDER,
+    AFTER_RENDER,
+    ERROR_RENDER
+};

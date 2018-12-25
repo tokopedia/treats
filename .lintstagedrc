@@ -1,0 +1,18 @@
+{
+    "linters" : {
+        "packages/**/*.js": [
+            "prettier --write",
+            "eslint --config ./.eslintrc --fix",
+            "cross-env TEST_ENV=lint-staged jest --findRelatedTests",
+            "git add"
+        ],
+        "packages/**/*.css": [
+            "stylelint --fix",
+            "git add"
+        ]
+    },
+    "ignore": [
+        "**/generator/",
+        "**/node_modules/"
+    ]
+}

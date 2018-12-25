@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+//# vi: ft=javascript
+const logger = require("./util/logger"), 
+    webpack = require("webpack"),
+    clean = require("./clean");
+
+const build = argv => {
+    try {
+        process.env.NODE_ENV = argv.env || "development";
+        process.env.TREATS_PORT = argv.port || 3000;
+        process.env.WDS_PORT = argv.wdsport || 3001;
+
+        if(argv.debug) {
+            process.env.TREATS_SCRIPT_DEBUG = true;
+        }
+        if(argv.analyze && argv.target) {
+            process.env.WEBPACK_OP = "analyze";
+        } else if(argv.analyze) {
+            logger("warn", "No Target Specified, can't analyze");
+            process.exit(1);
+        }
+
+        process.env.NODE_ENV = argv.env || "production";
+
+        const webpackBuild = (config, cb) => webpack(config, (err, stats) => {
+            if (err) {
+                logger("error", err.stack || err);
+                if (err.details) {
+                    logger("error", err.details.toString());
+                }
+                return;
+            }
+
+            const info = stats.toJson();
+
+            if (stats.hasErrors()) {
+                logger("error", info.errors);
+            }
+
+            if (stats.hasWarnings()) {
+                logger("warn", info.warnings);
+            }
+            console.log(
+                stats.toString({
+                    modules: false,
+                    colors: true
+                })
+            );
+            if(cb) {
+                cb()
+            }
+        });
+
+        clean(argv, () => {
+            const loadTreatsConfig = require("./util/load-config"),
+                { webpack: webpackConfig } = loadTreatsConfig(),
+                configs = [webpackConfig.server, webpackConfig.client];
+
+            if(process.env.WEBPACK_OP === "analyze") {
+                logger("log", `Analyze build target ${argv.target} for ${process.env.NODE_ENV} environment`);
+            } else {
+                logger("log", `Building project${argv.target ? ` with target ${argv.target}` : ""} for ${process.env.NODE_ENV} environment`);
+            }
+
+            switch(argv.target) {
+                case "server":
+                    webpackBuild(webpackConfig.server);
+                    break;        
+                case "client":
+                    webpackBuild(webpackConfig.client);
+                    break;
+                default:
+                    if(!argv.target) {
+                        webpackBuild(configs);
+                    } else {
+                        logger("warn", "Target unknown, can't build!");
+                    }
+            }
+        });
+    } catch(err) {
+        logger("error", err);
+    }
+}
+
+module.exports = build;

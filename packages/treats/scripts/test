@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+//# vi: ft=javascript
+const path = require("path"),
+    jestConfigPath = path.join(__dirname, "./config/jest.config.js"),
+    jest = require("jest");
+
+const test = argv => {
+    const args = process.argv.slice(3);
+    args.push("--config="+jestConfigPath);
+
+    jest.run(args);
+};
+
+module.exports = test;

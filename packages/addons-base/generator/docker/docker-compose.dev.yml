@@ -1,0 +1,16 @@
+version:  "2"
+
+services:
+    <%_APP_SLUG_%>:
+        image: <%_APP_SLUG_%>
+        build:
+            context: ./
+            dockerfile: ./.docker/<%_APP_SLUG_%>.dockerfile
+        volumes:
+            - ".:/var/www/<%_APP_SLUG_%>"
+        ports:
+            - "3000:3000"
+            - "3001:3001"
+            - "80:80"
+        stdin_open: true
+        tty: true
