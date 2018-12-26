@@ -14,34 +14,34 @@ declare module "@treats/component/error-boundary" {
     import * as React from "react";
 
     export const withErrorBoundary: Function;
-    const component: React.Node;
+    const component: React.ReactNode;
     export default component;
 }
 
 declare module "@treats/component/http-status" {
     import * as React from "react";
 
-    const component: React.Node;
+    const component: React.ReactNode;
     export default component;
 }
 
 declare module "@treats/component/link" {
     import * as React from "react";
 
-    const component: React.Node;
+    const component: React.ReactNode;
     export default component;
 }
 
 declare module "@treats/component/provider" {
     import * as React from "react";
 
-    const component: React.Node;
+    const component: React.ReactNode;
     export default component;
 }
 
 declare module "@treats/component/redirect" {
     import * as React from "react";
 
-    const component: React.Node;
+    const component: React.ReactNode;
     export default component;
 }

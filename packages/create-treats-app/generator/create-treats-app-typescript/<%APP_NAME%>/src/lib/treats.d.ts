@@ -101,8 +101,3 @@ declare module "@treats/server" {
     const initServer: Function;
     export default initServer;
 }
-
-declare module "@treats/server-ts" {
-    const initServer: Function;
-    export default initServer;
-}
