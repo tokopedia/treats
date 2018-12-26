@@ -3,6 +3,7 @@ const webpack = require("webpack"),
     fs = require("fs-extra"),
     CircularDependencyPlugin = require("circular-dependency-plugin"),
     ExtractCSSChunks = require("extract-css-chunks-webpack-plugin"),
+    ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
     babelOptions = require("./babel.config"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
@@ -23,7 +24,7 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         assetsOutputPath = webpackConfig.assetsOutputPath || "public",
         resolve = {
-            extensions: [".js", ".css", ".json", ".wasm", ".mjs"]
+            extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
 
     const defaultConfig = {
@@ -73,6 +74,25 @@ module.exports = ({
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)$/,
+                    use: [
+                        {
+                            loader: "thread-loader",
+                            options: {
+                                workers: require('os').cpus().length - 1,
+                                poolTimeout: Infinity
+                            }
+                        },
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                            }
                         }
                     ],
                     exclude: /node_modules\/(?!(treats|@treats)\/).*/
@@ -252,7 +272,8 @@ module.exports = ({
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }
-            }
+            },
+            new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true })
         ],
         devServer: {
             host: "0.0.0.0",

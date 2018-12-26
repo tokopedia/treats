@@ -4,6 +4,7 @@ const webpack = require("webpack"),
     WebpackSourceMapSupport = require("webpack-source-map-support"),
     StartServerPlugin = require("../plugin/StartServerPlugin"),
     CircularDependencyPlugin = require("circular-dependency-plugin"),
+    ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
     babelOptions = require("./babel.config"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
@@ -23,7 +24,7 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         serverOutputPath = webpack.serverOutputPath || "dist",
         resolve = {
-            extensions: [".js", ".css", ".json", ".wasm", ".mjs"]
+            extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
 
     const defaultConfig = {
@@ -61,6 +62,25 @@ module.exports = ({
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)$/,
+                    use: [
+                        {
+                            loader: "thread-loader",
+                            options: {
+                                workers: require('os').cpus().length - 1,
+                                poolTimeout: Infinity
+                            }
+                        },
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                            }
                         }
                     ],
                     exclude: /node_modules\/(?!(treats|@treats)\/).*/
@@ -206,7 +226,8 @@ module.exports = ({
             }),
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1
-            })
+            }),
+            new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true })
         ],
         output: {
             path: path.join(alias["@ROOT_DIR@"], serverOutputPath),

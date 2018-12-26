@@ -5,6 +5,7 @@ const webpack = require("webpack"),
     WebpackSourceMapSupport = require("webpack-source-map-support"),
     { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer"),
     CircularDependencyPlugin = require("circular-dependency-plugin"),
+    ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
     babelOptions = require("./babel.config"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
@@ -25,7 +26,7 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/static/",
         serverOutputPath = webpack.serverOutputPath || "dist",
         resolve = {
-            extensions: [".js", ".css"]
+            extensions: [".ts", ".tsx", ".js", ".css"]
         };
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
@@ -58,6 +59,19 @@ module.exports = ({
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)$/,
+                    use: [
+                        "thread-loader",
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                            }
                         }
                     ],
                     exclude: /node_modules\/(?!(treats|@treats)\/).*/
@@ -209,6 +223,7 @@ module.exports = ({
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1
             }),
+            new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }),
             ...bundleAnalyzerPlugin
         ],
         output: {
