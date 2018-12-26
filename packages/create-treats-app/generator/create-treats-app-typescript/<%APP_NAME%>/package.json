@@ -1,0 +1,35 @@
+{
+    "name": "<%APP_NAME%>",
+    "version": "<%APP_VERSION%>",
+    "description": "<%APP_DESCRIPTION%>",
+    "license": "ISC",
+    "scripts": {
+        "start": "treats start",
+        "build:client": "treats build --target client",
+        "build:server": "treats build --target server",
+        "build": "treats build",
+        "clean": "treats clean",
+        "generate": "treats generate",
+        "analyze:client": "treats build --target client --analyze",
+        "analyze:server": "treats build --target server --analyze",
+        "profile": "yarn build:server && node --prof dist/server.js",
+        "documentation:build": "treats documentation build src/",
+        "documentation:lint": "treats documentation lint src/",
+        "documentation:phriction": "treats documentation export src/ --target phriction",
+        "documentation:flush": "treats documentation flush src/",
+        "test": "treats test",
+        "test:watch": "treats test --watchAll",
+        "test:coverage": "treats test --coverage"
+    },
+    "dependencies": {
+        "treats": "/Users/nakama/Projects/treats/packages/treats",
+        "typescript": "3.2.2",
+        "@types/jest": "23.3.10",
+        "@types/node": "10.12.15",
+        "@types/react": "16.7.17",
+        "@types/react-dom": "16.0.11",
+        "@types/react-helmet": "5.0.7",
+        "@types/react-intl": "2.3.14",
+        "@types/react-router-dom": "4.3.1"
+    }
+}
