@@ -1,0 +1,50 @@
+{
+    "before": [
+        {
+            "command": "message",
+            "options": {
+                "message": "Treats Generator - Treats Middleware"
+            }
+        }
+    ],
+    "prompt": {
+        "MIDDLEWARE_DIRECTORY": {
+            "description": "Middleware directory",
+            "default": "./src/middleware",
+            "required": false
+        },
+        "MIDDLEWARE_NAME": {
+            "description": "Middleware filename",
+            "pattern": "^[a-zA-Z\\s\\-]+$",
+            "default": "my-middleware",
+            "message": "Middleware filename must be only letters, spaces, or dashes",
+            "required": true
+        },
+        "MIDDLEWARE_NAME_VAR": {
+            "description": "Middleware variable name",
+            "pattern": "^[a-zA-Z_]+$",
+            "default": "MyMiddleware",
+            "message": "Middleware variable name must be only letters, or underscores",
+            "required": true
+        },
+        "MIDDLEWARE_WITH_INIT": {
+            "description": "Use initialization function?",
+            "type": "boolean",
+            "default": false,
+            "required": true
+        },
+        "MIDDLEWARE_DESCRIPTION": {
+            "description": "Middleware description",
+            "default": "My Treats Middleware",
+            "required": true
+        }
+    },
+    "beforeGenerate": [
+        {
+            "command": "cd",
+            "options": {
+                "cwd": "<%MIDDLEWARE_DIRECTORY%>"
+            }
+        }
+    ]
+}
