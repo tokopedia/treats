@@ -44,7 +44,7 @@ const Welcome = ({ intl }: InjectedIntlProps) => (
                 <FormattedMessage
                     id="welcome_page__description2"
                     values={{
-                        Source: <b>src/page/welcome.js</b>,
+                        Source: <b>src/page/welcome.tsx</b>,
                         Documentation: (
                             <a
                                 href="https://tokopedia.github.io/treats"

@@ -1,6 +1,6 @@
 module.exports = {
     babelrc: false,
-    presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow"],
+    presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow", "@babel/preset-typescript"],
     plugins: [
         "react-hot-loader/babel",
         "@babel/plugin-syntax-dynamic-import",
@@ -23,7 +23,7 @@ module.exports = {
     ],
     env: {
         test: {
-            presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow"],
+            presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow", "@babel/preset-typescript"],
             plugins: [
                 "react-hot-loader/babel",
                 "@babel/plugin-syntax-dynamic-import",

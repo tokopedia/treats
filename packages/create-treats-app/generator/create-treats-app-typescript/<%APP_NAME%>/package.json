@@ -24,7 +24,6 @@
     "dependencies": {
         "fork-ts-checker-webpack-plugin": "0.5.2",
         "treats": "/Users/nakama/Projects/treats/packages/treats",
-        "ts-loader": "4.0.0",
         "typescript": "3.2.2",
         "@types/jest": "23.3.10",
         "@types/node": "10.12.15",

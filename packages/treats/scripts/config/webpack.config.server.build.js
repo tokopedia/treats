@@ -53,25 +53,12 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.js?$/,
+                    test: /\.(js|ts|tsx)?$/,
                     use: [
                         "thread-loader",
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
-                        }
-                    ],
-                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
-                },
-                {
-                    test: /\.(ts|tsx)$/,
-                    use: [
-                        "thread-loader",
-                        {
-                            loader: "ts-loader",
-                            options: {
-                                happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
-                            }
                         }
                     ],
                     exclude: /node_modules\/(?!(treats|@treats)\/).*/
