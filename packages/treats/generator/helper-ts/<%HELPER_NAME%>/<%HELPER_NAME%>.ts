@@ -8,7 +8,7 @@ const <%HELPER_NAME_VAR%>= {
      * @param app Express App
      * @param envVars App's Environment Variables
      */
-    init(app, envVars) {
+    init(app: any, envVars: any) {
         this.app = app;
         app.set("<%HELPER_NAME%>", this);
         /** YOUR INITIALIZATION CODE GOES HERE */

@@ -1,8 +1,10 @@
 /// <reference types="node" />
 /// <reference types="react" />
 /// <reference types="react-dom" />
-/// <reference types="react-intl" />
 /// <reference types="react-helmet" />
+/// <reference types="react-intl" />
+/// <reference types="react-redux" />
+/// <reference types="redux" />
 /// <reference path="./treats-component.d.ts" />
 /// <reference path="./treats-util.d.ts" />
 
@@ -100,4 +102,11 @@ declare module "@treats/client" {
 declare module "@treats/server" {
     const initServer: Function;
     export default initServer;
+}
+
+declare module "@treats/redux" {
+    export const connect: Function;
+    import * as Redux from "redux";
+
+    export default Redux;
 }

@@ -7,7 +7,7 @@ const <%MIDDLEWARE_NAME_VAR%> = {<%if(MIDDLEWARE_WITH_INIT)%>
      * @param app Express App
      * @param envVars App's Environment Variable
      */
-    init(app, envVars) {
+    init(app: any, envVars: any) {
         /** YOUR INITIALIZATION CODE GOES HERE */
     },<%endif%>
     /**
@@ -16,7 +16,7 @@ const <%MIDDLEWARE_NAME_VAR%> = {<%if(MIDDLEWARE_WITH_INIT)%>
      * @param res Express Response Object
      * @param next Express Next Function
      */
-    middleware(req, res, next) {
+    middleware(req: any, res: any, next: Function) {
         if (!req.error) {
             const { app } = req,
                 appConfig = app.get("config"),

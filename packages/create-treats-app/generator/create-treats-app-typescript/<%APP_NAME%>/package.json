@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "fork-ts-checker-webpack-plugin": "0.5.2",
-        "treats": "/Users/nakama/Projects/treats/packages/treats",
+        "treats": "0.1.0-alpha",
         "typescript": "3.2.2",
         "@types/jest": "23.3.10",
         "@types/node": "10.12.15",
@@ -31,6 +31,8 @@
         "@types/react-dom": "16.0.11",
         "@types/react-helmet": "5.0.7",
         "@types/react-intl": "2.3.14",
-        "@types/react-router-dom": "4.3.1"
+        "@types/react-redux": "6.0.11",
+        "@types/react-router-dom": "4.3.1",
+        "@types/redux": "3.6.0"
     }
 }
