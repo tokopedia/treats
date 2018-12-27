@@ -20,7 +20,7 @@ const <%REDUX_THUNKS[i]%>Error = () => ({
  * An action creator for setting <%REDUX_THUNKS[i]%> success state.
  * @private
  */
-const <%REDUX_THUNKS[i]%>Success = () => ({
+const <%REDUX_THUNKS[i]%>Success = (response: any) => ({
     type: types["<%REDUX_NAME_VAR.toUpperCase()%>/<%REDUX_THUNKS[i].toUpperCase()%>_SUCCESS"]
 });
 
@@ -28,10 +28,10 @@ const <%REDUX_THUNKS[i]%>Success = () => ({
  * A thunk to dispatch actions for <%REDUX_THUNKS[i]%>
  * @public
  */
-const <%REDUX_THUNKS[i]%> = () => (dispatch, getState) => {
+const <%REDUX_THUNKS[i]%> = () => (dispatch: Function, getState: Function) => {
     /** Your thunk code for "<%REDUX_THUNKS[i]%>" goes here */
     dispatch(<%REDUX_THUNKS[i]%>Loading());
-    const <%REDUX_THUNKS[i]%>Promise = new Promise()
+    const <%REDUX_THUNKS[i]%>Promise = new Promise(() => undefined)
         .then(response => {
             dispatch(<%REDUX_THUNKS[i]%>Success(response));
         })
