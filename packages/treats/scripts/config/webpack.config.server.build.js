@@ -5,11 +5,11 @@ const webpack = require("webpack"),
     WebpackSourceMapSupport = require("webpack-source-map-support"),
     { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer"),
     CircularDependencyPlugin = require("circular-dependency-plugin"),
-    ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
     babelOptions = require("./babel.config"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
-    extractEnv = require("./util/extract-env");
+    extractEnv = require("./util/extract-env"),
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
 
 module.exports = ({
     alias,
@@ -28,6 +28,12 @@ module.exports = ({
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css"]
         };
+
+    //Add babel/preset-typescript when needed only
+    if (useTypescript) {
+        babelOptions.presets.push("@babel/preset-typescript");
+        babelOptions.env.test.presets.push("@babel/preset-typescript");
+    }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
     const defaultConfig = {
@@ -210,7 +216,6 @@ module.exports = ({
             new webpack.optimize.LimitChunkCountPlugin({
                 maxChunks: 1
             }),
-            new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }),
             ...bundleAnalyzerPlugin
         ],
         output: {
@@ -219,6 +224,10 @@ module.exports = ({
         }
     };
     let finalConfig = defaultConfig;
+    if (useTypescript) {
+        ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
+        finalConfig.plugins.push(new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }));
+    }
     if (webpackConfig.server) {
         finalConfig = webpackMerge.smart(defaultConfig, webpackConfig.server);
     }

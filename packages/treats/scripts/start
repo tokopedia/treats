@@ -106,7 +106,7 @@ const reloadDevServers = argv => {
 
 const start = argv => {
     const userPort = argv.port || 3000;
-    const useTypescript = fs.pathExistsSync(ROOT_PATH, "./tsconfig.json");
+    const useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
     
     getProcessForPort(userPort);
     WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {

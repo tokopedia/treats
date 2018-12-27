@@ -4,7 +4,7 @@ const fs = require("fs-extra"),
     ROOT_PATH = process.cwd(),
     configPath = path.resolve(ROOT_PATH, "./treats.config.js"),
     configPathTypescript = path.resolve(ROOT_PATH, "./treats.config.ts"),
-    useTypescript = fs.pathExistsSync(ROOT_PATH, "./tsconfig.json");
+    useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
 
 let userAlias = {};
 
