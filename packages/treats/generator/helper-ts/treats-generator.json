@@ -1,0 +1,44 @@
+{
+    "before": [
+        {
+            "command": "message",
+            "options": {
+                "message": "Treats Generator - Treats Helper"
+            }
+        }
+    ],
+    "prompt": {
+        "HELPER_DIRECTORY": {
+            "description": "Helper directory",
+            "default": "./src/helper",
+            "required": false
+        },
+        "HELPER_NAME": {
+            "description": "Helper filename",
+            "pattern": "^[a-zA-Z\\s\\-]+$",
+            "default": "my-helper",
+            "message": "Helper filename must be only letters, spaces, or dashes",
+            "required": true
+        },
+        "HELPER_NAME_VAR": {
+            "description": "Helper variable name",
+            "pattern": "^[a-zA-Z_]+$",
+            "default": "MyHelper",
+            "message": "Helper variable name must be only letters, or underscores",
+            "required": true
+        },
+        "HELPER_DESCRIPTION": {
+            "description": "Helper description",
+            "default": "My Treats Helper",
+            "required": true
+        }
+    },
+    "beforeGenerate": [
+        {
+            "command": "cd",
+            "options": {
+                "cwd": "<%HELPER_DIRECTORY%>"
+            }
+        }
+    ]
+}
