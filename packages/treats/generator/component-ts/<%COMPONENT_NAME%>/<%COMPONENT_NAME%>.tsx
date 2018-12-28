@@ -5,7 +5,8 @@ import style from "./<%COMPONENT_NAME%>.css";
 
 <%if(COMPONENT_PROPS && COMPONENT_PROPS.length > 0)%>
 type PropsType = {
-    <%for(let i=0; i< COMPONENT_PROPS.length; i++)%><%COMPONENT_PROPS[i]%>: any;<%endfor%>
+    <%for(let i=0; i< COMPONENT_PROPS.length; i++)%><%COMPONENT_PROPS[i]%>: any;
+    <%endfor%>
 };
 <%endif%>
 
