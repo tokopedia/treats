@@ -14,7 +14,7 @@
         "APP_NAME": {
             "description": "Application name",
             "pattern": "^[a-zA-Z\\s\\-]+$",
-            "default": "my-treats-app",
+            "default": "my-ts-treats-app",
             "message": "Name must be only letters, spaces, or dashes",
             "required": true
         },
@@ -27,7 +27,7 @@
         },
         "APP_DESCRIPTION": {
             "description": "Application description",
-            "default": "My First Treats App",
+            "default": "My First Treats App in Typescript",
             "required": false
         }
     },
