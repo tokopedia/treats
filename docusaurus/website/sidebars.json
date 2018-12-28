@@ -24,7 +24,8 @@
             "main-concept/environment-variable",
             "main-concept/generator",
             "main-concept/scripts",
-            "main-concept/addons"
+            "main-concept/addons",
+            "main-concept/typescript"
         ],
         "API Reference": [
             "api-reference/overview",
