@@ -6,6 +6,7 @@ const chalk = require("chalk"),
     webpack = require("webpack"),
     WebpackDevServer = require("webpack-dev-server"),
     chokidar = require("chokidar"),
+    fs = require("fs-extra"),
     ROOT_PATH = process.cwd(),
     logger = require("./util/logger"),
     reRequire =  require("./util/re-require"),
@@ -105,6 +106,7 @@ const reloadDevServers = argv => {
 
 const start = argv => {
     const userPort = argv.port || 3000;
+    const useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
     
     getProcessForPort(userPort);
     WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {
@@ -119,11 +121,12 @@ const start = argv => {
                 }
 
                 const entryFiles = Object.keys(RESOLVER).reduce((accumulator, key) => {
-                        accumulator.push(RESOLVER[key].custom);
+                        let buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
+                        accumulator.push(buildPath);
                         return accumulator;
                     }, []),
                     configFiles = [
-                        path.resolve(ROOT_PATH, "./treats.config.js"),
+                        path.resolve(ROOT_PATH, useTypescript ? "./treats.config.ts" : "./treats.config.js"),
                         path.resolve(ROOT_PATH, "./.babelrc")
                     ];
 

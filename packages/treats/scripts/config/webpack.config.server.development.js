@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     babelOptions = require("./babel.config"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
-    extractEnv = require("./util/extract-env");
+    extractEnv = require("./util/extract-env"),
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
 
 module.exports = ({
     alias,
@@ -23,8 +24,14 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         serverOutputPath = webpack.serverOutputPath || "dist",
         resolve = {
-            extensions: [".js", ".css", ".json", ".wasm", ".mjs"]
+            extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
+
+    //Add babel/preset-typescript when needed only
+    if (useTypescript) {
+        babelOptions.presets.push("@babel/preset-typescript");
+        babelOptions.env.test.presets.push("@babel/preset-typescript");
+    }
 
     const defaultConfig = {
         name: "server",
@@ -50,7 +57,7 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.js?$/,
+                    test: /\.(js|ts|tsx)?$/,
                     use: [
                         {
                             loader: "thread-loader",
@@ -215,6 +222,10 @@ module.exports = ({
         }
     };
     let finalConfig = defaultConfig;
+    if (useTypescript) {
+        ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
+        finalConfig.plugins.push(new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }));
+    }
     if (webpackConfig.server) {
         finalConfig = webpackMerge.smart(defaultConfig, webpackConfig.server);
     }
