@@ -20,15 +20,18 @@ treats generate ./node_modules/@treats/addons-base/generator/opinionated
 ```
 There's several built-in generator that you can use:
 1. `component` - Generates React component boilerplates.
-2. `component-ts` - Generates React component boilerplates in Typescript.
-3. `redux` -  Generates Redux boilerplates (action creator, reducer, thunks, etc).
-4. `redux-ts` - Generates Redux boulerplates (action creator, reducer, thunks, etc) in Typescript.
-5. `test` - Generates Jest test boilerplates.
-6. `test-ts` - Generates Jest test boilerplates in Typescript.
-7. `helper` -  Generates Treats helper object boilerplates.
-8. `helper-ts` - Generates Treats helper object boilerplates in Typescript.
-9. `middleware` -  Generates Treats middleware object boilerplates.
-10. `middlerware-ts` - Generates Treats middleware object boilerplates in Typescript.
+2. `redux` -  Generates Redux boilerplates (action creator, reducer, thunks, etc).
+3. `test` - Generates Jest test boilerplates.
+4. `helper` -  Generates Treats helper object boilerplates.
+5. `middleware` -  Generates Treats middleware object boilerplates.
+
+We also provide Typescript template for these templates. To generate Typescript templates add "-ts" suffix to each template name.
+
+```
+yarn generate component-ts
+```
+
+However, you don't need to add the "-ts" part when you provide `tsconfig.json` in your project root. **By providing `tsconfig.json`, Treats will automatically generate Typescript component** even when you don't type "-ts" suffix after template name.
 
 For more information about how to create your own template you can find it [here][authoring-addons-generators]
 

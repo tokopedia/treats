@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
     /** YOUR MAP DISPATCH TO PROPS FUNCTION */
 });
 <%endif%>
-<%if(CODE_SPLIT)%>export default AsyncComponent(module, <%if(COMPONENT_WITH_REDUX)%>connect(mapStateToProps,mapDispatchToProps)(<%COMPONENT_NAME_VAR%>)<%else%><%COMPONENT_NAME_VAR%><%endif%>);<%else%>export default <%if(COMPONENT_WITH_REDUX)%>connect(mapStateToProps,mapDispatchToProps)(<%COMPONENT_NAME_VAR%>)<%else%><%COMPONENT_NAME_VAR%><%endif%>;<%endif%></PropsType>
+<%if(CODE_SPLIT)%>export default AsyncComponent(module, <%if(COMPONENT_WITH_REDUX)%>connect(mapStateToProps,mapDispatchToProps)(<%COMPONENT_NAME_VAR%>)<%else%><%COMPONENT_NAME_VAR%><%endif%>);<%else%>export default <%if(COMPONENT_WITH_REDUX)%>connect(mapStateToProps,mapDispatchToProps)(<%COMPONENT_NAME_VAR%>)<%else%><%COMPONENT_NAME_VAR%><%endif%>;<%endif%>
