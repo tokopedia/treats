@@ -1,3 +1,5 @@
+import { Route } from "react-router";
+
 declare module "@treats/component/async-component" {
     const component: Function;
     export default component;
@@ -38,8 +40,6 @@ declare module "@treats/component/provider" {
 }
 
 declare module "@treats/component/redirect" {
-    import * as React from "react";
-
-    const component: React.ReactNode;
+    const component: Route;
     export default component;
 }

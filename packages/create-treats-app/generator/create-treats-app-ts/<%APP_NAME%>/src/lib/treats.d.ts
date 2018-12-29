@@ -4,9 +4,12 @@
 /// <reference types="react-helmet" />
 /// <reference types="react-intl" />
 /// <reference types="react-redux" />
+/// <reference types="react-router" />
+/// <reference types="react-router-dom" />
 /// <reference types="redux" />
 /// <reference path="./treats-component.d.ts" />
 /// <reference path="./treats-util.d.ts" />
+/// <reference path="./treats-locale-data.d.ts" />
 
 declare namespace NodeJS {
     interface ProcessEnv {
@@ -80,6 +83,24 @@ declare module "@treats/helmet" {
     export default reactHelmet;
 }
 
+declare module "@treats/router" {
+    export {
+        BrowserRouter,
+        HashRouter,
+        NavLink,
+        Prompt,
+        MemoryRouter,
+        Route,
+        Router,
+        StaticRouter,
+        Switch,
+        withRouter,
+        matchPath
+    } from "react-router-dom";
+    export { default as Redirect } from "@treats/component/redirect";
+    export { default as Link } from "@treats/component/link";    
+}
+
 declare module "@treats/route" {
     type ModuleType = { [key: string]: string }
     type RouteType = {
@@ -105,8 +126,6 @@ declare module "@treats/server" {
 }
 
 declare module "@treats/redux" {
-    export const connect: Function;
-    import * as Redux from "redux";
-
-    export default Redux;
+    export * from "react-redux";
+    export * from "redux";
 }
