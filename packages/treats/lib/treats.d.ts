@@ -1,3 +1,226 @@
+/// <reference types="node" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+/// <reference types="react-helmet" />
+/// <reference types="react-intl" />
+/// <reference types="react-redux" />
+/// <reference types="react-router" />
+/// <reference types="react-router-dom" />
+/// <reference types="redux" />
+
+declare namespace NodeJS {
+    interface ProcessEnv {
+        NODE_ENV: "development" | "staging" | "production" | "test",
+        PUBLIC_URL: string
+    }
+}
+
+declare module "*.bmp" {
+    const src: string;
+    export default src;
+}
+
+declare module "*.gif" {
+    const src: string;
+    export default src;
+}
+
+declare module "*.jpg" {
+    const src: string;
+    export default src;
+}
+
+declare module "*.jpeg" {
+    const src: string;
+    export default src;
+}
+
+declare module "*.png" {
+    const src: string;
+    export default src;
+}
+
+declare module "*.svg" {
+    import * as React from "react";
+
+    export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>;
+
+    const src: string;
+    export default src;
+}
+
+declare module '*.css' {
+    const classes: { [key: string]: string };
+    export default classes;
+}
+
+declare module '*.scss' {
+    const classes: { [key: string]: string };
+    export default classes;
+}
+
+declare module '*.sass' {
+    const classes: { [key: string]: string };
+    export default classes;
+}
+
+declare module "*.less" {
+    const classes: { [key: string]: string };
+    export default classes;
+}
+
+//Treats Core Declaration
+declare module "@treats/intl" {
+    import reactIntl = ReactIntl;
+    export = reactIntl;
+}
+
+declare module "@treats/helmet" {
+    import reactHelmet from "react-helmet";
+
+    export default reactHelmet;
+}
+
+declare module "@treats/router" {
+    export {
+        BrowserRouter,
+        HashRouter,
+        NavLink,
+        Prompt,
+        MemoryRouter,
+        Route,
+        Router,
+        StaticRouter,
+        Switch,
+        withRouter,
+        matchPath
+    } from "react-router-dom";
+    export { default as Redirect } from "@treats/component/redirect";
+    export { default as Link } from "@treats/component/link";    
+}
+
+declare module "@treats/route" {
+    type ModuleType = { [key: string]: string }
+    type RouteType = {
+        name: string,
+        path: string,
+        exact?: boolean,
+        disabled?: boolean
+        component: ModuleType
+    }
+
+    const routes: Array<RouteType>
+    export default routes
+}
+
+declare module "@treats/client" {
+    const initClient: Function;
+    export default initClient;
+}
+
+declare module "@treats/server" {
+    const initServer: Function;
+    export default initServer;
+}
+
+declare module "@treats/redux" {
+    export * from "redux";
+    export * from "react-redux";
+}
+
+//Treats Util Declaration
+declare module "@treats/util/cookie" {
+    export const getCookie: Function;
+}
+
+declare module "@treats/util/graphql" {
+    export const mergeApolloConfig: Function;
+    export const combineLinkStates: Function;
+}
+
+declare module "@treats/util/json" {
+    export const injectParam: Function;
+    export const bindParams: Function;
+}
+
+declare module "@treats/util/location" {
+    export const findActiveRoute: Function;
+    export const isPushEnabled: Function;
+    export const getURLfromLocation: Function;
+}
+
+declare module "@treats/util/redux" {
+    export const mergeReduxState: Function;
+    export const typeGenerator: Function;
+    export const reducerGenerator: Function;
+    export const actionCreatorGenerator: Function;
+}
+
+declare module "@treats/util/security" {
+    export const deserializeJSON: Function;
+    export const serializeJSON: Function;
+    export const escapeHtml: Function;
+    export const escapeHtmlQueryObject: Function;
+}
+
+declare module "@treats/util/string" {
+    export const camelToKebabCase: Function;
+}
+
+declare module "@treats/util/typecheck" {
+    export const isArray: Function;
+    export const isString: Function;
+    export const isObject: Function;
+    export const isNumber: Function;
+    export const isFunction: Function;
+}
+
+
+//Treats Component declaration
+declare module "@treats/component/async-component" {
+    const component: Function;
+    export default component;
+}
+
+declare module "@treats/component/async-loader" {
+    const component: Function;
+    export default component;
+}
+
+declare module "@treats/component/error-boundary" {
+    import * as React from "react";
+
+    export const withErrorBoundary: Function;
+    const component: React.ReactNode;
+    export default component;
+}
+
+declare module "@treats/component/http-status" {
+    import * as React from "react";
+
+    const component: React.ReactNode;
+    export default component;
+}
+
+declare module "@treats/component/link" {
+    import * as React from "react";
+
+    const component: React.ReactNode;
+    export default component;
+}
+
+declare module "@treats/component/provider" {
+    import * as React from "react";
+
+    const component: React.ReactNode;
+    export default component;
+}
+
+declare module "@treats/component/redirect" {
+    const component: Route;
+    export default component;
+}
+
 // These modules is an alias from react-intl/locale-data
 declare module "@treats/locale-data/af" {
     const data: ReactIntl.LocaleData;

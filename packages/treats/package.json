@@ -4,6 +4,7 @@
     "version": "0.1.0-alpha",
     "description": "Tokopedia React Development Kits",
     "author": "Tokopedia Engineering",
+    "types": "./lib/treats.d.ts",
     "main": "./index.js",
     "bin": {
         "treats": "./index.js"
