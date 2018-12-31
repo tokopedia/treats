@@ -30,10 +30,10 @@ module.exports = ({
         };
 
     //Add babel/preset-typescript when needed only
-    if (useTypescript) {
-        babelOptions.presets.push("@babel/preset-typescript");
-        babelOptions.env.test.presets.push("@babel/preset-typescript");
-    }
+    // if (useTypescript) {
+    //     babelOptions.presets.push("@babel/preset-typescript");
+    //     babelOptions.env.test.presets.push("@babel/preset-typescript");
+    // }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
     const defaultConfig = {
@@ -59,9 +59,26 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.(js|ts|tsx)?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         "thread-loader",
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        "thread-loader",
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                happyPackMode: true
+                            }
+                        },
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)

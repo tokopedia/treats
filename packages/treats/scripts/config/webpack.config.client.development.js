@@ -28,10 +28,10 @@ module.exports = ({
         };
 
     //Add babel/preset-typescript when needed only
-    if (useTypescript) {
-        babelOptions.presets.push("@babel/preset-typescript");
-        babelOptions.env.test.presets.push("@babel/preset-typescript");
-    }
+    // if (useTypescript) {
+    //     babelOptions.presets.push("@babel/preset-typescript");
+    //     babelOptions.env.test.presets.push("@babel/preset-typescript");
+    // }
 
     const defaultConfig = {
         name: "client",
@@ -69,12 +69,34 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.(js|ts|tsx)?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         {
                             loader: "thread-loader",
                             options: {
                                 poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        {
+                            loader: "thread-loader",
+                            options: {
+                                poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                happyPackMode: true
                             }
                         },
                         {
