@@ -22,6 +22,7 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
+        "cache-loader": "2.0.0",
         "fork-ts-checker-webpack-plugin": "0.5.2",
         "treats": "0.1.0-alpha",
         "ts-loader": "5.3.2",
