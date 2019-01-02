@@ -29,12 +29,6 @@ module.exports = ({
             extensions: [".ts", ".tsx", ".js", ".css"]
         };
 
-    //Add babel/preset-typescript when needed only
-    // if (useTypescript) {
-    //     babelOptions.presets.push("@babel/preset-typescript");
-    //     babelOptions.env.test.presets.push("@babel/preset-typescript");
-    // }
-
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
     const defaultConfig = {
         name: "server",
@@ -77,6 +71,7 @@ module.exports = ({
                         {
                             loader: "ts-loader",
                             options: {
+                                // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
                                 happyPackMode: true
                             }
                         },
