@@ -1,7 +1,34 @@
 const reRequire = require("./re-require"),
     ROOT_PATH = process.cwd(),
     fs = require("fs-extra"),
-    path = require("path");
+    path = require("path"),
+    logger = require("./logger");
+
+/**
+ * A function to copy user alias defined in treats.config.ts to tsconfig.json
+ * @param configPathTypescript path to treats.config.ts
+ */
+const injectUserAliasToTypescriptConfig = configPathTypescript => {
+    const treatsConfigTS = require(configPathTypescript),
+        tsConfigJsonPath = path.resolve(ROOT_PATH, "./tsconfig.json");
+    let tsConfigJson = require(tsConfigJsonPath);
+
+    const userAlias = Object.keys(treatsConfigTS.alias).reduce((result, key) => {
+        result[`${key}/*`] = [`./${path.relative(ROOT_PATH, treatsConfigTS.alias[key])}/*`];
+        return result;
+    }, {});
+
+    tsConfigJson.compilerOptions.paths = {
+        ...tsConfigJson.compilerOptions.paths,
+        ...userAlias
+    }
+
+    //Writing alias to tsconfig.json
+    logger("log", "Writing your alias into tsconfig.json");
+    fs.writeFileSync(tsConfigJsonPath, JSON.stringify(tsConfigJson, (key, value) => value, 4), err => {
+        logger("error", err.stack || err);
+    });
+};
 
 /**
  * A function to read user-defined config and bundle it into single config
@@ -29,6 +56,7 @@ const loadTreatsConfig = options => {
     } else if (fs.pathExistsSync(configPathTypescript)) {
         //Initialize customConfig with treats.config.ts if exists
         customConfig = reRequire(configPathTypescript);
+        injectUserAliasToTypescriptConfig(configPathTypescript);
     }
 
     //Add alias if defined in options

@@ -19,37 +19,28 @@
         ],
         "baseUrl": ".",
         "paths": {
-            "@page/*": [
-                "./src/page/*"
+            "@treats/server": [
+                "./node_modules/treats/server"
             ],
-            "@treats/server/*": [
-                "./node_modules/treats/server/*"
+            "@treats/client": [
+                "./node_modules/treats/client"
             ],
-            "@treats/server-ts/*": [
-                "./node_modules/treats/server-ts/*"
+            "@treats/component": [
+                "./node_modules/treats/shared/component"
             ],
-            "@treats/client/*": [
-                "./node_modules/treats/client/*"
+            "@treats/util": [
+                "./node_modules/treats/shared/util"
             ],
-            "@treats/component/*": [
-                "./node_modules/treats/shared/component/*"
-            ],
-            "@treats/util/*": [
-                "./node_modules/treats/shared/util/*"
-            ],
-            "@treats/route/*": [
-                "./node_modules/treats/shared/route/*"
+            "@treats/route": [
+                "./node_modules/treats/shared/route"
             ],
             "@treats/alias": [
                 "./node_modules/treats/shared/alias"
             ],
-            "@treats/flow-typed/*": [
-                "./node_modules/treats/flow-typed/*"
-            ],
             "@treats/redux": [
                 "./node_modules/treats/shared/proxy/redux.js"
             ],
-            "@treats/router/*": [
+            "@treats/router": [
                 "./node_modules/treats/shared/proxy/router.js"
             ],
             "@treats/intl": [

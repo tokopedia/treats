@@ -27,12 +27,6 @@ module.exports = ({
             extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
 
-    //Add babel/preset-typescript when needed only
-    if (useTypescript) {
-        babelOptions.presets.push("@babel/preset-typescript");
-        babelOptions.env.test.presets.push("@babel/preset-typescript");
-    }
-
     const defaultConfig = {
         name: "server",
         target: "node",
@@ -57,12 +51,36 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.(js|ts|tsx)?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         {
                             loader: "thread-loader",
                             options: {
                                 poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        "cache-loader",
+                        {
+                            loader: "thread-loader",
+                            options: {
+                                poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                                happyPackMode: true
                             }
                         },
                         {

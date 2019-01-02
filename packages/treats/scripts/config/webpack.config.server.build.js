@@ -29,12 +29,6 @@ module.exports = ({
             extensions: [".ts", ".tsx", ".js", ".css"]
         };
 
-    //Add babel/preset-typescript when needed only
-    if (useTypescript) {
-        babelOptions.presets.push("@babel/preset-typescript");
-        babelOptions.env.test.presets.push("@babel/preset-typescript");
-    }
-
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
     const defaultConfig = {
         name: "server",
@@ -59,9 +53,28 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.(js|ts|tsx)?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         "thread-loader",
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        "cache-loader",
+                        "thread-loader",
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                                happyPackMode: true
+                            }
+                        },
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
