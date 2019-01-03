@@ -10,6 +10,7 @@ const chalk = require("chalk"),
     ROOT_PATH = process.cwd(),
     logger = require("./util/logger"),
     reRequire =  require("./util/re-require"),
+    checkTypescript = require("./util/checkTypescript"),
     clean = require("./clean"),
     RESOLVER = require("../resolver"),
     WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils"),
@@ -106,8 +107,11 @@ const reloadDevServers = argv => {
 
 const start = argv => {
     const userPort = argv.port || 3000;
+
+    //Verify typescript process before starting projects.
+    checkTypescript();
     const useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
-    
+
     getProcessForPort(userPort);
     WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {
         if(resolvedPort !== null) {
@@ -136,6 +140,9 @@ const start = argv => {
                 logger("clear");
                 logger("debug", "Watching files...");
                 logger( "debug", [...configFiles, ...entryFiles].join("\n"));
+                if (useTypescript) {
+                    logger("warn", "tsconfig.json found in your project. If you don't want to use Typescript, please delete this and all of your .ts/tsx files");
+                }
 
                 watcher.on("change",  changedPath => {
                     if(configFiles.indexOf(changedPath) !== -1) {
