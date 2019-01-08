@@ -130,7 +130,8 @@ const start = argv => {
                         return accumulator;
                     }, []),
                     configFiles = [
-                        path.resolve(ROOT_PATH, useTypescript ? "./treats.config.ts" : "./treats.config.js"),
+                        path.resolve(ROOT_PATH, "./treats.config.js"),
+                        path.resolve(ROOT_PATH, "./treats.config.ts"),
                         path.resolve(ROOT_PATH, "./.babelrc")
                     ];
 

@@ -6,10 +6,10 @@ const reRequire = require("./re-require"),
 
 /**
  * A function to copy user alias defined in treats.config.ts to tsconfig.json
- * @param configPathTypescript path to treats.config.ts
+ * @param configPath path to treats.config.(js|ts)
  */
-const injectUserAliasToTypescriptConfig = configPathTypescript => {
-    const treatsConfigTS = require(configPathTypescript),
+const injectUserAliasToTypescriptConfig = configPath => {
+    const treatsConfigTS = require(configPath),
         tsConfigJsonPath = path.resolve(ROOT_PATH, "./tsconfig.json");
     let tsConfigJson = require(tsConfigJsonPath);
 
@@ -53,6 +53,9 @@ const loadTreatsConfig = options => {
     //Initialize customConfig with user-defined treats config
     if (fs.pathExistsSync(configPath)) {
         customConfig = reRequire(configPath);
+        if (fs.existsSync(path.resolve(ROOT_PATH, "./tsconfig.json"))) {
+            injectUserAliasToTypescriptConfig(configPath);
+        }
     } else if (fs.pathExistsSync(configPathTypescript)) {
         //Initialize customConfig with treats.config.ts if exists
         customConfig = reRequire(configPathTypescript);

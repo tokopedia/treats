@@ -37,6 +37,12 @@ const processFile = (filename, resultFileName, envVars) => {
                 fs.copySync(filename, resultFileName);
                 logger("debug", `Copied file ${resultFileName}`);
             } else {
+                const filenameComponents = filename.split("/"),
+                    relativeFilename = filenameComponents[filenameComponents.length - 1];
+                if (relativeFilename && templateParser(relativeFilename, envVars) === "") {
+                    logger("debug", `Template ${filename} not generated`);
+                    return true;
+                }
                 logger("debug", `Found template text file ${filename}`);
                 const templateDataDefault = fs.readFileSync(filename),
                     finalDataDefault = templateParser(templateDataDefault.toString(), envVars);

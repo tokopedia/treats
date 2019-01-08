@@ -29,6 +29,12 @@
             "description": "Application description",
             "default": "My First Treats App",
             "required": false
+        },
+        "USE_TYPESCRIPT": {
+            "description": "Do you want to use Typescript?",
+            "type": "boolean",
+            "default": false,
+            "required": true
         }
     },
     "after": [

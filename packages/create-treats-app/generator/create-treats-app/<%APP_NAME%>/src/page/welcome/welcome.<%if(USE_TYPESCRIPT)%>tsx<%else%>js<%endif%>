@@ -1,6 +1,6 @@
 import React from "react";
 import Helmet from "@treats/helmet";
-import { FormattedMessage, injectIntl } from "@treats/intl";
+import { FormattedMessage, injectIntl<%if(USE_TYPESCRIPT)%>, InjectedIntlProps<%endif%> } from "@treats/intl";
 import AsyncComponent from "@treats/component/async-component";
 
 import style from "./welcome.css";
@@ -12,7 +12,7 @@ import treats from "./treats.png";
  *  @param props.intl Intl Object
  *  @author Tokopedia Engineering
  */
-const Welcome = ({ intl }) => (
+const Welcome = ({ intl }<%if(USE_TYPESCRIPT)%>: InjectedIntlProps<%endif%>) => (
     <div className={style.welcome_page}>
         <Helmet>
             <title>Welcome to Treats!</title>
