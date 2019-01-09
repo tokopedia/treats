@@ -20,7 +20,7 @@ const <%REDUX_THUNKS[i]%>Error = () => ({
  * An action creator for setting <%REDUX_THUNKS[i]%> success state.
  * @private
  */
-const <%REDUX_THUNKS[i]%>Success = () => ({
+const <%REDUX_THUNKS[i]%>Success = (response<%if(USE_TYPESCRIPT)%>: any<%endif%>) => ({
     type: types["<%REDUX_NAME_VAR.toUpperCase()%>/<%REDUX_THUNKS[i].toUpperCase()%>_SUCCESS"]
 });
 
@@ -28,14 +28,14 @@ const <%REDUX_THUNKS[i]%>Success = () => ({
  * A thunk to dispatch actions for <%REDUX_THUNKS[i]%>
  * @public
  */
-const <%REDUX_THUNKS[i]%> = () => (dispatch, getState) => {
+const <%REDUX_THUNKS[i]%> = () => (dispatch<%if(USE_TYPESCRIPT)%>: Function<%endif%>, getState<%if(USE_TYPESCRIPT)%>: Function<%endif%>) => {
     /** Your thunk code for "<%REDUX_THUNKS[i]%>" goes here */
     dispatch(<%REDUX_THUNKS[i]%>Loading());
     const <%REDUX_THUNKS[i]%>Promise = new Promise()
-        .then(response => {
+        .then(<%if(USE_TYPESCRIPT)%>(response: any)<%else%>response<%endif%> => {
             dispatch(<%REDUX_THUNKS[i]%>Success(response));
         })
-        .catch(err => {
+        .catch(<%if(USE_TYPESCRIPT)%>(err: any)<%else%>err<%endif%> => {
             console.error("[<%REDUX_THUNKS[i]%>] <%REDUX_THUNKS[i]%> Error");
             console.error(err);
             dispatch(<%REDUX_THUNKS[i]%>Error());

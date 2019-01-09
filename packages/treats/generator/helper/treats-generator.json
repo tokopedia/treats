@@ -31,6 +31,12 @@
             "description": "Helper description",
             "default": "My Treats Helper",
             "required": true
+        },
+        "USE_TYPESCRIPT": {
+            "description": "Do you want to use Typescipt?",
+            "type": "boolean",
+            "default": false,
+            "required": true
         }
     },
     "beforeGenerate": [
