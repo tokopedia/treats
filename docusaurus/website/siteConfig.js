@@ -68,7 +68,7 @@ const siteConfig = {
   },*/
 
     // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
-    copyright: "Copyright © " + new Date().getFullYear() + " Tokopedia OSS",
+    copyright: "Copyright © " + new Date().getUTCFullYear() + " Tokopedia OSS",
 
     highlight: {
         // Highlight.js theme to use for syntax highlighting in code blocks
