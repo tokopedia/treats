@@ -24,7 +24,7 @@ const injectUserAliasToTypescriptConfig = configPath => {
     }
 
     //Writing alias to tsconfig.json
-    logger("log", "Writing your alias into tsconfig.json");
+    logger("debug", "Writing your alias into tsconfig.json");
     fs.writeFileSync(tsConfigJsonPath, JSON.stringify(tsConfigJson, (key, value) => value, 4), err => {
         logger("error", err.stack || err);
     });
