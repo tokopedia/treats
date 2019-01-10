@@ -7,6 +7,7 @@
 /// <reference types="react-router" />
 /// <reference types="react-router-dom" />
 /// <reference types="redux" />
+/// <reference types="enzyme" />
 
 declare namespace NodeJS {
     interface ProcessEnv {
@@ -68,6 +69,17 @@ declare module "*.less" {
     const classes: { [key: string]: string };
     export default classes;
 }
+
+//Treats Jest Global Function Declaration
+declare const shallow: Function;
+declare const render: Function;
+declare const mount: Function;
+declare const mountWithIntl: Function;
+declare const shallowWithIntl: Function;
+declare const renderWithIntl: Function;
+declare const shallowToJson: Function;
+declare const renderToJson: Function;
+declare const mountToJson: Function;
 
 //Treats Core Declaration
 declare module "@treats/intl" {
