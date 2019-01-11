@@ -24,6 +24,10 @@ class Footer extends React.Component {
         return baseUrl + (language ? language + "/" : "") + doc;
     }
 
+    getCurrentYear() {
+        return new Date().getFullYear();
+    }
+
     render() {
         return (
             <footer className="nav-footer" id="footer">
@@ -40,7 +44,7 @@ class Footer extends React.Component {
                     />
                 </a>
                 <section className="copyright">
-                    {this.props.config.copyright}
+                    {this.props.config.copyright(this.getCurrentYear)}
                 </section>
             </footer>
         );
