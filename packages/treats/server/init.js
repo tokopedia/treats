@@ -16,6 +16,11 @@ import templates from "./template";
 
 import { DEFAULT_ENV, ASSETS_PATH } from "./const";
 
+/**
+ * A function to create helper in Treats server.
+ * @param app Treats server instance
+ * @param customHelpers user-defined helpers
+ */
 const initHelper = (app, customHelpers) => {
     const envVars = app.get("envVars");
     config.init(app, envVars);
@@ -56,6 +61,11 @@ const initHelper = (app, customHelpers) => {
     console.verbose("[Helpers] Initialized");
 };
 
+/**
+ * A function to create middleware in Treats server.
+ * @param app Treats server instance
+ * @param customMiddlewares user-defined middlewares
+ */
 const initMiddleware = (app, customMiddlewares) => {
     const envVars = app.get("envVars");
 
@@ -120,6 +130,11 @@ const initMiddleware = (app, customMiddlewares) => {
     console.verbose("[Middlewares] Initialized");
 };
 
+/**
+ * A function to create renderer in Treats server.
+ * @param app Treats server instance
+ * @param customRenderers user-defined renderers
+ */
 const initRenderer = (app, customRenderers) => {
     routes.forEach(routerData => {
         const {
@@ -182,6 +197,10 @@ const initRenderer = (app, customRenderers) => {
     console.verbose("[Renderer] Initialized");
 };
 
+/**
+ * A function to create server for Treats.
+ * @param params user-defined function to customise server behaviour
+ */
 const initServer = params => {
     let userENV, customMiddlewares, customHelpers, customEvents, customRenderers;
     if (params) {
