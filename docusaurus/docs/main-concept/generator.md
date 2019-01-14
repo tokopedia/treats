@@ -25,13 +25,7 @@ There's several built-in generator that you can use:
 4. `helper` -  Generates Treats helper object boilerplates.
 5. `middleware` -  Generates Treats middleware object boilerplates.
 
-We also provide Typescript template for these templates. To generate Typescript templates add "-ts" suffix to each template name.
-
-```
-yarn generate component-ts
-```
-
-However, you don't need to add the "-ts" part when you provide `tsconfig.json` in your project root. **By providing `tsconfig.json`, Treats will automatically generate Typescript component** even when you don't type "-ts" suffix after template name.
+We also provide option to create a Typescript template. To generate Typescript templates choose `true (t)` when prompted about Typescript usage.
 
 For more information about how to create your own template you can find it [here][authoring-addons-generators]
 

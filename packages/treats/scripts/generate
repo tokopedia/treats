@@ -165,11 +165,6 @@ const resolveTemplatePath = template => {
         return path.resolve(ROOT_PATH, `./node_modules/@treats/${sanitizedTemplate}`);
     } 
     if(!template.startsWith("/") && !template.startsWith("./")) {
-        //Automatically choose typescript template when tsconfig.json exists in Treats project
-        const useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
-        if (useTypescript) {
-            logger("warn", "We've found tsconfig.json in your project. Generating with Typescript template");
-        }
         const result = path.resolve(__dirname, `../generator/${template}`);
         if(fs.pathExistsSync(result)) {
             return result;

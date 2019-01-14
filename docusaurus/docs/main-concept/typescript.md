@@ -10,19 +10,14 @@ Treats also provide Typescript support. If you write your projects in Typescript
 Good question. Treats will recognize your projects as a Typescript projects when you provide `tsconfig.json` in your projects root. Therefore, **please be aware when it is necessary to add `tsconfig.json` into your projects**.
 
 ### Create Your First Typescript Treats App
-To start Typescript Treats project, simply add `--ts` or `--typescript` option on `create-treats-app` command.
-
-```
-~$ create-treats-app --ts
-```
-
-After you type this command, a prompt will be appear to ask your project _name_, _version_, and _description_. Yes, the prompt is similar with regular `create-treats-app`, the only difference are the default name and description.
+To start Typescript Treats project, simply choose `true (t)` when prompted about Typescript usage on `create-treats-app` command.
 
 ```
  Treats >  Welcome to Treats! Let's setup your app, shall we?
 prompt: Application name:  (my-ts-treats-app) <your-app-name>
 prompt: Application version:  (0.0.1) <your-app-version>
 prompt: Application description:  (My First Treats App in Typescript) <your-app-description>
+prompt: Do you want to use Typescript? (true (t)|false (f)): (false)
 ```
 
 After you finish fill the prompt, Treats will install the dependencies for you. So get some tea for you first and rest for a bit :)
@@ -35,12 +30,6 @@ yarn start
 ```
 
 ### Typescript Generator
-As written in [Generator][main-concept-generator], to generate Typescript built-in template (component, redux, test, helper, and middleware) just add "-ts" in our built-in template.
-
-```
-yarn generate component-ts
-```
-
-**However, Treats will generate Typescript template by default when `tsconfig.json` is found** in your projects. Therefore, once again, _please be aware when it is necessary to add `tsconfig.json` into your projects_.
+As written in [Generator][main-concept-generator], to generate Typescript built-in template (component, redux, test, helper, and middleware), simply choose `true (t)` when prompted about Typescript usage.
 
 [main-concept-generator]: ./generator.html
