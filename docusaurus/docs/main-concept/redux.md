@@ -34,11 +34,12 @@ export default combineReducers({
 More reference about these filesystem hooks can be found [here][api-reference-filesystem-hooks-redux]
 
 ## Using Redux
-To use our redux setup we can just simply `connect` our component by using `react-redux`'s `connect` HOC:
+To use our redux setup we can just simply `connect` our component by using `react-redux`'s `connect` HOC that you could import from `@treats/redux`:
 
 ```js
 // src/page/my-page/my-page.js
 import React, { Component } from "react";
+import { connect } from "@treats/redux";
 import myAction from "../redux/my-action";
 
 class MyPage extends Component {
