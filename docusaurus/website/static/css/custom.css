@@ -119,12 +119,13 @@
     margin: 0 auto;
     text-align: center;
     opacity: 0.5;
+    width: 60%;
+    max-width: 300px;
 }
 
 .tkpdOpenSourceLogo {
     position: relative;
-    width: 60%;
-    max-width: 300px;
+    width: 100%;
 }
 
 .docMainWrapper .mainContainer .postHeaderTitle {
