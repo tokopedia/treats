@@ -4,7 +4,7 @@ const fs = require("fs-extra"),
     ROOT_PATH = process.cwd(),
     configPath = path.resolve(ROOT_PATH, "./treats.config.js"),
     configPathTypescript = path.resolve(ROOT_PATH, "./treats.config.ts"),
-    useTypescript = fs.pathExistsSync(path.resolve(ROOT_PATH, "./tsconfig.json"));
+    isTSFileExists = require("./scripts/util/isTSFileExists");
 
 let userAlias = {};
 
@@ -34,7 +34,7 @@ const selectPath = (useTypescript, currentResolver) => {
 
     //If no filsystem hooks found, return default path
     return def;
-}
+};
 
 //Core paths
 const CORE_PATH = path.resolve(__dirname),
@@ -47,12 +47,13 @@ const CORE_PATH = path.resolve(__dirname),
     CORE_FLOW_TYPED_PATH = path.resolve(CORE_PATH, "./flow-typed"),
     CORE_REDUX_PROXY_PATH = path.resolve(CORE_PATH, "./shared/proxy/redux.js"),
     CORE_ROUTER_PROXY_PATH = path.resolve(CORE_PATH, "./shared/proxy/router.js"),
+    useTypescript = isTSFileExists(),
     //Filesystem hooks scan
     resolvedAlias = Object.keys(RESOLVER).reduce((accumulator, key) => {
         if (process.env.NODE_ENV !== "test") {
             accumulator[`@@${key}@@`] = selectPath(useTypescript, RESOLVER[key]);
         } else {
-            accumulator[`@@${key}@@`] = def;
+            accumulator[`@@${key}@@`] = RESOLVER[key].default;
         }
         return accumulator;
     }, {});

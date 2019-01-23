@@ -36,7 +36,6 @@ module.exports = {
     coveragePathIgnorePatterns: ["node_modules/", "generator/"],
     collectCoverage: true,
     collectCoverageFrom: ["<rootDir>/**/*.{js}", "!<rootDir>/**/*.stories.js"],
-    coveragePathIgnorePatterns: ["node_modules/", "generator/"],
     coverageReporters: ["html"],
     coverageThreshold
 };

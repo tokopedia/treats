@@ -7,7 +7,7 @@ Treats also provide Typescript support. If you write your projects in Typescript
 
 "How Treats recognize our projects as a Typescript projects?"
 
-Good question. Treats will recognize your projects as a Typescript projects when you provide `tsconfig.json` in your projects root. Therefore, **please be aware when it is necessary to add `tsconfig.json` into your projects**.
+Good question. Treats will recognize your projects as a Typescript projects when you provide `.ts or .tsx` in your projects root. Therefore, **please be aware when it is necessary to add `.(ts|tsx) files` into your projects**.
 
 ### Create Your First Typescript Treats App
 To start Typescript Treats project, simply choose `true (t)` when prompted about Typescript usage on `create-treats-app` command.
@@ -32,4 +32,36 @@ yarn start
 ### Typescript Generator
 As written in [Generator][main-concept-generator], to generate Typescript built-in template (component, redux, test, helper, and middleware), simply choose `true (t)` when prompted about Typescript usage.
 
+### Typescript Config
+As we know, Typescript projects require `tsconfig.json`. We also understand that some of its configurations redundant with our `treats.config.(js|ts)`. Therefore, we create a Typescript handler in our `treats.config.(js|ts)`. This will make our `tsconfig.json` a generated file, which means: __"Please do not change config in tsconfig.json. Make your change in treats.config.(js|ts) instead"__.
+
+The Typescript field content will be the same as `tsconfig.json`, so please check the [docs][tsconfig-docs], if you want to customize one. Nothing to fear if you don't want to customize one, we have default config and will generate it for you the moment you `start` or `build` your projects.
+
+Here's some example of `treats.config.(js|ts)`:
+
+```
+// treats.config.(js|ts)
+...
+const config = {
+    ...,
+
+    typescript: {
+        ...,
+        "compilerOptions": {
+            ...,
+            target: "es5",
+            paths: {
+                someAlias: [
+                    "./path/to/alias"
+                ]
+            }
+        } 
+    }
+};
+
+module.exports = config;
+```
+
+
 [main-concept-generator]: ./generator.html
+[tsconfig-docs]: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
