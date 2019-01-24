@@ -1,6 +1,6 @@
 {
     "name": "tutorial-app",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "description": "My First Treats App",
     "license": "ISC",
     "scripts": {
@@ -19,6 +19,6 @@
     },
     "dependencies": {
         "apollo-link-retry": "^2.2.5",
-        "treats": "0.0.1"
+        "treats": "0.1.1"
     }
 }
