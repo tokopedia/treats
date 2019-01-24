@@ -1,6 +1,6 @@
 {
     "name": "styled-components",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "description": "Styled Components Example",
     "license": "ISC",
     "scripts": {
@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "styled-components": "4.1.1",
-        "treats": "0.1.0-alpha"
+        "treats": "0.1.1"
     },
     "devDependencies": {
         "babel-plugin-styled-components": "1.8.0"
