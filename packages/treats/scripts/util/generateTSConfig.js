@@ -2,6 +2,7 @@ const ROOT_PATH = process.cwd(),
     fs = require("fs-extra"),
     path = require("path"),
     logger = require("./logger"),
+    merge = require("lodash.merge"),
     defaultTSConfig = {
         compilerOptions: {
             target: "es5",
@@ -53,38 +54,13 @@ const generateTSConfig = configPath => {
         return result;
     }, {});
 
-    //Override default config with user config, if user provided it in treats.config.(js|ts)
-    tsConfigJSON = {
-        ...defaultTSConfig,
-        ...userTSConfig
-    };
+    tsConfigJSON = merge(defaultTSConfig, userTSConfig);
 
-    if (userTSConfig && userTSConfig.compilerOptions) {
-        tsConfigJSON = {
-            ...tsConfigJSON,
-            compilerOptions: {
-                ...defaultTSConfig.compilerOptions,
-                ...userTSConfig.compilerOptions,
-                paths: {
-                    ...defaultTSConfig.compilerOptions.paths,
-                    ...userTSConfig.compilerOptions.paths,
-                    ...userAlias
-                }
-            }
-        };
-    } else {
-        tsConfigJSON = {
-            ...tsConfigJSON,
-            compilerOptions: {
-                ...defaultTSConfig.compilerOptions,
-                // Override paths with user treats typescript paths config then with user alias
-                paths: {
-                    ...defaultTSConfig.compilerOptions.paths,
-                    ...userAlias
-                }
-            }
-        };
-    }
+    //Override path from user alias in Treats config
+    tsConfigJSON.compilerOptions.paths = {
+        ...tsConfigJSON.compilerOptions.paths,
+        ...userAlias
+    };
 
     //Writing alias to tsconfig.json
     logger("log", "Writing your typescript config into tsconfig.json...");
