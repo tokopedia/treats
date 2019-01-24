@@ -156,7 +156,7 @@ const start = argv => {
                 }
 
                 const entryFiles = Object.keys(RESOLVER).reduce((accumulator, key) => {
-                        let buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
+                        const buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
                         accumulator.push(buildPath);
                         return accumulator;
                     }, []),
@@ -172,9 +172,6 @@ const start = argv => {
                 logger("clear");
                 logger("debug", "Watching files...");
                 logger( "debug", [...configFiles, ...entryFiles].join("\n"));
-                if (useTypescript) {
-                    logger("warn", "ts/tsx files found in your project. If you don't want to use Typescript, please delete these files");
-                }
 
                 watcher.on("change",  changedPath => {
                     if(configFiles.indexOf(changedPath) !== -1) {
