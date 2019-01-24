@@ -12,7 +12,9 @@
             <url>https://tokopedia.github.io/treats/treats/img/treats.png</url>
             <link>https://tokopedia.github.io/treats/treats/blog</link>
         </image>
-        <copyright>Copyright © 2018 Tokopedia OSS</copyright>
+        <copyright>copyright(currentYear) {
+        return "Copyright © " + currentYear() + " Tokopedia OSS"
+    }</copyright>
         <item>
             <title><![CDATA[Blog Title]]></title>
             <link>https://tokopedia.github.io/treats/treats/blog/2016/03/11/blog-post.html</link>
