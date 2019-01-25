@@ -1,7 +1,7 @@
 {
     "name": "treats",
     "license": "Apache-2.0",
-    "version": "0.1.0-alpha",
+    "version": "0.1.1",
     "description": "Tokopedia React Development Kits",
     "author": "Tokopedia Engineering",
     "types": "./lib/treats.d.ts",
