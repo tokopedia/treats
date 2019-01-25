@@ -16,6 +16,7 @@
         "lint": "yarn eslint && yarn stylelint",
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate",
+        "contributors:check": "all-contributors check",
         "publish": "lerna publish",
         "prettier": "prettier ./packages/**/*.js",
         "lint-staged": "lint-staged",

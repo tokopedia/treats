@@ -290,7 +290,8 @@ module.exports = ({
                 "Access-Control-Allow-Origin": "*"
             },
             stats: { colors: true, children: false },
-            overlay: true
+            overlay: true,
+            disableHostCheck: true
         },
         output: {
             path: path.join(__dirname, assetsOutputPath),

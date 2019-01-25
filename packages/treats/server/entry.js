@@ -1,3 +1,6 @@
+/**
+ * Server entry point for webpack
+ */
 import "@babel/polyfill";
 import http from "http";
 import app from "@@BUILD_SERVER_APP_PATH@@";

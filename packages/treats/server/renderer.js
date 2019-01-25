@@ -61,6 +61,11 @@ if (process.env.TREATS_BUILD_ENV.graphql !== false) {
     };
 }
 
+/**
+ * A function to render react component. Use custom renderers if user provide it
+ * @param reactApp React App will be rendered
+ * @param customRenderers Function(s) to render another component beside the React App (e.g emotion)
+ */
 const renderReactMarkup = (reactApp, customRenderers) => {
     let result;
     if (customRenderers) {
@@ -74,10 +79,19 @@ const renderReactMarkup = (reactApp, customRenderers) => {
                 }
             }
         }
+    } else {
+        result = renderToString(reactApp);
     }
     return result;
 };
 
+/**
+ * Renderer main function
+ * @param req req object
+ * @param res res object
+ * @param routerContext context that will be injected into static router
+ * @param customRenderers Function(s) to render another component beside React App (e.g emotion)
+ */
 const renderer = async (req, res, routerContext, customRenderers) => {
     const {
             appProps,
@@ -103,6 +117,7 @@ const renderer = async (req, res, routerContext, customRenderers) => {
     let initiatorComponent,
         { component } = router;
 
+    //do SSR from component getInitialState()
     if (component) {
         if (component.preload) {
             component = await component.preload();
@@ -151,6 +166,7 @@ const renderer = async (req, res, routerContext, customRenderers) => {
         await getDataFromTree(reactApp);
     }
 
+    //Configure code-splitting and render the React Markup
     clearChunks();
     const reactMarkup = renderReactMarkup(reactApp, customRenderers),
         chunkNames = flushChunkNames(),

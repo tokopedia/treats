@@ -6,7 +6,7 @@
   "commit": false,
   "contributorsPerLine": 6,
   "contributors": [
-      {
+    {
       "login": "regalius",
       "name": "Felix Tan",
       "avatar_url": "https://avatars3.githubusercontent.com/u/6160832",
@@ -182,6 +182,24 @@
       "contributions": [
         "bug",
         "ideas"
+      ]
+    },
+    {
+      "login": "miqdadfwz",
+      "name": "Miqdad Abdurrahman Fawwaz",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/43945767?v=4",
+      "profile": "https://miqdadfawwaz.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "reyhanfahlevi",
+      "name": "Muhammad Reyhan Fahlevi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/36393828?v=4",
+      "profile": "https://github.com/reyhanfahlevi",
+      "contributions": [
+        "bug"
       ]
     }
   ]
