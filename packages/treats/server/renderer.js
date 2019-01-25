@@ -157,10 +157,11 @@ const renderer = async (req, res, routerContext, customRenderers) => {
         { template } = req.renderParams,
         flushedChunks = flushChunks(assetsStats, {
             chunkNames,
-            before: ["manifest", "vendor"],
+            before: ["manifest", "vendor", "service-worker"],
             after: ["main"]
         }),
         { styles, js, cssHash: css } = flushedChunks;
+
     const jsTags = js.toString(),
         cssTags = styles.toString(),
         cssHash = css.toString(),

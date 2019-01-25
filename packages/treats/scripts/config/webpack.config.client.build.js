@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     babelOptions = require("./babel.config"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
-    extractEnv = require("./util/extract-env");
+    extractEnv = require("./util/extract-env"),
+    workboxGenerator = require("./util/workbox-generator");
 
 module.exports = ({
     alias,
@@ -25,7 +26,13 @@ module.exports = ({
         clientOutputPath = webpackConfig.clientOutputPath || "public",
         resolve = {
             extensions: [".js", ".css"]
-        };
+        },
+        webpackConfigPlugin = webpackConfig.plugins || {};
+
+    let workboxPlugin = [];
+    if (webpackConfigPlugin.workbox) {
+        workboxPlugin = workboxGenerator(webpackConfigPlugin.workbox);
+    }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
 
@@ -217,6 +224,7 @@ module.exports = ({
                 orderWarning: true, // Disable to remove warnings about conflicting order between imports
                 cssModules: true // if you use cssModules, this can help.
             }),
+            ...workboxPlugin,
             {
                 apply: compiler => {
                     compiler.plugin("after-emit", (compilation, done) => {
@@ -240,6 +248,12 @@ module.exports = ({
                             publicPath: true
                         });
                         delete stats.assets;
+                        if (webpackConfigPlugin.workbox) {
+                            stats.assetsByChunkName = {
+                                ...stats.assetsByChunkName,
+                                "service-worker": "service-worker.js"
+                            };
+                        }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }

@@ -65,6 +65,19 @@ const initClient = params => {
             language
         };
 
+    if ('serviceWorker' in navigator) {
+        let serviceWorkerPath;
+        if (process.env.NODE_ENV === "development") {
+            serviceWorkerPath = "/__TREATS_WDS__/service-worker.js";
+        }
+        else {
+            serviceWorkerPath = "/service-worker.js";
+        }
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register(serviceWorkerPath);
+        });
+    }
+
     loadLocaleData(language).then(messages =>
         hydrate(
             <AppContainer>
