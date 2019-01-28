@@ -1,0 +1,69 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "outDir": "./dist/",
+        "esModuleInterop": true,
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@treats/server": [
+                "./node_modules/treats/server"
+            ],
+            "@treats/client": [
+                "./node_modules/treats/client"
+            ],
+            "@treats/component": [
+                "./node_modules/treats/shared/component"
+            ],
+            "@treats/util": [
+                "./node_modules/treats/shared/util"
+            ],
+            "@treats/route": [
+                "./node_modules/treats/shared/route"
+            ],
+            "@treats/alias": [
+                "./node_modules/treats/shared/alias"
+            ],
+            "@treats/redux": [
+                "./node_modules/treats/shared/proxy/redux.js"
+            ],
+            "@treats/router": [
+                "./node_modules/treats/shared/proxy/router.js"
+            ],
+            "@treats/intl": [
+                "./node_modules/react-intl"
+            ],
+            "@treats/helmet": [
+                "./node_modules/react-helmet"
+            ],
+            "@treats/graphql": [
+                "./node_modules/react-apollo"
+            ],
+            "@treats/locale-data": [
+                "./node_modules/react-intl/locale-data"
+            ],
+            "@page/*": [
+                "./src/page/*"
+            ]
+        }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

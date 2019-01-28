@@ -1,0 +1,41 @@
+{
+    "name": "typescript-app",
+    "version": "0.0.1",
+    "description": "My First Treats App with Typescript Language!",
+    "license": "ISC",
+    "scripts": {
+        "start": "treats start",
+        "build:client": "treats build --target client",
+        "build:server": "treats build --target server",
+        "build": "treats build",
+        "clean": "treats clean",
+        "generate": "treats generate",
+        "analyze:client": "treats build --target client --analyze",
+        "analyze:server": "treats build --target server --analyze",
+        "profile": "yarn build:server && node --prof dist/server.js",
+        "documentation:build": "treats documentation build src/",
+        "documentation:lint": "treats documentation lint src/",
+        "documentation:phriction": "treats documentation export src/ --target phriction",
+        "documentation:flush": "treats documentation flush src/",
+        "test": "treats test",
+        "test:watch": "treats test --watchAll",
+        "test:coverage": "treats test --coverage"
+    },
+    "dependencies": {
+        "treats": "0.1.1",
+        "cache-loader": "2.0.0",
+        "fork-ts-checker-webpack-plugin": "0.5.2",
+        "ts-loader": "5.3.2",
+        "typescript": "3.2.2",
+        "@types/enzyme": "3.1.15",
+        "@types/jest": "23.3.10",
+        "@types/node": "10.12.15",
+        "@types/react": "16.7.17",
+        "@types/react-dom": "16.0.11",
+        "@types/react-helmet": "5.0.7",
+        "@types/react-intl": "2.3.14",
+        "@types/react-redux": "6.0.11",
+        "@types/react-router-dom": "4.3.1",
+        "@types/redux": "3.6.0"
+    }
+}
