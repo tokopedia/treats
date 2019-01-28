@@ -51,5 +51,7 @@ yarn link treats
 
 We also require all your changes to contain unit tests, so we won't accidentally break your codes on future changes.
 
+Treats follow (conventional commits)[https://www.conventionalcommits.org/en/v1.0.0-beta.2/] standard, commitlint would be ran along with the automated sanity checks to make sure your commit messages following the standard. To make crafting your commit message easier, please use commitizen with `git cz` or `yarn commit` instead of `git commit` to commit your codes.
+
 ## License
 By contributing to Treats, you agree that your contributions will be licensed under its Apache 2.0 license.
