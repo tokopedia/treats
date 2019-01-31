@@ -296,13 +296,13 @@ module.exports = ({
         output: {
             path: path.join(__dirname, assetsOutputPath),
             publicPath,
-            chunkFilename: "[name].js",
+            chunkFilename: "[name].chunk.js",
             filename: "[name].js"
         }
     };
     let finalConfig = defaultConfig;
     if (useTypescript) {
-        ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"),
+        const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
         finalConfig.plugins.push(new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }));
     }
     if (webpackConfig.client) {
