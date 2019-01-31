@@ -23,9 +23,6 @@
     },
     "dependencies": {
         "treats": "0.1.1<%if(USE_TYPESCRIPT)%>",
-        "cache-loader": "2.0.0",
-        "fork-ts-checker-webpack-plugin": "0.5.2",
-        "ts-loader": "5.3.2",
         "typescript": "3.2.2",
         "@types/enzyme": "3.1.15",
         "@types/jest": "23.3.10",
