@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     babelOptions = require("./babel.config"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
-    extractEnv = require("./util/extract-env");
+    extractEnv = require("./util/extract-env"),
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
 
 module.exports = ({
     alias,
@@ -23,7 +24,7 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         serverOutputPath = webpack.serverOutputPath || "dist",
         resolve = {
-            extensions: [".js", ".css", ".json", ".wasm", ".mjs"]
+            extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
 
     const defaultConfig = {
@@ -50,12 +51,36 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.js?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         {
                             loader: "thread-loader",
                             options: {
                                 poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        "cache-loader",
+                        {
+                            loader: "thread-loader",
+                            options: {
+                                poolTimeout: Infinity // keep workers alive for more effective watch mode
+                            }
+                        },
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                                happyPackMode: true
                             }
                         },
                         {
@@ -215,6 +240,10 @@ module.exports = ({
         }
     };
     let finalConfig = defaultConfig;
+    if (useTypescript) {
+        const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+        finalConfig.plugins.push(new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }));
+    }
     if (webpackConfig.server) {
         finalConfig = webpackMerge.smart(defaultConfig, webpackConfig.server);
     }

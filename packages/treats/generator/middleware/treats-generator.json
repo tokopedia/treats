@@ -37,6 +37,12 @@
             "description": "Middleware description",
             "default": "My Treats Middleware",
             "required": true
+        },
+        "USE_TYPESCRIPT": {
+            "description": "Do you want to use Typescipt?",
+            "type": "boolean",
+            "default": false,
+            "required": true
         }
     },
     "beforeGenerate": [

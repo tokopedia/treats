@@ -6,9 +6,13 @@ const chalk = require("chalk"),
     webpack = require("webpack"),
     WebpackDevServer = require("webpack-dev-server"),
     chokidar = require("chokidar"),
+    fs = require("fs-extra"),
     ROOT_PATH = process.cwd(),
     logger = require("./util/logger"),
     reRequire =  require("./util/re-require"),
+    checkTypescript = require("./util/checkTypescript"),
+    generateTSConfig = require("./util/generateTSConfig"),
+    isTSFileExists = require("./util/isTSFileExists"),
     clean = require("./clean"),
     RESOLVER = require("../resolver"),
     WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils"),
@@ -19,18 +23,33 @@ let loadTreatsConfig,
     treatsDevServer,
     isReload = false;
 
-const startDevServers = argv => {
+/**
+ * A function to load config and start webpack development servers.
+ * @param argv start command arguments
+ * @param useTypescript is .(ts|tsx) files found
+ */
+const startDevServers = (argv, useTypescript) => {
     if(!assetsDevServer && !treatsDevServer) {
         clean(argv, () => {
             loadTreatsConfig = reRequire(path.resolve(__dirname, "./util/load-config"));
             const treatsConfig = loadTreatsConfig(),
                 { webpack: webpackConfig } = treatsConfig,
-                [serverCompiler, clientCompiler] = webpack([webpackConfig.server, webpackConfig.client]).compilers;
+                [serverCompiler, clientCompiler] = webpack([webpackConfig.server, webpackConfig.client]).compilers,
+                configPath = path.resolve(ROOT_PATH, "./treats.config.js"),
+                configPathTypescript = path.resolve(ROOT_PATH, "./treats.config.ts");
             logger("debug", "Initiating build with the following config...");
             if(process.env.TREATS_SCRIPT_DEBUG) {
                 //eslint-disable-next-line
                 console.log(treatsConfig);
             }
+
+            // Generate tsconfig.json if ts/tsx files found in projects
+            if (useTypescript && fs.existsSync(configPath)) {
+                generateTSConfig(configPath);
+            } else if (useTypescript && fs.existsSync(configPathTypescript)) {
+                generateTSConfig(configPathTypescript);
+            }
+
             logger("log", `Starting Treats Dev Server on ${process.env.TREATS_HOST}:${process.env.TREATS_PORT}`);
             treatsDevServer = serverCompiler.watch(webpackConfig.server.watchOptions, (err, stats) => {
                 if (err) {
@@ -73,6 +92,11 @@ const startDevServers = argv => {
     }
 }
 
+/**
+ * A function to stop current running development servers.
+ * @param argv start command arguments
+ * @param cb callback function on stop
+ */
 const stopDevServers = (argv, cb) => {
     if(treatsDevServer) {
         treatsDevServer.close(() => {
@@ -93,19 +117,32 @@ const stopDevServers = (argv, cb) => {
     }
 }
 
-const reloadDevServers = argv => {
+/**
+ * A function to reload, happened when detect changes on config files.
+ * @param argv start command arguments
+ * @param useTypescript is .(ts|tsx) files exists
+ */
+const reloadDevServers = (argv, useTypescript) => {
     if(!isReload) {
         isReload = true;
         stopDevServers(argv, () => {
-            startDevServers(argv);
+            startDevServers(argv, useTypescript);
             isReload = false;
         });
     }
 }
 
+/**
+ * Treats start main command. Starting development server.
+ * @param argv start command arguments
+ */
 const start = argv => {
     const userPort = argv.port || 3000;
-    
+
+    //Verify typescript process before starting projects.
+    const useTypescript = isTSFileExists();
+    checkTypescript(useTypescript);
+
     getProcessForPort(userPort);
     WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {
         if(resolvedPort !== null) {
@@ -119,11 +156,13 @@ const start = argv => {
                 }
 
                 const entryFiles = Object.keys(RESOLVER).reduce((accumulator, key) => {
-                        accumulator.push(RESOLVER[key].custom);
+                        const buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
+                        accumulator.push(buildPath);
                         return accumulator;
                     }, []),
                     configFiles = [
                         path.resolve(ROOT_PATH, "./treats.config.js"),
+                        path.resolve(ROOT_PATH, "./treats.config.ts"),
                         path.resolve(ROOT_PATH, "./.babelrc")
                     ];
 
@@ -140,35 +179,35 @@ const start = argv => {
                             logger("clear");
                         }
                         logger("log", `${chalk.green(changedPath)} Changed, reloading....`);
-                        reloadDevServers(argv);
+                        reloadDevServers(argv, useTypescript);
                     }
                 }).on("add", changedPath => {
                     if(!isReload) {
                         logger("clear");
                     }
                     logger("log", `${chalk.green(changedPath)} added, reloading....`);
-                    reloadDevServers(argv);
+                    reloadDevServers(argv, useTypescript);
                 }).on("unlink", changedPath => {
                     if(!isReload) {
                         logger("clear");
                     }
                     logger("log", `${chalk.green(changedPath)} removed, reloading....`);
-                    reloadDevServers(argv);
+                    reloadDevServers(argv, useTypescript);
                 }).on("addDir", changedPath => {
                     if(!isReload) {
                         logger("clear");
                     }
                     logger("log", `${chalk.green(changedPath)} added, reloading....`);
-                    reloadDevServers(argv);
+                    reloadDevServers(argv, useTypescript);
                 }).on("unlinkDir", changedPath => {
                     if(!isReload) {
                         logger("clear");
                     }
                     logger("log", `${chalk.green(changedPath)} removed, reloading....`);
-                    reloadDevServers(argv);
+                    reloadDevServers(argv, useTypescript);
                 });
 
-                startDevServers(argv);
+                startDevServers(argv, useTypescript);
             } catch (err) {
                 logger("error", err);
             }

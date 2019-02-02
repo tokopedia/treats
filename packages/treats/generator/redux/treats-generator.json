@@ -27,6 +27,12 @@
             "message": "Redux variable name must be only letters, or underscores",
             "required": true
         },
+        "USE_TYPESCRIPT": {
+            "description": "Do you want to use Typescipt?",
+            "type": "boolean",
+            "default": false,
+            "required": true
+        },
         "REDUX_THUNKS": {
             "description": "Redux thunks",
             "type": "array",

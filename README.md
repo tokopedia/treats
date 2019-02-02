@@ -20,7 +20,7 @@ To get started with Treats, you can simply do the following:
 You don't need to configure webpack, babel, or any other build tools by yourself
 
 ## What's in the box?
-1. React, JSX, ES6, and Flow syntax support (TypeScript support is coming!).
+1. React, JSX, ES6, and Flow (or TypeScript) syntax support.
 2. Preconfigured Redux, GraphQL client and i18n out-of-the-box. *(You can disable Redux/GraphQL client if you're not using it, it'll only leave minimum trace in your build)*
 3. Server-side rendering, code-splitting and hot-module replacement configured out-of-the-box.
 4. CSS Modules support with CSS, LESS, or SASS syntax with autoprefixer, or use any CSS-in-JS library that you like!

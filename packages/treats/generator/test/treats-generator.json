@@ -25,6 +25,12 @@
             "pattern": "^[a-zA-Z0-9\\s\\-\\_]+$",
             "message": "Description must be only letters, number, dash, space, or underscore",
             "required": false
+        },
+        "USE_TYPESCRIPT": {
+            "description": "Do you want to use Typescipt?",
+            "type": "boolean",
+            "default": false,
+            "required": true
         }
     },
     "beforeGenerate": [

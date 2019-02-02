@@ -21,7 +21,7 @@ let finalJestConfig = {
     ],
     testURL: "http://localhost/",
     transform: {
-        "^.+\\.(js|jsx)?$": path.resolve(__dirname, "./jestTransformer.js")
+        "^.+\\.(js|jsx|ts|tsx)?$": path.resolve(__dirname, "./jestTransformer.js")
     },
     transformIgnorePatterns: ["node_modules/(?!(treats)/)"],
     snapshotSerializers: ["enzyme-to-json/serializer"],

@@ -2,7 +2,10 @@
 //# vi: ft=javascript
 const logger = require("./util/logger"), 
     webpack = require("webpack"),
-    clean = require("./clean");
+    clean = require("./clean"),
+    fs = require("fs-extra"),
+    path = require("path"),
+    ROOT_PATH = process.cwd();
 
 const build = argv => {
     try {
@@ -53,8 +56,24 @@ const build = argv => {
 
         clean(argv, () => {
             const loadTreatsConfig = require("./util/load-config"),
+                checkTypescript = require("./util/checkTypescript"),
+                generateTSConfig = require("./util/generateTSConfig"),
+                isTSFileExists = require("./util/isTSFileExists"),
                 { webpack: webpackConfig } = loadTreatsConfig(),
-                configs = [webpackConfig.server, webpackConfig.client];
+                configs = [webpackConfig.server, webpackConfig.client],
+                useTypescript = isTSFileExists(),
+                userConfigPath = path.resolve(ROOT_PATH, "./treats.config.js"),
+                userConfigPathTypescript = path.resolve(ROOT_PATH, "./treats.config.ts");;
+
+            // Check typescript dependencies
+            checkTypescript(useTypescript);
+
+            // Generate tsconfig.json if ts/tsx files found in projects
+            if (useTypescript && fs.existsSync(userConfigPath)) {
+                generateTSConfig(userConfigPath);
+            } else if (useTypescript && fs.existsSync(userConfigPathTypescript)) {
+                generateTSConfig(userConfigPathTypescript);
+            }
 
             if(process.env.WEBPACK_OP === "analyze") {
                 logger("log", `Analyze build target ${argv.target} for ${process.env.NODE_ENV} environment`);
@@ -70,7 +89,7 @@ const build = argv => {
                     webpackBuild(webpackConfig.client);
                     break;
                 default:
-                    if(!argv.target) {
+                    if(argv.target) {
                         webpackBuild(configs);
                     } else {
                         logger("warn", "Target unknown, can't build!");

@@ -14,5 +14,8 @@ const argv = require("yargs")
         " 🍰  Treats - Tokopedia React Development Kits, learn more on our documentation https://github.com/tokopedia/treats"
     )
     .strict().argv;
-
-require("./scripts/generate")({ template: "create-treats-app", noconfig: true, ...argv });
+ 
+require("./scripts/generate")({
+    template: "create-treats-app",
+    noconfig: true, ...argv 
+});

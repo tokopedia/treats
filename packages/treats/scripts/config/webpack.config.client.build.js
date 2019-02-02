@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     babelOptions = require("./babel.config"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
-    extractEnv = require("./util/extract-env");
+    extractEnv = require("./util/extract-env"),
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
 
 module.exports = ({
     alias,
@@ -24,7 +25,7 @@ module.exports = ({
         publicPath = webpackConfig.publicPath || "/static/",
         clientOutputPath = webpackConfig.clientOutputPath || "public",
         resolve = {
-            extensions: [".js", ".css"]
+            extensions: [".ts", ".tsx", ".js", ".css"]
         };
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
@@ -59,9 +60,28 @@ module.exports = ({
         module: {
             rules: [
                 {
-                    test: /\.js?$/,
+                    test: /\.(js|jsx)?$/,
                     use: [
                         "thread-loader",
+                        {
+                            loader: "babel-loader",
+                            options: babelMerge(babelConfig, babelOptions)
+                        }
+                    ],
+                    exclude: /node_modules\/(?!(treats|@treats)\/).*/
+                },
+                {
+                    test: /\.(ts|tsx)?$/,
+                    use: [
+                        "cache-loader",
+                        "thread-loader",
+                        {
+                            loader: "ts-loader",
+                            options: {
+                                // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+                                happyPackMode: true
+                            }
+                        },
                         {
                             loader: "babel-loader",
                             options: babelMerge(babelConfig, babelOptions)
@@ -254,6 +274,10 @@ module.exports = ({
         }
     };
     let finalConfig = defaultConfig;
+    if (useTypescript) {
+        const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+        finalConfig.plugins.push(new ForkTsCheckerWebpackPlugin({ checkSyntacticError: true }));
+    }
     if (webpackConfig.client) {
         finalConfig = webpackMerge.smart(defaultConfig, webpackConfig.client);
     }

@@ -1,7 +1,7 @@
 {
-    "name": "<%APP_NAME%>",
-    "version": "<%APP_VERSION%>",
-    "description": "<%APP_DESCRIPTION%>",
+    "name": "typescript-app",
+    "version": "0.0.1",
+    "description": "My First Treats App with Typescript Language!",
     "license": "ISC",
     "scripts": {
         "start": "treats start",
@@ -22,7 +22,7 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "treats": "0.1.1<%if(USE_TYPESCRIPT)%>",
+        "treats": "0.1.1",
         "typescript": "3.2.2",
         "@types/enzyme": "3.1.15",
         "@types/jest": "23.3.10",
@@ -33,6 +33,6 @@
         "@types/react-intl": "2.3.14",
         "@types/react-redux": "6.0.11",
         "@types/react-router-dom": "4.3.1",
-        "@types/redux": "3.6.0<%endif%>"
+        "@types/redux": "3.6.0"
     }
 }
