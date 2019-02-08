@@ -1,0 +1,11 @@
+{
+    "helper": {
+        "circuitbreaker": {
+            "https://restcountries.eu/rest/v2/all": {
+                "timeout": 3000,
+                "errorThresholdPercentage": 50,
+                "resetTimeout": 30000
+            }
+        }
+    }
+}

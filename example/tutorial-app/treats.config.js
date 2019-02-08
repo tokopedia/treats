@@ -2,12 +2,11 @@ const path = require("path");
 
 const config = {
     app: {
-        name: "tutorial-app",
-        slug: "tutorial-app"
+        name: "todo",
+        slug: "todo"
     },
     alias: {
-        "@page": path.resolve(__dirname, "./src/page"),
-        "@graphql": path.resolve(__dirname, "./src/_graphql")
+        "@page": path.resolve(__dirname, "./src/page")
     }
 };
 

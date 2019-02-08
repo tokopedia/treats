@@ -1,4 +1,3 @@
-//GRAPHCOOL API
-const uri="https://api.graph.cool/simple/v1/cjo2zojjq05g10194ns4ngssz";
+const uri="https://api.graph.cool/simple/v1/<your_key>";
 
 export default uri;

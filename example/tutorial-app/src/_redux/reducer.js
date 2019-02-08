@@ -1,9 +1,7 @@
 import { combineReducers } from "@treats/redux";
 
-import ReduxpageReducer from "./reduxpage";
-import TodoReducer from "./todo";
+import ProfileReducer from "../redux/profile";
 
 export default combineReducers({
-    reduxpage: ReduxpageReducer,
-    todo: TodoReducer
+    profile: ProfileReducer,
 });
