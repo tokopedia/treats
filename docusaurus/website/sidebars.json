@@ -2,7 +2,11 @@
     "docs": {
         "Getting Started": ["installation"],
         "Tutorial": [
-            "tutorial/00"
+            "tutorial/01",
+            "tutorial/02",
+            "tutorial/03",
+            "tutorial/04",
+            "tutorial/05"
         ],
         "Main Concepts": [
             "main-concept/overview",
