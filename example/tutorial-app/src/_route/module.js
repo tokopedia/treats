@@ -1,5 +1,5 @@
 import Todo from "@page/todo";
-import Profile from "@page/profile";
+import Profile from "@page/profile-page";
 
 import { TODO, PROFILE } from "./path";
 
