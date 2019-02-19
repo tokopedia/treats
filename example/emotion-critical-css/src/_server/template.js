@@ -18,7 +18,7 @@ const templates = {
                 <script>
                     ${reduxState ? `window.__data=${reduxState};` : ""}
                     ${apolloState ? `window.__apollo=${apolloState};` : ""} 
-                    ${ids ? `window.__EMOTION_IDS= ${ids};` : ""}
+                    ${ids ? `window.__EMOTION_IDS= ${JSON.stringify(ids)};` : ""}
                 </script>
                 <style>
                     ${css}
