@@ -173,11 +173,25 @@ const renderer = async (req, res, routerContext, customRenderers) => {
         { template } = req.renderParams,
         flushedChunks = flushChunks(assetsStats, {
             chunkNames,
-            before: ["manifest", "vendor"],
+            before: ["manifest", "vendor", "service-worker"],
             after: ["main"]
         }),
-        { styles, js, cssHash: css } = flushedChunks;
-    const jsTags = js.toString(),
+        { styles, cssHash: css, scripts: jsFiles, publicPath } = flushedChunks,
+        swFilename = assetsStats.assetsByChunkName["service-worker"];
+
+    //Custom js files tag generator based on webpack-flush-chunks API to modify service worker script tag
+    const jsTagGenerator = files =>
+        files
+            .map(file => {
+                if (file === swFilename) {
+                    return `<script id="service-worker" type="text/javascript" src="${publicPath}/${file}"></script>`;
+                }
+
+                return `<script type="text/javascript" src="${publicPath}/${file}"></script>`;
+            })
+            .join("\n");
+
+    const jsTags = jsTagGenerator(jsFiles),
         cssTags = styles.toString(),
         cssHash = css.toString(),
         helmetData = Helmet.renderStatic(),

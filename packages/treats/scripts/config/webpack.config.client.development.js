@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    { configureWorkbox, getSWFilename } = require("./util/workbox");
 
 module.exports = ({
     alias,
@@ -25,8 +26,13 @@ module.exports = ({
         assetsOutputPath = webpackConfig.assetsOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
-        };
+        },
+        webpackConfigPlugin = webpackConfig.plugins || {};
 
+    let workboxPlugin;
+    if (webpackConfigPlugin.workbox) {
+        workboxPlugin = configureWorkbox(webpackConfigPlugin.workbox);
+    }
     const defaultConfig = {
         name: "client",
         target: "web",
@@ -251,6 +257,7 @@ module.exports = ({
                 reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
                 cssModules: true // if you use cssModules, this can help.
             }),
+            ...workboxPlugin,
             {
                 apply: compiler => {
                     compiler.plugin("after-emit", (compilation, done) => {
@@ -274,6 +281,12 @@ module.exports = ({
                             publicPath: true
                         });
                         delete stats.assets;
+                        if (workboxPlugin.length > 0) {
+                            stats.assetsByChunkName = {
+                                ...stats.assetsByChunkName,
+                                "service-worker": getSWFilename(webpackConfigPlugin.workbox)
+                            };
+                        }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }
@@ -287,7 +300,8 @@ module.exports = ({
             hot: true,
             open: true,
             headers: {
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "*",
+                "Service-Worker-Allowed": "/"
             },
             stats: { colors: true, children: false },
             overlay: true,

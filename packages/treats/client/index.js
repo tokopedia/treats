@@ -4,6 +4,7 @@ import React from "react";
 import { AppContainer } from "react-hot-loader";
 import { hydrate, render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import $ from "jquery";
 
 import Provider from "@treats/component/provider";
 import { isFunction } from "@treats/util/typecheck";
@@ -64,6 +65,21 @@ const initClient = params => {
             apolloClient,
             language
         };
+
+    if ($("#service-worker").length > 0 && "serviceWorker" in navigator) {
+        const serviceWorkerPath = $("#service-worker").prop("src");
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register(serviceWorkerPath, { scope: "./" })
+                .then(registration =>
+                    //eslint-disable-next-line no-console
+                    console.log(
+                        `Service worker registration on ${serviceWorkerPath} is successfull`,
+                        registration
+                    ))
+                .catch(error => console.error("Service worker registrations failed", error));
+        });
+    }
 
     loadLocaleData(language).then(messages =>
         hydrate(

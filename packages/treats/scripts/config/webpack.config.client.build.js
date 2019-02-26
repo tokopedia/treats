@@ -8,7 +8,8 @@ const webpack = require("webpack"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    { configureWorkbox, getSWFilename } = require("./util/workbox");
 
 module.exports = ({
     alias,
@@ -26,7 +27,13 @@ module.exports = ({
         clientOutputPath = webpackConfig.clientOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css"]
-        };
+        },
+        webpackConfigPlugin = webpackConfig.plugins || {};
+
+    let workboxPlugin;
+    if (webpackConfigPlugin.workbox) {
+        workboxPlugin = configureWorkbox(webpackConfigPlugin.workbox);
+    }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
 
@@ -237,6 +244,7 @@ module.exports = ({
                 orderWarning: true, // Disable to remove warnings about conflicting order between imports
                 cssModules: true // if you use cssModules, this can help.
             }),
+            ...workboxPlugin,
             {
                 apply: compiler => {
                     compiler.plugin("after-emit", (compilation, done) => {
@@ -260,6 +268,12 @@ module.exports = ({
                             publicPath: true
                         });
                         delete stats.assets;
+                        if (workboxPlugin.length > 0) {
+                            stats.assetsByChunkName = {
+                                ...stats.assetsByChunkName,
+                                "service-worker": getSWFilename(webpackConfigPlugin.workbox)
+                            };
+                        }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }
