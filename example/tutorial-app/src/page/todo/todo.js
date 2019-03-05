@@ -4,9 +4,9 @@ import Link from "@treats/component/link";
 import { connect } from "@treats/redux";
 import { Mutation } from "@treats/graphql";
 
-import { todoMutation, todoQuery } from "../../_graphql/todo";
+import { todoMutation, todoQuery } from "@graphql/todo";
 
-import TodoList from "../../component/todo-list";
+import TodoList from "@component/todo-list";
 
 import style from "./todo.css";
 
@@ -17,8 +17,8 @@ const Todo = ({ intl, name, nation }) => (
         <FormattedMessage
             id="todo_title" 
             values={{
-                name: name,
-                nation: nation
+                name,
+                nation
             }}
         />
         <Mutation
@@ -42,12 +42,14 @@ const Todo = ({ intl, name, nation }) => (
                             e.preventDefault();
                             addTodo({ variables: { todoAction: input.value } });
                             input.value = "";
-                        }}>
+                        }}
+                        >
                             <input ref={
                                 node => {
                                     input = node;
                                 }
-                            } />
+                            }     
+                            />
                             <button>{intl.formatMessage({id: "submit"})}</button>
                         </form>
                     </div>

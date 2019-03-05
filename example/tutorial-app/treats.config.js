@@ -6,7 +6,10 @@ const config = {
         slug: "todo"
     },
     alias: {
-        "@page": path.resolve(__dirname, "./src/page")
+        "@page": path.resolve(__dirname, "./src/page"),
+        "@redux": path.resolve(__dirname, "./src/redux"),
+        "@graphql": path.resolve(__dirname, "./src/_graphql"),
+        "@component": path.resolve(__dirname, "./src/component")
     }
 };
 

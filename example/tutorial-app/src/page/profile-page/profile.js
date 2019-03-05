@@ -3,9 +3,9 @@ import { injectIntl } from "@treats/intl";
 
 import { connect } from "@treats/redux";
 import Link from "@treats/component/link";
-import style from "./profile.css";
+import { profileActions } from "@redux/profile-page";
 
-import { profileActions } from "../../redux/profile-page";
+import style from "./profile.css";
 
 /**
 *  Profile Page for Treats Tutorial
