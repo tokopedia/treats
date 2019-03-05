@@ -22,8 +22,8 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "@treats/addons-base": "0.1.0-alpha",
+        "@treats/addons-base": "0.2.0",
         "axios": "^0.18.0",
-        "treats": "0.1.1"
+        "treats": "0.2.0"
     }
 }

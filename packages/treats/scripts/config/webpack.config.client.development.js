@@ -34,8 +34,12 @@ module.exports = ({
         devtool: "cheap-eval-source-map",
         optimization: {
             splitChunks: {
+                maxInitialRequests: Infinity,
+                minSize: 0,
                 automaticNameDelimiter: "-",
                 cacheGroups: {
+                    default: false,
+                    vendors: false,
                     vendor: {
                         test: /node_modules/,
                         chunks: "all",

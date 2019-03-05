@@ -89,7 +89,7 @@ const build = argv => {
                     webpackBuild(webpackConfig.client);
                     break;
                 default:
-                    if(argv.target) {
+                    if(!argv.target) {
                         webpackBuild(configs);
                     } else {
                         logger("warn", "Target unknown, can't build!");

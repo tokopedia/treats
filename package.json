@@ -1,6 +1,6 @@
 {
   "name": "treats-repo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Tokopedia React Development Kits Repository",
   "author": "Tokopedia Engineering",
   "license": "Apache-2.0",
@@ -21,7 +21,7 @@
     "prettier": "prettier ./packages/**/*.js",
     "lint-staged": "lint-staged",
     "postinstall": "yarn bootstrap",
-    "commit" : "npx git cz",
+    "commit": "npx git cz",
     "release": "standard-version"
   },
   "devDependencies": {
