@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>05. Adding Addons on Treats Server · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Treats was designed so it could be easily customisable with [addons][addons]. We will try to add addons into our todo apps. Let&#x27;s start with [addons-base][addons-base]. Add this point, the one that&#x27;s useful enough for our todo-apps is &lt;code&gt;circuit breaker (CB)&lt;/code&gt;, assuming that our countries API may be slower than usual or just hang our request without response.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="05. Adding Addons on Treats Server · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://tokopedia.github.io/treats/treats/index.html"/><meta property="og:description" content="&lt;p&gt;Treats was designed so it could be easily customisable with [addons][addons]. We will try to add addons into our todo apps. Let&#x27;s start with [addons-base][addons-base]. Add this point, the one that&#x27;s useful enough for our todo-apps is &lt;code&gt;circuit breaker (CB)&lt;/code&gt;, assuming that our countries API may be slower than usual or just hang our request without response.&lt;/p&gt;
+"/><meta property="og:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><link rel="shortcut icon" href="/treats/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/treats/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/treats/"><img class="logo" src="/treats/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/treats/docs/installation.html" target="_self">Getting Started</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/01.html">01. Creating Your First Page</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/02.html">02. Using Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/03.html">03. Using GraphQL</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/04.html">04. Fetch Data for SSR</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/treats/docs/tutorial/05.html">05. Adding Addons</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Main Concepts</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/routing.html">Routing</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/localization.html">Localization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/code-splitting.html">Code-splitting</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/graphql-client.html">GraphQL Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-event.html">Server-side Events</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-template.html">Server-side Template</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-rendering.html">Server-side Rendering</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-server-app.html">Custom Server App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-client-initialization.html">Custom Client Initialization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-react-app.html">Custom React App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/runtime-config.html">Runtime Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/build-config.html">Build Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/environment-variable.html">Environment Variables</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/generator.html">Code Generator</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/scripts.html">Scripts</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/addons.html">Addons</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/typescript.html">Typescript</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/filesystem-hooks.html">Filesystem Hooks</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/component.html">Components</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/server.html">Server</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/client.html">Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/router.html">Router</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/intl.html">Intl</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/locale-data.html">Locale Data</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/helmet.html">Helmet</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/graphql.html">Graphql</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Authoring Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/generator.html">Generators</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/wrap-up.html">Wrapping Up</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/list-of-addons.html">Treats Addons List</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/contributing/how-to-contribute.html">How To Contribute</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/faq.html">FAQs</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">05. Adding Addons on Treats Server</h1></header><article><div><span><p>Treats was designed so it could be easily customisable with <a href="../authoring-addons/overview.html">addons</a>. We will try to add addons into our todo apps. Let's start with <a href="https://www.npmjs.com/package/@treats/addons-base">addons-base</a>. Add this point, the one that's useful enough for our todo-apps is <code>circuit breaker (CB)</code>, assuming that our countries API may be slower than usual or just hang our request without response.</p>
+<ol>
+<li>Install <code>@treats/addons-base</code> in our todo projects.</li>
+</ol>
+<pre><code class="hljs css language-bash">~$ npm install @treats/addons-base
+</code></pre>
+<ol start="2">
+<li>Create <code>_server</code> <a href="../api-reference/filesystem-hooks.html">hooks</a> to customise our server behaviour. Inside it, create <code>index.js</code> with the following implementation.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_server/index.js */</span>
+
+<span class="hljs-keyword">import</span> initServer <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/server"</span>;
+<span class="hljs-keyword">import</span> CircuitBreaker <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/addons-base/helper/circuitbreaker"</span>;
+
+<span class="hljs-keyword">const</span> app = initServer({
+    <span class="hljs-attr">customHelpers</span>: CircuitBreaker
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> app;
+</code></pre>
+<p>By doing this, we could get our <code>CircuitBreaker</code> instance by <code>const cb = app.get(&quot;circuitbreaker&quot;)</code>.</p>
+<ol start="3">
+<li>By adding <code>CircuitBreaker</code> into our server app, we need to change our <code>getInitialState</code> method, since we will get our app instance from <code>req</code> object (read more from <a href="https://expressjs.com/en/api.html#req.app">Express</a>).</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/action.js */</span>
+
+...
+const getInitialState = <span class="hljs-function"><span class="hljs-params">req</span> =&gt;</span> dispatch =&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([dispatch(getCountries(req))])
+}
+...
+</code></pre>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> getInitialState({ router, serverContext }) {
+        <span class="hljs-keyword">const</span> { req, reduxStore } = serverContext;
+        <span class="hljs-keyword">return</span> reduxStore.dispatch(profileActions.getInitialState(req));
+    }
+    ...
+}
+</code></pre>
+<ol start="4">
+<li>Now that <code>getCountries</code> also get <code>req</code> as parameters, we need to change the implementation, too. We also need to consider that <code>getCountries()</code> could be run on client side (when clicking &quot;change name&quot; link) -- it means <code>getCountries()</code> would not get <code>req</code> object. Therefore, we need to add two cases for <code>server</code> and <code>client</code> environment.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
+
+...
+const getCountries = <span class="hljs-function"><span class="hljs-params">req</span> =&gt;</span> dispatch =&gt; {
+    dispatch(getCountriesLoading());
+
+    <span class="hljs-keyword">if</span> (process.env.BUILD_TARGET === <span class="hljs-string">"server"</span>) {
+        <span class="hljs-keyword">const</span> { app } = req,
+            cb = app.get(<span class="hljs-string">"circuitbreaker"</span>);
+
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"API CALL with CB"</span>)
+        <span class="hljs-keyword">return</span> cb.call(
+            axios.get,
+            <span class="hljs-string">"https://restcountries.eu/rest/v2/all"</span>,
+            [<span class="hljs-string">"https://restcountries.eu/rest/v2/all"</span>, { <span class="hljs-attr">method</span>: <span class="hljs-string">"GET"</span> }])
+            .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> parsedResponse = response.data.map(<span class="hljs-function"><span class="hljs-params">country</span> =&gt;</span> ({
+                    <span class="hljs-attr">code</span>: country.alpha2Code,
+                    <span class="hljs-attr">name</span>: country.name
+                }))
+                dispatch(getCountriesSuccess(parsedResponse));
+            }).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+                dispatch(getCountriesError());
+                <span class="hljs-built_in">console</span>.error(err);
+            })
+    }
+    <span class="hljs-keyword">return</span> axios.get(<span class="hljs-string">"https://restcountries.eu/rest/v2/all"</span>)
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> parsedResponse = response.data.map(<span class="hljs-function"><span class="hljs-params">country</span> =&gt;</span> ({
+            <span class="hljs-attr">code</span>: country.alpha2Code,
+            <span class="hljs-attr">name</span>: country.name
+        }))
+        dispatch(getCountriesSuccess(parsedResponse));
+    }).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+        dispatch(getCountriesError());
+        <span class="hljs-built_in">console</span>.error(err);
+    });
+};
+...
+</code></pre>
+<ol start="5">
+<li>Last but not least, we need to create config for our circuit breaker. To create our circuit breaker config, we will create it in <code>&lt;PROJECTS_DIRECTORY&gt;/treats.runtime-config.json</code>.</li>
+</ol>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"helper"</span>: {
+        <span class="hljs-attr">"circuitbreaker"</span>: {
+            <span class="hljs-attr">"https://restcountries.eu/rest/v2/all"</span>: {
+                <span class="hljs-attr">"timeout"</span>: <span class="hljs-number">3000</span>,
+                <span class="hljs-attr">"errorThresholdPercentage"</span>: <span class="hljs-number">50</span>,
+                <span class="hljs-attr">"resetTimeout"</span>: <span class="hljs-number">30000</span>
+            }
+        }
+    }
+}
+</code></pre>
+<ol start="6">
+<li>All set! Let's see if our CB working by proceed to <code>/profile</code>. Refresh the page if you are proceed to the profile page via &quot;Change Name&quot; button. To check if our CB work on error, set the config timeout into 1. Most likely, the api call will timeout and logging some error in your server console.</li>
+</ol>
+<p>This is some example of using addons in Treats. Explore addons concepts: <a href="../main-concept/middleware.html">middleware</a>, <a href="../main-concept/helper.html">helper</a>, and <a href="../main-concept/generator.html">generator</a> and create your own addons!</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/treats/docs/tutorial/04.html"><span class="arrow-prev">← </span><span>04. Fetching Data for Server-Side-Render</span></a><a class="docs-next button" href="/treats/docs/main-concept/overview.html"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="/treats/img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2019 Tokopedia OSS</section></footer></div></body></html>

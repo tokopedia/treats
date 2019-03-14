@@ -1,190 +1,451 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>03. Maintaining Your State with Redux · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Good job! Now we will enter a harder part. But don&#x27;t get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="03. Maintaining Your State with Redux · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://tokopedia.github.io/treats/treats/index.html"/><meta property="og:description" content="&lt;p&gt;Good job! Now we will enter a harder part. But don&#x27;t get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.&lt;/p&gt;
-"/><meta property="og:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><link rel="shortcut icon" href="/treats/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/treats/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/treats/"><img class="logo" src="/treats/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/treats/docs/installation.html" target="_self">Getting Started</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">03. Maintaining Your State with Redux</h1></header><article><div><span><p>Good job! Now we will enter a harder part. But don't get overwhelmed yet, we will make sure you understand basic Redux implementation in Treats.</p>
-<p>Before we start, have we even talked about Redux yet? No? Okay then, <strong><code>Redux</code></strong> is s tools to maintain global state in our app. Maintaining with React <strong><code>state</code></strong> and <strong><code>props</code></strong> is a great idea, but isn't more convenient when we have a single store of our state, and every component in our app can directly use the state?
-And there comes <strong><code>Redux</code></strong> to help! Before start this tutorial we recommend to learn more about Redux <a href="https://redux.js.org/">here</a>.<br>
-Beside <strong><code>Redux</code></strong>, there is also another global state management tools out there like <strong><code>Flux</code></strong> and <strong><code>MobX</code></strong>. But we will only cover Redux in this tutorial.</p>
-<p>Okay, let's get started then.</p>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>03. Fetch and Submit Data with GraphQL · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;So far, our todo apps can insert custom name in profile page and can insert todo list. But this todo app is less helpful since we cannot track the progress of our todo items nor we can edit or delete it. Let&#x27;s upgrade our todo apps! While upgrading it, we will also get closer into Treats GraphQL. Before starting this tutorial, you may want to read more about [GraphQL][GraphQL]. &lt;strong&gt;GraphQL is also not mandatory in Treats&lt;/strong&gt;. If you want to disable it you can change it in &lt;code&gt;treats.config.js&lt;/code&gt; as instructed [here][GraphQL Client].&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="03. Fetch and Submit Data with GraphQL · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://tokopedia.github.io/treats/treats/index.html"/><meta property="og:description" content="&lt;p&gt;So far, our todo apps can insert custom name in profile page and can insert todo list. But this todo app is less helpful since we cannot track the progress of our todo items nor we can edit or delete it. Let&#x27;s upgrade our todo apps! While upgrading it, we will also get closer into Treats GraphQL. Before starting this tutorial, you may want to read more about [GraphQL][GraphQL]. &lt;strong&gt;GraphQL is also not mandatory in Treats&lt;/strong&gt;. If you want to disable it you can change it in &lt;code&gt;treats.config.js&lt;/code&gt; as instructed [here][GraphQL Client].&lt;/p&gt;
+"/><meta property="og:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><link rel="shortcut icon" href="/treats/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/treats/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/treats/"><img class="logo" src="/treats/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/treats/docs/installation.html" target="_self">Getting Started</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/01.html">01. Creating Your First Page</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/02.html">02. Using Redux</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/treats/docs/tutorial/03.html">03. Using GraphQL</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/04.html">04. Fetch Data for SSR</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/05.html">05. Adding Addons</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Main Concepts</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/routing.html">Routing</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/localization.html">Localization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/code-splitting.html">Code-splitting</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/graphql-client.html">GraphQL Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-event.html">Server-side Events</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-template.html">Server-side Template</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-rendering.html">Server-side Rendering</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-server-app.html">Custom Server App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-client-initialization.html">Custom Client Initialization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-react-app.html">Custom React App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/runtime-config.html">Runtime Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/build-config.html">Build Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/environment-variable.html">Environment Variables</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/generator.html">Code Generator</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/scripts.html">Scripts</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/addons.html">Addons</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/typescript.html">Typescript</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/filesystem-hooks.html">Filesystem Hooks</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/component.html">Components</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/server.html">Server</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/client.html">Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/router.html">Router</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/intl.html">Intl</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/locale-data.html">Locale Data</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/helmet.html">Helmet</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/graphql.html">Graphql</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Authoring Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/generator.html">Generators</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/wrap-up.html">Wrapping Up</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/list-of-addons.html">Treats Addons List</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/contributing/how-to-contribute.html">How To Contribute</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/faq.html">FAQs</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">03. Fetch and Submit Data with GraphQL</h1></header><article><div><span><p>So far, our todo apps can insert custom name in profile page and can insert todo list. But this todo app is less helpful since we cannot track the progress of our todo items nor we can edit or delete it. Let's upgrade our todo apps! While upgrading it, we will also get closer into Treats GraphQL. Before starting this tutorial, you may want to read more about <a href="https://graphql.org/learn/">GraphQL</a>. <strong>GraphQL is also not mandatory in Treats</strong>. If you want to disable it you can change it in <code>treats.config.js</code> as instructed <a href="../main-concept/graphql-client.html">here</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="graphql-configurations"></a><a href="#graphql-configurations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>GraphQL Configurations</h3>
+<p>Treats GraphQL configurations are under <strong><code>_graphql</code></strong> folder. GraphQL <a href="../api-reference/filesystem-hooks.html">hooks</a> contains 3 files: <code>link-state.js</code>, <code>uri.js</code>, and <code>config.js</code>. In this tutorial you need to deploy some GraphQL service. We recommend to use <a href="https://www.graph.cool/docs/quickstart">Graphcool</a> to deploy your own GraphQL service.</p>
 <ol>
-<li>First thing first, let's create our page first. Create a your page folder like this.</li>
+<li>Deploy the following todo datamodel. For a quick start, you can use <a href="https://console.graph.cool/login">Graphcool console</a> to create our schema.</li>
 </ol>
-<pre><code class="hljs">reduxpage  
-<span class="hljs-string">|  </span>
-<span class="hljs-string">|-- index.js</span>
-<span class="hljs-string">|-- reduxpage.js</span>
+<pre><code class="hljs css language-graphql"><span class="hljs-selector-tag">type</span> <span class="hljs-selector-tag">Todo</span> {
+  <span class="hljs-attribute">id</span>: ID! <span class="hljs-variable">@isUnique</span>
+  <span class="hljs-attribute">status</span>: String
+  <span class="hljs-attribute">todoAction</span>: String
+}
 </code></pre>
+<p>You can get your graphql endpoint easily from the &quot;endpoints&quot; button in Graphcool console. The format will be like this:
+<strong><code>https://api.graph.cool/simple/v1/&lt;key&gt;</code></strong></p>
 <ol start="2">
-<li>Implement our <code>index.js</code> and <code>reduxpage.js</code>.</li>
+<li>After getting your endpoint, create <strong><code>_graphql</code></strong> folder and <strong><code>uri.js</code></strong> under the folder.</li>
 </ol>
-<pre><code class="hljs"><span class="hljs-comment">/* index.js */</span>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_graphql/uri.js */</span>
 
-<span class="hljs-keyword">import</span> AsyncLoader <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/component/async-loader"</span>;
+<span class="hljs-keyword">const</span> uri=<span class="hljs-string">"https://api.graph.cool/simple/v1/&lt;your_key&gt;"</span>;
 
-<span class="hljs-keyword">const</span> Reduxpage = AsyncLoader({ <span class="hljs-attr">component</span>: <span class="hljs-keyword">import</span>(<span class="hljs-string">"./reduxpage"</span>) });
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Reduxpage;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> uri;
 </code></pre>
-<pre><code class="hljs"><span class="hljs-comment">/* reduxpage.js */</span>
+<ol start="3">
+<li>Implement <strong><code>config.js</code></strong> under <strong><code>_graphql</code></strong> folder. This config are based on <a href="https://www.apollographql.com/docs/react/">Apollo configuration</a>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_graphql/config.js */</span>
 
-<span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+<span class="hljs-keyword">import</span> uri <span class="hljs-keyword">from</span> <span class="hljs-string">"./uri"</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReduxPage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"header"</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"age"</span>&gt;</span>
-            Your age: <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{this.props.age}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ageUp"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onAgeUp}</span>&gt;</span>
-            Age UP
-          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ageDown"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.props.onAgeDown}</span>&gt;</span>
-            Age Down
-          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>History<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-            {this.props.history.map(el =&gt; (
-              <span class="hljs-tag">&lt;<span class="hljs-name">li</span> 
-                <span class="hljs-attr">className</span>=<span class="hljs-string">"historyItem"</span> 
-                <span class="hljs-attr">key</span>=<span class="hljs-string">{el.id}</span>
-                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> this.props.onDelEntry(el.id)}&gt;
-                {el.age}
-              <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-            ))}
-          <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    );
+<span class="hljs-keyword">const</span> customConfig = {
+    <span class="hljs-attr">queryDeduplication</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">link</span>: [
+        {
+            <span class="hljs-attr">type</span>: <span class="hljs-string">"error"</span>,
+            <span class="hljs-attr">callback</span>: <span class="hljs-function">(<span class="hljs-params">{ graphQLErrors, networkError }</span>) =&gt;</span> {
+                <span class="hljs-keyword">if</span> (graphQLErrors)
+                graphQLErrors.map(<span class="hljs-function">(<span class="hljs-params">{ message, locations, path }</span>) =&gt;</span>
+                    <span class="hljs-built_in">console</span>.error(
+                        <span class="hljs-string">`[GraphQL error]: Message: <span class="hljs-subst">${message}</span>, Location: <span class="hljs-subst">${locations}</span>, Path: <span class="hljs-subst">${path}</span>`</span>
+                    ));
+
+                <span class="hljs-keyword">if</span> (networkError) <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`[Network error]: <span class="hljs-subst">${networkError}</span>`</span>);
+            }
+        },
+        {
+            <span class="hljs-attr">type</span>: <span class="hljs-string">"batch-http"</span>,
+            <span class="hljs-attr">uri</span>: uri
+        }
+    ]
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> customConfig;
+</code></pre>
+<ol start="4">
+<li>Of course, we need to declare the query and some mutation for our todo page let's create <strong><code>todo</code></strong> folder under <strong><code>_graphql</code></strong> and create <strong><code>index.js</code></strong>, <strong><code>query.graphql</code></strong>, and <strong><code>mutation.graphql</code></strong>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_graphql/index.js */</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoQuery <span class="hljs-keyword">from</span> <span class="hljs-string">"./query.graphql"</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> todoMutation <span class="hljs-keyword">from</span> <span class="hljs-string">"./mutation.graphql"</span>;
+
+<span class="hljs-keyword">export</span> { todoQuery };
+<span class="hljs-keyword">export</span> { todoMutation };
+</code></pre>
+<pre><code class="hljs css language-graphql"><span class="hljs-meta"># src/_graphql/query.graphql</span>
+query <span class="hljs-class">GetAllTodoes </span>{
+  <span class="hljs-class">allTodoes </span>{
+    id,
+    todoAction,
+    status
+  }
+}
+</code></pre>
+<pre><code class="hljs css language-graphql"># <span class="hljs-selector-tag">src</span>/<span class="hljs-selector-tag">_graphql</span>/<span class="hljs-selector-tag">mutation</span><span class="hljs-selector-class">.graphql</span>
+<span class="hljs-selector-tag">mutation</span> <span class="hljs-selector-tag">CreateTodo</span>($<span class="hljs-attribute">todoAction</span>: String!) {
+  <span class="hljs-selector-tag">createTodo</span>(
+    <span class="hljs-attribute">todoAction</span>: $todoAction
+    <span class="hljs-attribute">status</span>: <span class="hljs-string">"not yet"</span>
+  ) {
+    <span class="hljs-selector-tag">id</span>,
+    <span class="hljs-selector-tag">todoAction</span>,
+    <span class="hljs-selector-tag">status</span>
   }
 }
 
-<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">age</span>: state.reduxpage.age,
-    <span class="hljs-attr">history</span>: state.reduxpage.history
-  };
-};
-
-<span class="hljs-keyword">const</span> mapDispachToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> {
-  <span class="hljs-keyword">return</span> {
-    <span class="hljs-attr">onAgeUp</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"AGE_UP"</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">1</span> }),
-    <span class="hljs-attr">onAgeDown</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"AGE_DOWN"</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">1</span> }),
-    <span class="hljs-attr">onDelEntry</span>: <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span> dispatch({ <span class="hljs-attr">type</span>: <span class="hljs-string">"DEL_ENTRY"</span>, <span class="hljs-attr">id</span>: id})
-  };
-};
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(
-  mapStateToProps,
-  mapDispachToProps
-)(ReduxPage);
-</code></pre>
-<p>&quot;Okay, I start to see something I've never seen before&quot;. Good observation! As we can see in <code>reduxpage.js</code>, we can't see <strong><code>onAgeUp</code></strong>, <strong><code>onAgeDown</code></strong>, and <strong><code>onDelEntry</code></strong> passed from props.</p>
-<p>If you're already read and know Redux basics, this function are our <strong><code>dispatch</code></strong> function which allow us to send <strong><code>action</code></strong> object to change our current state (In above file, <code>{ type: &quot;AGE_DOWN&quot;, value:1 }</code> is an action). All these 3 functions will be mapped to component props by <strong><code>mapDispatchToProps</code></strong> function.</p>
-<p>What about our <code>age</code> and <code>history</code>? It's the concept as <strong><code>mapDispatchToProps</code></strong>, however we mapped the state instead into our props. See the <strong><code>mapStateToProps</code></strong> part.</p>
-<p>Lastly, don't forget to <strong><code>connect</code></strong> our component with <strong><code>mapStateToProps</code></strong> and <strong><code>mapDispatchToProps</code></strong>. Without this, we can't access dispatch and state as component props. Also, don't forget to <strong><code>createStore</code></strong> because Redux need to be initialized first. See the <code>reduxpage.js</code> to see how we do <strong><code>createStore</code></strong>.</p>
-<p><strong>Note:</strong> If you're already have experience with Redux before, you will see that we do not need to do <strong><code>createStore</code></strong> anymore. <em>Voila!</em> And that's Treats feature for you.</p>
-<ol start="3">
-<li>Okay that's a lot to learn right? But don't get too carried away, we're not done yet. Next, we'are going to create our <strong><code>reducer</code></strong> function.<br>
-Create <code>_redux</code> folder under <code>./src</code>. Then create a folder representing your module under the <code>_redux</code> folder, in this case <code>reduxpage</code> and <code>todo</code>. Insert your <strong><code>reducer.js</code></strong> there. Also, create a global <strong><code>reducer.js</code></strong> under <code>_redux</code>.</li>
-</ol>
-<pre><code class="hljs"><span class="hljs-comment">/* Folder structures */</span>
-
-src
-|<span class="hljs-comment">-- _redux  </span>
-    |<span class="hljs-comment">-- reduxpage</span>
-        |<span class="hljs-comment">-- index.js</span>
-        |<span class="hljs-comment">-- reducer.js  </span>
-    |<span class="hljs-comment">-- todo</span>
-        |<span class="hljs-comment">-- index.js</span>
-        |<span class="hljs-comment">-- reducer.js</span>
-    reducer.js
-</code></pre>
-<p><strong>Notes:</strong> We recommend to always put Redux-related module in <code>_redux</code> folder. This is not mandatory, but it will make our app easy to maintain.</p>
-<ol start="4">
-<li>Implement our <strong><code>_redux/reduxpage/reducer.js</code></strong>, <strong><code>_redux/todo/reducer.js</code></strong>, and <strong><code>_redux/reducer.js</code></strong>.</li>
-</ol>
-<pre><code class="hljs">/* ./src/_redux/reduxpage/reducer.js */
-
-const initialState = {
-  age: <span class="hljs-number">20</span>,
-  history: []
-};
-
-const reducer = (<span class="hljs-keyword">state</span> = initialState, action) =&gt; {
-  const newState = { ...<span class="hljs-keyword">state</span> };
-
-  switch (action.type) {
-    case <span class="hljs-string">"AGE_UP"</span>:
-      return {
-        ...<span class="hljs-keyword">state</span>,
-        age: <span class="hljs-keyword">state</span>.age + action.value,
-        history: <span class="hljs-keyword">state</span>.history.concat({ id: Math.<span class="hljs-keyword">random</span>(), age: <span class="hljs-keyword">state</span>.age + action.value })
-      };
-    case <span class="hljs-string">"AGE_DOWN"</span>:
-      return {
-        ...<span class="hljs-keyword">state</span>,
-        age: <span class="hljs-keyword">state</span>.age - action.value,
-        history: <span class="hljs-keyword">state</span>.history.concat({ id: Math.<span class="hljs-keyword">random</span>(), age: <span class="hljs-keyword">state</span>.age - action.value })
-      };
-    case <span class="hljs-string">"DEL_ENTRY"</span>:
-      return {
-        ...<span class="hljs-keyword">state</span>,
-        history: newState.history.filter((el)=&gt; el.id !== action.id )
-      }
-    <span class="hljs-keyword">default</span>:
-      return newState;
+<span class="hljs-selector-tag">mutation</span> <span class="hljs-selector-tag">DeleteTodo</span>($<span class="hljs-attribute">id</span>: ID!) {
+  <span class="hljs-selector-tag">deleteTodo</span>(
+    <span class="hljs-attribute">id</span>: $id
+  ) {
+    <span class="hljs-selector-tag">id</span>,
+    <span class="hljs-selector-tag">todoAction</span>,
+    <span class="hljs-selector-tag">status</span>
   }
-};
+}
 
-export <span class="hljs-keyword">default</span> reducer;
-</code></pre>
-<pre><code class="hljs">/* ./src/page/todo/reducer.js */
-
-const initialState = {
-    term: <span class="hljs-string">""</span>,
-    item: []
-};
-  
-const TodoReducer = (<span class="hljs-keyword">state</span> = initialState, action) =&gt; {
-  const newState = { ...<span class="hljs-keyword">state</span> };
-
-  switch (action.type) {
-    case <span class="hljs-string">"ADD_TODO"</span>:
-        return {
-            ...<span class="hljs-keyword">state</span>,
-            term: <span class="hljs-string">""</span>,
-            history: <span class="hljs-keyword">state</span>.item.push(<span class="hljs-keyword">state</span>.term)
-        };
-    <span class="hljs-keyword">default</span>:
-      return <span class="hljs-keyword">state</span>;
+<span class="hljs-selector-tag">mutation</span> <span class="hljs-selector-tag">UpdateTodo</span>($<span class="hljs-attribute">id</span>: ID!, $<span class="hljs-attribute">todoAction</span>: String) {
+  <span class="hljs-selector-tag">updateTodo</span>(
+    <span class="hljs-attribute">id</span>: $id,
+    <span class="hljs-attribute">todoAction</span>: $todoAction
+  ) {
+    <span class="hljs-selector-tag">id</span>,
+    <span class="hljs-selector-tag">todoAction</span>
   }
-};
-  
-export <span class="hljs-keyword">default</span> TodoReducer;
+}
 
+<span class="hljs-selector-tag">mutation</span> <span class="hljs-selector-tag">UpdateTodoStatus</span>($<span class="hljs-attribute">id</span>: ID!, $<span class="hljs-attribute">status</span>: String) {
+  <span class="hljs-selector-tag">updateTodo</span>(
+    <span class="hljs-attribute">id</span>: $id,
+    <span class="hljs-attribute">status</span>: $status
+  ) {
+    <span class="hljs-selector-tag">id</span>,
+    <span class="hljs-selector-tag">status</span>
+  }
+}
 </code></pre>
-<pre><code class="hljs"><span class="hljs-comment">/* ./src/_redux/reducer.js */</span>
-<span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
-
-<span class="hljs-keyword">import</span> ReduxpageReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"./reduxpage"</span>;
-<span class="hljs-keyword">import</span> TodoReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"./todo"</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> combineReducers({
-    <span class="hljs-attr">reduxpage</span>: ReduxpageReducer,
-    <span class="hljs-attr">todo</span>: TodoReducer
-});
-</code></pre>
-<p>In reducer, we will handle all actions and return the new state after we receive an action.<br>
-Remember to <strong>always</strong> provide default case (returning previous state) to prevent unintended error or behaviour.</p>
-<p>There is also a concept called <strong><code>combineReducers</code></strong> which allow you to merge many reducers into a single reducer as we see in <code>_redux/reducer.js</code>. Why we need only one reducer? Because Treats only create one Redux store for the whole app, therefore we only need one reducer.</p>
-<p>Read more about <code>combineReducers</code> <a href="https://redux.js.org/recipes/structuringreducers/usingcombinereducers">here</a>.</p>
 <ol start="5">
-<li>Neat! Our redux page is done right now. Don't forget to add it to our <strong><code>routes</code></strong>.<br>
-To check the redux behaviour, you may install <a href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en">Redux Dev Tools</a> extensions on your browser. There, you can see the Redux state and the state update process. However, you will also need to configure your projects with Redux Dev Tools. Check it <a href="https://codeburst.io/redux-devtools-for-dummies-74566c597d7">here</a> to set your Redux Dev Tools.</li>
+<li>That's the GraphQL config we need for now. Read more in the <a href="../main-concept/graphql-client.html">GraphQL Client</a> section.</li>
 </ol>
-<p>By the way, there are many <a href="https://itnext.io/react-state-management-patterns-908325dbb8f3">Redux state management patterns</a> you could use out there. Feel free to explore and choose!</p>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="/treats/img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2019 Tokopedia OSS</section></footer></div></body></html>
+<h3><a class="anchor" aria-hidden="true" id="refactoring-todo-list"></a><a href="#refactoring-todo-list" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Refactoring Todo List</h3>
+<p>Our current todo list still not connected to our GraphQL configuration we just created. Now it's time to refactor!</p>
+<ol>
+<li>Back to our <code>todo-list</code> first. Since our item now have state (done or pending) we can not show the item using literal string. We need to create new component for our todo items. Let's create one under <code>component</code>. You may use the component boilerplate <a href="../main-concept/generator.html">generator</a>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/component/todo-item/todo-item.js */</span>
+
+<span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">import</span> style <span class="hljs-keyword">from</span> <span class="hljs-string">"./todo-item.css"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    render () {
+      <span class="hljs-keyword">const</span> { id, todoAction, status } = <span class="hljs-keyword">this</span>.props;
+
+      <span class="hljs-keyword">return</span> (  
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+                <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{e</span> =&gt;</span> {
+                    e.preventDefault();
+                }}
+            &gt;
+                <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+                    <span class="hljs-attr">ref</span>=<span class="hljs-string">{node</span> =&gt;</span> {
+                        todo = node;
+                    }}
+                    defaultValue={todoAction}
+                    readOnly={status === "done"}
+                /&gt;
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+                        <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__orange}</span> 
+                        <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+                    &gt;</span>
+                        Update Todo
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+                        <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__green}</span>
+                    &gt;</span>
+                        Is it done?
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+                    <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__red}</span>
+                &gt;</span>
+                    Delete this todo
+                <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      )
+    }
+};
+  
+export default TodoItem;
+</span></code></pre>
+<pre><code class="hljs css language-css"><span class="hljs-comment">/* src/component/todo-item/todo-item.css */</span>
+
+<span class="hljs-selector-class">.button__green</span> {
+    <span class="hljs-attribute">cursor</span>: pointer;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#42b549</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.button__red</span> {
+    <span class="hljs-attribute">cursor</span>: pointer;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#d50000</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.button__orange</span> {
+    <span class="hljs-attribute">cursor</span>: pointer;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f13700</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;
+}
+</code></pre>
+<ol start="2">
+<li>As we can see, the item now contains buttons for update todo item, update status, and delete todo. To make our buttons do something, we need to connect it with mutation we defined earlier in <code>mutation.graphql</code>. To connect our components, we can use <code>&lt;Mutation&gt;</code> component provided by Treats's GraphQL (Apollo) client.</li>
+</ol>
+<p>Let's also create alias for <code>_graphql</code> and <code>component</code>, just like we've done on Redux.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// treats.config.js</span>
+
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">"path"</span>);
+
+<span class="hljs-keyword">const</span> config = {
+    ....
+    alias: {
+        <span class="hljs-string">"@page"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/page"</span>),
+        <span class="hljs-string">"@redux"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/redux"</span>),
+        <span class="hljs-string">"@graphql"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/_graphql"</span>)
+        <span class="hljs-string">"@component"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/component"</span>)
+    }
+};
+
+<span class="hljs-built_in">module</span>.exports = config;
+</code></pre>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/component/todo-item/todo-item.js */</span>
+
+<span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">import</span> { Mutation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/graphql"</span>;
+
+<span class="hljs-keyword">import</span> { todoMutation, todoQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">"@graphql/todo"</span>;
+
+<span class="hljs-keyword">import</span> style <span class="hljs-keyword">from</span> <span class="hljs-string">"./todo-item.css"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    render () {
+        <span class="hljs-keyword">const</span> { id, todoAction, status } = <span class="hljs-keyword">this</span>.props;
+
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Mutation</span> 
+                <span class="hljs-attr">mutation</span>=<span class="hljs-string">{todoMutation.DeleteTodo}</span> 
+                <span class="hljs-attr">variables</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span> }} 
+                <span class="hljs-attr">refetchQueries</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">query:</span> <span class="hljs-attr">todoQuery.GetAllTodoes</span> }]}    
+            &gt;</span>
+                {(deleteTodo, { loading: deleteLoading, error: deleteError }) =&gt; (
+                    <span class="hljs-tag">&lt;<span class="hljs-name">Mutation</span> 
+                        <span class="hljs-attr">mutation</span>=<span class="hljs-string">{todoMutation.UpdateTodo}</span> 
+                        <span class="hljs-attr">variables</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span>, <span class="hljs-attr">todoAction</span> }} 
+                        <span class="hljs-attr">refetchQueries</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">query:</span> <span class="hljs-attr">todoQuery.GetAllTodoes</span> }]}    
+                    &gt;</span>
+                        {(updateTodo, { loading: updateLoading, error: updateError }) =&gt; (
+                            <span class="hljs-tag">&lt;<span class="hljs-name">Mutation</span> 
+                                <span class="hljs-attr">mutation</span>=<span class="hljs-string">{todoMutation.UpdateTodoStatus}</span> 
+                                <span class="hljs-attr">variables</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span>, <span class="hljs-attr">status:</span> "<span class="hljs-attr">done</span>" }} 
+                                <span class="hljs-attr">refetchQueries</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">query:</span> <span class="hljs-attr">todoQuery.GetAllTodoes</span> }]}    
+                            &gt;</span>
+                                {(updateTodoStatus, { loading, error }) =&gt; {
+                                    let todo;
+
+                                    return (
+                                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> &gt;</span>
+                                            <span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+                                                <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{e</span> =&gt;</span> {
+                                                    e.preventDefault();
+                                                    updateTodo({ variables: { todoAction: todo.value, id } });
+                                                }}
+                                            &gt;
+                                                <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+                                                    <span class="hljs-attr">ref</span>=<span class="hljs-string">{node</span> =&gt;</span> {
+                                                        todo = node;
+                                                    }}
+                                                    defaultValue={todoAction}
+                                                    readOnly={status === "done"}
+                                                /&gt;
+                                                {status !== "done" &amp;&amp; (
+                                                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+                                                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+                                                            <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__orange}</span> 
+                                                            <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+                                                        &gt;</span>
+                                                            Update Todo
+                                                        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                                                        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+                                                            <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__green}</span> 
+                                                            <span class="hljs-attr">onClick</span>=<span class="hljs-string">{updateTodoStatus}</span>
+                                                        &gt;</span>
+                                                            Is it done?
+                                                        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                                                    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                                                )}
+                                                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> 
+                                                    <span class="hljs-attr">className</span>=<span class="hljs-string">{style.button__red}</span>
+                                                    <span class="hljs-attr">onClick</span>=<span class="hljs-string">{deleteTodo}</span>
+                                                &gt;</span>
+                                                    Delete this todo
+                                                <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                                            <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+                                            {loading || (deleteLoading || updateLoading) &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>}
+                                            {error || (deleteError || updateError) &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Error :( Please try again<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>}
+                                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                                    );
+                                }}
+                            <span class="hljs-tag">&lt;/<span class="hljs-name">Mutation</span>&gt;</span>            
+                        )}
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">Mutation</span>&gt;</span>
+                )}
+            <span class="hljs-tag">&lt;/<span class="hljs-name">Mutation</span>&gt;</span>
+        );
+    }
+};
+  
+export default TodoItem;
+</span></code></pre>
+<p>Don't worry if it's long. If you read it carefully, we add every mutation into a single <code>&lt;Mutation&gt;</code> component. That's why there are 3 nested Mutation out there. Also we add some network error handler like <code>{loading || (deleteLoading || uploadLoading) ...}</code> and <code>{error || (deleteError || updateError) ...}</code>. That makes our items contain 3 mutations <code>updateTodo</code>, <code>updateStatus</code>, and <code>deleteTodo</code>.</p>
+<ol start="3">
+<li>To make these mutation works, of course we also need to make the list stored in our GraphQL server. If it's stored in the server, then we need to fetch it when rendering our <code>todo-list</code> component. We're going to use <code>&lt;Query&gt;</code> components to get our data from GraphQL server in <code>todo-list.js</code>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/component/todo-list/todo-list.js */</span>
+
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">import</span> { Query } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/graphql"</span>;
+
+<span class="hljs-keyword">import</span> { todoQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">"@graphql/todo"</span>;
+
+<span class="hljs-keyword">import</span> TodoItem <span class="hljs-keyword">from</span> <span class="hljs-string">"../todo-item"</span>;
+
+<span class="hljs-keyword">const</span> TodoList = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Query</span> 
+        <span class="hljs-attr">query</span>=<span class="hljs-string">{todoQuery.GetAllTodoes}</span>
+        <span class="hljs-attr">ssr</span>=<span class="hljs-string">{false}</span>
+        <span class="hljs-attr">fetchPolicy</span>=<span class="hljs-string">"cache-and-network"</span>
+    &gt;</span>
+        {
+            ({ loading, error, data }) =&gt; {
+                if (loading) return <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Loading....<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                if (error) return <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>"<span class="hljs-attr">color</span>"<span class="hljs-attr">:</span> "<span class="hljs-attr">red</span>"}}&gt;</span>ERROR<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+                if (data.allTodoes) {
+                    return (
+                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                            {data.allTodoes.map(item =&gt; (
+                                <span class="hljs-tag">&lt;<span class="hljs-name">TodoItem</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{item.id}</span> {<span class="hljs-attr">...item</span>} /&gt;</span>
+                            ))}
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                    );
+                }
+                return (
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                        No Data
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                )
+            }
+        }
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Query</span>&gt;</span>
+);
+  
+export default TodoList;
+</span></code></pre>
+<ol start="4">
+<li>Yay! Now we can get data from GraphQL server. <em>Wait a minute... But where the server get the data from?</em>. We must create add <code>CreateTodo</code> mutation into our form in <code>todo.js</code>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/todo/todo.js */</span>
+
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { FormattedMessage, injectIntl } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/intl"</span>;
+<span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/component/link"</span>;
+<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+<span class="hljs-keyword">import</span> { Mutation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/graphql"</span>;
+
+<span class="hljs-keyword">import</span> { todoMutation, todoQuery } <span class="hljs-keyword">from</span> <span class="hljs-string">"@graphql/todo"</span>;
+
+<span class="hljs-keyword">import</span> TodoList <span class="hljs-keyword">from</span> <span class="hljs-string">"@component/todo-list"</span>;
+
+<span class="hljs-keyword">import</span> style <span class="hljs-keyword">from</span> <span class="hljs-string">"./todo.css"</span>;
+
+<span class="hljs-keyword">const</span> Todo = <span class="hljs-function">(<span class="hljs-params">{ intl, name }</span>) =&gt;</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        ...
+        <span class="hljs-tag">&lt;<span class="hljs-name">Mutation</span>
+            <span class="hljs-attr">mutation</span>=<span class="hljs-string">{todoMutation.CreateTodo}</span>
+            <span class="hljs-attr">refetchQueries</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">query:</span> <span class="hljs-attr">todoQuery.GetAllTodoes</span> }]} 
+        &gt;</span>
+            {(addTodo, { loading, error }) =&gt; {
+                let input;
+
+                if (loading) {
+                    return (<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>)
+                }
+
+                if (error) {
+                    return (<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Error :( Please try again<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>)
+                }
+
+                return (
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{style.todo_form}</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{e</span> =&gt;</span> {
+                            e.preventDefault();
+                            addTodo({ variables: { todoAction: input.value } });
+                            input.value = "";
+                        }}&gt;
+                            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{</span>
+                                <span class="hljs-attr">node</span> =&gt;</span> {
+                                    input = node;
+                                }
+                            } /&gt;
+                            <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>{intl.formatMessage({id: "submit"})}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                )
+            }}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">Mutation</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">TodoList</span> /&gt;</span>
+        ...
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+)
+
+const mapStateToProps = state =&gt; ({
+    name: state.profile.name
+})
+
+export default connect(mapStateToProps)(injectIntl(Todo));
+</span></code></pre>
+<ol start="5">
+<li>All's done! Let's check our todo in GraphQL now! Pretty cool, isn't it? With some touch of css, now you can make this todo apps into more beatiful page.</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/treats/docs/tutorial/02.html"><span class="arrow-prev">← </span><span>02. Connecting Components with Redux</span></a><a class="docs-next button" href="/treats/docs/tutorial/04.html"><span>04. Fetching Data for Server-Side-Render</span><span class="arrow-next"> →</span></a></div></div></div></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="/treats/img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2019 Tokopedia OSS</section></footer></div></body></html>

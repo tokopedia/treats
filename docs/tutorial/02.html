@@ -1,110 +1,412 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>02. Introducing React State and Props · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Now, let&#x27;s getting deeper into React behaviour.&lt;/p&gt;
-"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="02. Introducing React State and Props · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://tokopedia.github.io/treats/treats/index.html"/><meta property="og:description" content="&lt;p&gt;Now, let&#x27;s getting deeper into React behaviour.&lt;/p&gt;
-"/><meta property="og:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><link rel="shortcut icon" href="/treats/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/treats/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/treats/"><img class="logo" src="/treats/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/treats/docs/installation.html" target="_self">Getting Started</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">02. Introducing React State and Props</h1></header><article><div><span><p>Now, let's getting deeper into React behaviour.<br>
-The main challenge from a page created with component-based framework, in our case React, is how to make the components could work together in a single page, so it could provide the accurate functionality to user.</p>
-<p>To maintain communication between components, React provide two features called <strong><code>states</code></strong> and <strong><code>props</code></strong>.</p>
-<p>In a nutshell, <strong><code>props</code></strong> is an object passed from parent to child components. To pass <strong><code>props</code></strong> to child component, we could do:</p>
-<pre><code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">SomeComponent</span> 
-    <span class="hljs-attr">prop1</span>=<span class="hljs-string">{1}</span>
-    <span class="hljs-attr">prop2</span>=<span class="hljs-string">"some_value"</span> /&gt;</span>
-</code></pre>
-<p>And to get the props in child component we could use <strong><code>this.props.&lt;some_props&gt;</code></strong> (example: <strong><code>this.props.prop1</code></strong>).</p>
-<p>On the other hand, <strong><code>state</code></strong> is a way to maintain some value you needed in a component. Remember that <strong><code>state</code></strong> cannot be accessed by other component, therefore if you want to pass it to other (child) component, you may want to use <strong><code>state</code></strong> with <strong><code>props</code></strong>.</p>
-<p>To use state, we need to initialize it first in our component constructor</p>
-<pre><code class="hljs"><span class="hljs-function"><span class="hljs-keyword">constructor</span><span class="hljs-params">(props)</span> <span class="hljs-comment">{
-    super(props);
-    this.state = {date: new Date()}</span>;</span>
-}
-</code></pre>
-<p>To set our state we use <strong><code>this.setState(state)</code></strong>, and to get the state we can directly call it with <strong><code>this.state.&lt;some_state&gt;</code></strong> (example: <strong><code>this.state.date</code></strong>).</p>
-<p>If you want to learn more about <strong><code>states</code></strong> and <strong><code>props</code></strong>, please refer to <a href="https://reactjs.org/docs/getting-started.html">React Documentation</a></p>
-<p>Now let's do some hands-on! We will create a todo page by using <strong><code>states</code></strong> and <strong><code>props</code></strong>.</p>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>02. Connecting Components with Redux · Treats</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;&lt;em&gt;Okay, now I want to upgrade my todo apps&lt;/em&gt;. Let&#x27;s say we want to create a profile page and display whatever name we insert into my todo pages. How to make our pages communicate each other? &lt;em&gt;Redux is one solution!&lt;/em&gt;. Treats use Redux for its global state management. You may need to learn about [Redux Concept][Redux], before you start this tutorial.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="02. Connecting Components with Redux · Treats"/><meta property="og:type" content="website"/><meta property="og:url" content="https://tokopedia.github.io/treats/treats/index.html"/><meta property="og:description" content="&lt;p&gt;&lt;em&gt;Okay, now I want to upgrade my todo apps&lt;/em&gt;. Let&#x27;s say we want to create a profile page and display whatever name we insert into my todo pages. How to make our pages communicate each other? &lt;em&gt;Redux is one solution!&lt;/em&gt;. Treats use Redux for its global state management. You may need to learn about [Redux Concept][Redux], before you start this tutorial.&lt;/p&gt;
+"/><meta property="og:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://tokopedia.github.io/treats/treats/img/toped.png"/><link rel="shortcut icon" href="/treats/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/treats/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/treats/"><img class="logo" src="/treats/img/treats.png" alt="Treats"/><h2 class="headerTitleWithLogo">Treats</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/treats/docs/installation.html" target="_self">Getting Started</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Tutorial</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Tutorial</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/01.html">01. Creating Your First Page</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/treats/docs/tutorial/02.html">02. Using Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/03.html">03. Using GraphQL</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/04.html">04. Fetch Data for SSR</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/tutorial/05.html">05. Adding Addons</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Main Concepts</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/routing.html">Routing</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/localization.html">Localization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/code-splitting.html">Code-splitting</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/graphql-client.html">GraphQL Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-event.html">Server-side Events</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-template.html">Server-side Template</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/server-side-rendering.html">Server-side Rendering</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-server-app.html">Custom Server App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-client-initialization.html">Custom Client Initialization</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/custom-react-app.html">Custom React App</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/runtime-config.html">Runtime Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/build-config.html">Build Config</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/environment-variable.html">Environment Variables</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/generator.html">Code Generator</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/scripts.html">Scripts</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/addons.html">Addons</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/main-concept/typescript.html">Typescript</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API Reference</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/filesystem-hooks.html">Filesystem Hooks</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/component.html">Components</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/server.html">Server</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/client.html">Client</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/router.html">Router</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/intl.html">Intl</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/locale-data.html">Locale Data</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/helmet.html">Helmet</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/redux.html">Redux</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/api-reference/graphql.html">Graphql</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Authoring Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/helper.html">Helpers</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/middleware.html">Middlewares</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/generator.html">Generators</a></li><li class="navListItem"><a class="navItem" href="/treats/docs/authoring-addons/wrap-up.html">Wrapping Up</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Addons</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/list-of-addons.html">Treats Addons List</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/contributing/how-to-contribute.html">How To Contribute</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">FAQ</h3><ul><li class="navListItem"><a class="navItem" href="/treats/docs/faq.html">FAQs</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">02. Connecting Components with Redux</h1></header><article><div><span><p><em>Okay, now I want to upgrade my todo apps</em>. Let's say we want to create a profile page and display whatever name we insert into my todo pages. How to make our pages communicate each other? <em>Redux is one solution!</em>. Treats use Redux for its global state management. You may need to learn about <a href="https://redux.js.org/introduction/core-concepts">Redux Concept</a>, before you start this tutorial.</p>
+<p>To use Redux in Treats projects, you don't need to add <code>Provider</code> and creating store for your app, because Treats will handle it. You just need to connect your component to Redux, define your reducer, and combine the reducers under <code>_redux</code> <a href="../api-reference/filesystem-hooks.html">filesystem hooks</a>. <strong>Redux is not mandatory in Treats</strong>. If you want to disable Redux, you can configure it in <code>treats.config.js</code> as instructed <a href="../main-concept/redux.html">here</a>.</p>
+<p>Enough with the concept, let's put our hands to it!</p>
+<h2><a class="anchor" aria-hidden="true" id="creating-redux-action-types-and-initial-state"></a><a href="#creating-redux-action-types-and-initial-state" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Redux Action, Types, and Initial State</h2>
 <ol>
-<li>Create new folder named <strong><code>todo</code></strong>, containing <strong><code>index.js</code></strong>, <strong><code>todo.css</code></strong>, and <strong><code>list.js</code></strong>. Your folder should look like this:</li>
+<li>Create <code>profile</code> folder under <code>page</code>. You may use Treats <a href="../main-concept/generator.html">generator</a>.</li>
 </ol>
-<pre><code class="hljs">todo  
-<span class="hljs-string">|  </span>
-<span class="hljs-string">|-- index.js  </span>
-<span class="hljs-string">|-- todo.css</span>
-<span class="hljs-string">|-- list.js</span>
-</code></pre>
-<ol start="2">
-<li>Implement your <strong><code>index.js</code></strong></li>
-</ol>
-<pre><code class="hljs"><span class="hljs-keyword">import</span> <span class="hljs-type">React</span>, { <span class="hljs-type">Component</span> } from <span class="hljs-symbol">'reac</span>t';
-<span class="hljs-keyword">import</span> <span class="hljs-type">AsyncComponent</span> from <span class="hljs-string">"@treats/component/async-component"</span>;
-<span class="hljs-keyword">import</span> './todo.css';
-<span class="hljs-keyword">import</span> <span class="hljs-type">List</span> from './list';
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  constructor(props) {
-    <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.state = {
-      term: '',
-      items: []
-    };
-  }
+<span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { injectIntl } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/intl"</span>;
 
-  render() {
-    <span class="hljs-keyword">return</span> (
-      &lt;div&gt;
-        &lt;form className=<span class="hljs-string">"App"</span> onSubmit={<span class="hljs-keyword">this</span>.onSubmit}&gt;
-          &lt;input value={<span class="hljs-keyword">this</span>.state.term} onChange={<span class="hljs-keyword">this</span>.onChange} /&gt;
-          &lt;button&gt;<span class="hljs-type">Submit</span>&lt;/button&gt;
-        &lt;/form&gt;
-        &lt;<span class="hljs-type">List</span> items={<span class="hljs-keyword">this</span>.state.items} /&gt;
-      &lt;/div&gt;
-    );
-  }
+<span class="hljs-keyword">import</span> { connect } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+<span class="hljs-keyword">import</span> style <span class="hljs-keyword">from</span> <span class="hljs-string">"./profile.css"</span>;
+
+<span class="hljs-comment">/**
+*  Profile Page for Treats Tutorial
+* @param props React props
+* @param props.name
+* 
+*/</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    <span class="hljs-keyword">constructor</span>(props) {
+        <span class="hljs-keyword">super</span>(props);
+
+        <span class="hljs-keyword">this</span>.state = {
+            <span class="hljs-attr">name</span>: <span class="hljs-string">""</span>
+        }
+    }
+
+    handleFormSubmit = <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+        e.preventDefault();
+        <span class="hljs-keyword">const</span> { name } = <span class="hljs-keyword">this</span>.state;
+
+        <span class="hljs-comment">//Save your component to Redux</span>
+    }
+
+    handleInputChange = <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+        <span class="hljs-keyword">this</span>.setState({
+            <span class="hljs-attr">name</span>: e.target.value
+        })
+    }
+
+    render() {
+        <span class="hljs-keyword">const</span> { intl, name } = <span class="hljs-keyword">this</span>.props,
+            { <span class="hljs-attr">name</span>: temporaryName } = <span class="hljs-keyword">this</span>.state;
+        <span class="hljs-keyword">return</span>(
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Hello, {name}<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+
+                <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{this.handleFormSubmit}</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{temporaryName}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleInputChange}</span> /&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>{intl.formatMessage({id: "submit"})}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )
+    }
 }
-export <span class="hljs-keyword">default</span> <span class="hljs-type">AsyncComponent</span>(module, <span class="hljs-type">Todo</span>);
+
+const mapStateToProps = state =&gt; ({
+    /** YOUR MAP STATE TO PROPS FUNCTION */
+});
+const mapDispatchToProps = dispatch =&gt; ({
+    /** YOUR MAP DISPATCH TO PROPS FUNCTION */
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(injectIntl(Profile));
+</span></code></pre>
+<p>But where can I get the <code>name</code> props? Good question! We will get the <code>name</code> props from Redux state, and that's what <code>mapStateToProps</code> for. But we will implement it after creating our action and reducers.</p>
+<ol start="2">
+<li>Create Redux boilerplate for profile. You can use Treats <a href="../main-concept/generator.html">generator</a>. In this tutorial, we will create it under <code>./src/redux</code>.</li>
+</ol>
+<pre><code class="hljs css language-text">src
+|-- ...
+|-- page
+|-- redux
+    |-- profile-page
+        |-- action.js
+        |-- index.js
+        |-- initial-state.js
+        |-- reducer.js
+        |-- type.js
+</code></pre>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/index.js */</span>
+
+<span class="hljs-keyword">import</span> profileReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"./reducer"</span>;
+
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> profileActions } <span class="hljs-keyword">from</span> <span class="hljs-string">"./action"</span>;
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> profileTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">"./type"</span>;
+<span class="hljs-keyword">export</span> { <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> profileInitialState } <span class="hljs-keyword">from</span> <span class="hljs-string">"./initial-state"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> profileReducer;
 </code></pre>
 <ol start="3">
-<li>Hold a minute! Don't we need a handler function for <code>onSubmit</code> and <code>onChange</code>? Good question, now lets implement our handler function</li>
+<li>Add Redux's action type definition in <code>type.js</code>.</li>
 </ol>
-<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  ....
-  onChange = (event) =&gt; {
-    <span class="hljs-keyword">this</span>.setState({ term: event.target.value });
-  }
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/type.js */</span>
+<span class="hljs-keyword">const</span> types = {
+    <span class="hljs-comment">/* Some other types */</span>,
+    <span class="hljs-attr">UPDATE_NAME</span>: <span class="hljs-string">"UPDATE_NAME"</span>
+};
 
-  onSubmit = (event) =&gt; {
-    event.preventDefault();
-    <span class="hljs-keyword">this</span>.setState({
-      term: '',
-      items: [...<span class="hljs-keyword">this</span>.state.items, <span class="hljs-keyword">this</span>.state.term]
-    });
-  }
-  ....
-}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> types;
 </code></pre>
-<p>In this part, we could see that everytime our input is changed, our component will update it's <code>term</code>.
-When submitted, our component will add the <code>term</code> in our items. And the items will be displayed in our <code>List</code> component.</p>
 <ol start="4">
-<li>Now let's implement <strong><code>list.js</code></strong></li>
+<li>Implement our action in <code>action.js</code>.</li>
 </ol>
-<pre><code class="hljs"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/action.js */</span>
 
-<span class="hljs-keyword">const</span> List = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-    {
-      props.items.map((item, index) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{index}</span>&gt;</span>{item}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)
-    }
-  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
-);
+<span class="hljs-keyword">import</span> types <span class="hljs-keyword">from</span> <span class="hljs-string">"./type"</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> List;
+<span class="hljs-comment">/* Some other actions */</span>
+
+<span class="hljs-keyword">const</span> updateName = <span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> ({
+  <span class="hljs-attr">type</span>: types[UPDATE_NAME],
+  name
+})
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+    <span class="hljs-comment">/* Some other actions */</span>,
+    updateName
+};
 </code></pre>
 <ol start="5">
-<li>Last but not least, don't forget to style our component. Let's implemnet simple style in our <strong><code>todo.css</code></strong></li>
+<li>Add action handler in <code>reducer.js</code></li>
 </ol>
-<pre><code class="hljs"><span class="hljs-selector-class">.App</span> {
-    <span class="hljs-attribute">text-align</span>: center;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">100px</span>;
-}
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/reducer.js */</span>
+
+<span class="hljs-keyword">import</span> initialState <span class="hljs-keyword">from</span> <span class="hljs-string">"./initial-state"</span>;
+<span class="hljs-keyword">import</span> types <span class="hljs-keyword">from</span> <span class="hljs-string">"./type"</span>;
+
+<span class="hljs-keyword">const</span> profileActionHandlers = {
+    <span class="hljs-comment">/* Some other reducers */</span>,
+    [types.UPDATE_NAME]: <span class="hljs-function">(<span class="hljs-params">state, action</span>) =&gt;</span> ({
+        ...state,
+        <span class="hljs-attr">name</span>: action.name
+    })
+};
+
+<span class="hljs-keyword">const</span> profileReducer = <span class="hljs-function">(<span class="hljs-params">state = initialState, action</span>) =&gt;</span>
+    profileActionHandlers[action.type] ? profileActionHandlers[action.type](state, action) : state;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> profileReducer;
 </code></pre>
 <ol start="6">
-<li><p>Oops! One more step before we cross the finish line. Don't forget to register our page in <strong><code>route.js</code></strong>, <strong><code>path.js</code></strong>, and <strong><code>module.js</code></strong></p></li>
-<li><p>Good job! Now you have create a simple app with basic implementation of <strong><code>states</code></strong> and <strong><code>props</code></strong>.</p></li>
+<li>We need a proper initial state (not <code>undefined</code>), so let's add some initial state in <code>initial-state.js</code>.</li>
 </ol>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="/treats/img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2019 Tokopedia OSS</section></footer></div></body></html>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/redux/profile-page/initial-state.js */</span>
+
+<span class="hljs-keyword">const</span> initialState = {
+    <span class="hljs-comment">/* Some other states */</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"User"</span>
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> initialState;
+</code></pre>
+<ol start="7">
+<li>Alright, all set in our Redux part. Let's continue into the next section.</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="tweaking-the-filesystem-hooks"></a><a href="#tweaking-the-filesystem-hooks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tweaking The Filesystem Hooks</h2>
+<p>Treats provide <a href="../api-reference/filesystem-hooks.html">filesystem hooks</a> for easy custom configuration and Redux is one of it. We already create our reducers for profile page, but the whole app only need a single reducer, since Treats only have a single store. Fortunately, there's some helpful method called <code>combineReducers</code> and Treats already wrap it in its dependencies.</p>
+<ol>
+<li>Create folder <code>_redux</code> under <code>src</code> and create <code>index.js</code> inside it.</li>
+</ol>
+<pre><code class="hljs css language-text">src
+|-- ...
+|-- _redux
+    |-- reducer.js
+</code></pre>
+<ol start="2">
+<li>Write your <code>reducer.js</code> file. In this step we will also add some alias to our apps in <code>treats.config.js</code> so instead of writing <code>../redux/profile-page</code> we will write <code>@redux/profile-page</code>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// treats.config.js</span>
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">"path"</span>);
+
+<span class="hljs-keyword">const</span> config = {
+    ....
+    alias: {
+        <span class="hljs-string">"@page"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/page"</span>),
+        <span class="hljs-string">"@redux"</span>: path.resolve(__dirname, <span class="hljs-string">"./src/redux"</span>)
+    }
+};
+
+<span class="hljs-built_in">module</span>.exports = config;
+</code></pre>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_redux/reducer.js */</span>
+
+<span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/redux"</span>;
+<span class="hljs-comment">/* Other reducer */</span>
+<span class="hljs-keyword">import</span> ProfileReducer <span class="hljs-keyword">from</span> <span class="hljs-string">"@redux/profile-page"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> combineReducers({
+    <span class="hljs-comment">/* Other reducer */</span>
+    profile: ProfileReducer
+});
+</code></pre>
+<ol start="3">
+<li>All set for filesystem hooks, now let's get back to our unfinished components.</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="mapstatetoprops-and-mapdispatchtoprops"></a><a href="#mapstatetoprops-and-mapdispatchtoprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>mapStateToProps</code> and <code>mapDispatchToProps</code></h2>
+<p>Okay in the first section, we promise to implement our <code>mapStateToProps</code>. Here we are:</p>
+<ol>
+<li>Implement our <code>mapStateToProps</code> in <code>profile.js</code></li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
+
+...
+
+const mapStateToProps = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> ({
+    <span class="hljs-attr">name</span>: state.profile.name
+});
+
+</code></pre>
+<ol start="2">
+<li>Realize that our submit button doesn't do anything when clicked? Since we will push our new name to Redux, we are gonna dispatch <code>updateName</code> we create earlier. Here, we will need to implement <code>mapDispatchToProps</code>.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
+
+<span class="hljs-comment">/* Other import */</span>
+<span class="hljs-keyword">import</span> { profileActions } <span class="hljs-keyword">from</span> <span class="hljs-string">"@redux/profile-page"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    
+    handleFormSubmit = <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+        e.preventDefault();
+        <span class="hljs-keyword">const</span> { name } = <span class="hljs-keyword">this</span>.state,
+            { onFormSubmit } = <span class="hljs-keyword">this</span>.props;
+
+        <span class="hljs-comment">//Save your component to Redux</span>
+
+        <span class="hljs-keyword">if</span> (onFormSubmit) {
+            onFormSubmit(name);
+        }
+    }
+
+    <span class="hljs-comment">/* Other class method */</span>
+}
+
+<span class="hljs-keyword">const</span> mapStateToProps = <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> ({
+    <span class="hljs-attr">name</span>: state.profile.name
+});
+
+<span class="hljs-keyword">const</span> mapDispatchToProps = <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> ({
+    <span class="hljs-attr">onFormSubmit</span>: <span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> {
+        dispatch(profileActions.updateName(name))
+    }
+});
+</code></pre>
+<ol start="3">
+<li>All set to our components! Now check your redux page</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="registering-page-to-routes"></a><a href="#registering-page-to-routes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Registering Page To Routes</h2>
+<p><em>Feels something missing in our route? You're sharp!</em>. We need to register it to our route before testing it. Just like the previous tutorial, you need to add it in <code>path.js</code>, <code>route.js</code>, and <code>module.js</code> under <code>_route</code>.</p>
+<ol>
+<li>Add profile route name to <code>path.js</code>. The route is up to you, but we will assign it with <code>/profile</code> for this tutorial</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/_route/path.js */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> TODO = <span class="hljs-string">"/"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> PROFILE = <span class="hljs-string">"/profile"</span>;
+</code></pre>
+<ol start="2">
+<li>Add your route config in <code>route.js</code>. Also delete <code>disabled: true</code> in todo config, since it will trigger redirect. Redirect will cause Redux state back to initial state.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">import</span> { TODO, PROFILE } <span class="hljs-keyword">from</span> <span class="hljs-string">"./path"</span>;
+
+<span class="hljs-keyword">const</span> route = [
+    {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">"todo"</span>,
+        <span class="hljs-attr">path</span>: TODO,
+        <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>
+    },
+    {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">"profile"</span>,
+        <span class="hljs-attr">path</span>: PROFILE,
+        <span class="hljs-attr">exact</span>: <span class="hljs-literal">true</span>,
+    }
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> route;
+</code></pre>
+<ol start="3">
+<li>Connect your path and your page in <code>module.js</code></li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">import</span> Todo <span class="hljs-keyword">from</span> <span class="hljs-string">"@page/todo"</span>;
+<span class="hljs-keyword">import</span> Profile <span class="hljs-keyword">from</span> <span class="hljs-string">"@page/profile-page"</span>;
+
+<span class="hljs-keyword">import</span> { TODO, PROFILE } <span class="hljs-keyword">from</span> <span class="hljs-string">"./path"</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-built_in">module</span> = {
+    [TODO]: Todo,
+    [PROFILE]: Profile
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-built_in">module</span>;
+</code></pre>
+<ol start="4">
+<li>Next, add some navigation button that connect our pages. <strong>Note:</strong> please use <code>Link</code> instead of <code>&lt;a&gt;</code> tag, because Redux state will be reset to initial state when we redirect using <code>&lt;a&gt;</code> tag.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/todo/todo.js */</span>
+
+<span class="hljs-comment">/* Other import */</span>
+<span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/component/link"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    <span class="hljs-comment">/* Other method */</span>
+
+    render() {
+        <span class="hljs-keyword">const</span> { keyword, items } = <span class="hljs-keyword">this</span>.state,
+            { intl } = <span class="hljs-keyword">this</span>.props;
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{style.todo_form}</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/profile"</span> <span class="hljs-attr">isPush</span>&gt;</span>Change Name<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">FormattedMessage</span>
+                    <span class="hljs-attr">id</span>=<span class="hljs-string">"todo_title"</span> 
+                    <span class="hljs-attr">values</span>=<span class="hljs-string">{{</span>
+                        <span class="hljs-attr">name:</span> "<span class="hljs-attr">User</span>",
+                        <span class="hljs-attr">value2:</span> <span class="hljs-attr">20</span>
+                    }}
+                /&gt;</span>
+                ...
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )
+    }
+}
+</span></code></pre>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/profile-page/profile.js */</span>
+
+<span class="hljs-comment">/* Other import */</span>
+<span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">"@treats/component/link"</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Profile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    <span class="hljs-comment">/* Other method */</span>
+
+    render() {
+        <span class="hljs-keyword">const</span> { name } = <span class="hljs-keyword">this</span>.props,
+            { <span class="hljs-attr">name</span>: temporaryName } = <span class="hljs-keyword">this</span>.state;
+        <span class="hljs-keyword">return</span>(
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                ...
+                <span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">isPush</span>&gt;</span>Back to Todo<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+        )
+    }
+}
+</code></pre>
+<ol start="5">
+<li>To show the name in <code>todo.js</code>, we need to connect <code>todo.js</code> with Redux. We only need to connect <code>todo.js</code> with <code>mapStateToProps</code> since todo page will not be able to change the state. By connecting todo component, todo component will have <code>name</code> in its props.</li>
+</ol>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/* src/page/todo/todo.js */</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    ...
+
+    render() {
+        <span class="hljs-keyword">const</span> { keyword, items } = <span class="hljs-keyword">this</span>.state,
+            { intl, name } = <span class="hljs-keyword">this</span>.props;
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{style.todo_form}</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/profile"</span> <span class="hljs-attr">isPush</span>&gt;</span>Change Name<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">FormattedMessage</span>
+                    <span class="hljs-attr">id</span>=<span class="hljs-string">"todo_title"</span> 
+                    <span class="hljs-attr">values</span>=<span class="hljs-string">{{</span>
+                        <span class="hljs-attr">name:</span> <span class="hljs-attr">name</span>,
+                        <span class="hljs-attr">value2:</span> <span class="hljs-attr">20</span>
+                    }}
+                /&gt;</span>
+                ...
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )
+    }
+}
+
+const mapStateToProps = state =&gt; ({
+    name: state.profile.name
+})
+
+export default connect(mapStateToProps)(injectIntl(Todo));
+</span></code></pre>
+<p>Now, the name on title will be changed after you change your name in profile page.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/treats/docs/tutorial/01.html"><span class="arrow-prev">← </span><span>01. Creating Your First Page</span></a><a class="docs-next button" href="/treats/docs/tutorial/03.html"><span class="function-name-prevnext">03. Fetch and Submit Data with GraphQL</span><span class="arrow-next"> →</span></a></div></div></div></div><footer class="nav-footer" id="footer"><a href="https://github.com/tokopedia/" target="_blank" rel="noreferrer noopener" class="tkpdOpensource"><img class="tkpdOpenSourceLogo" src="/treats/img/tokopedia.png" alt="Tokopedia Open Source"/></a><section class="copyright">Copyright © 2019 Tokopedia OSS</section></footer></div></body></html>
