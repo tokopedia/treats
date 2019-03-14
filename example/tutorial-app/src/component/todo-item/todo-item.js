@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import { Mutation } from "@treats/graphql";
 
-import { todoMutation, todoQuery } from "@graphql/todo";
+import { todoMutation, todoQuery } from "../../_graphql/todo";
 
-import style from "../todographql.css";
+import style from "./todo-item.css";
 
 class TodoItem extends Component {
     render () {
@@ -12,21 +12,21 @@ class TodoItem extends Component {
 
         return (
             <Mutation 
-                mutation={todoMutation.DeleteListTodo} 
+                mutation={todoMutation.DeleteTodo} 
                 variables={{ id }} 
-                refetchQueries={[{ query: todoQuery.GetAllListTodoes }]}    
+                refetchQueries={[{ query: todoQuery.GetAllTodoes }]}    
             >
-                {(deleteListTodo, { loading: deleteLoading, error: deleteError }) => (
+                {(deleteTodo, { loading: deleteLoading, error: deleteError }) => (
                     <Mutation 
-                        mutation={todoMutation.UpdateListTodo} 
+                        mutation={todoMutation.UpdateTodo} 
                         variables={{ id, todoAction }} 
-                        refetchQueries={[{ query: todoQuery.GetAllListTodoes }]}    
+                        refetchQueries={[{ query: todoQuery.GetAllTodoes }]}    
                     >
-                        {(updateListTodo, { loading: updateLoading, error: updateError }) => (
+                        {(updateTodo, { loading: updateLoading, error: updateError }) => (
                             <Mutation 
                                 mutation={todoMutation.UpdateTodoStatus} 
                                 variables={{ id, status: "done" }} 
-                                refetchQueries={[{ query: todoQuery.GetAllListTodoes }]}    
+                                refetchQueries={[{ query: todoQuery.GetAllTodoes }]}    
                             >
                                 {(updateTodoStatus, { loading, error }) => {
                                     let todo;
@@ -36,7 +36,7 @@ class TodoItem extends Component {
                                             <form
                                                 onSubmit={e => {
                                                     e.preventDefault();
-                                                    updateListTodo({ variables: { todoAction: todo.value, id } });
+                                                    updateTodo({ variables: { todoAction: todo.value, id } });
                                                 }}
                                             >
                                                 <input
@@ -64,7 +64,7 @@ class TodoItem extends Component {
                                                 )}
                                                 <button 
                                                     className={style.button__red}
-                                                    onClick={deleteListTodo}
+                                                    onClick={deleteTodo}
                                                 >
                                                     Delete this todo
                                                 </button>

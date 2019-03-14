@@ -2,13 +2,13 @@ import React from "react";
 
 import { Query } from "@treats/graphql";
 
-import { todoQuery } from "@graphql/todo";
+import { todoQuery } from "../../_graphql/todo";
 
-import TodoItem from "./TodoItem";
+import TodoItem from "../todo-item";
 
 const TodoList = () => (
     <Query 
-        query={todoQuery.GetAllListTodoes}
+        query={todoQuery.GetAllTodoes}
         ssr={false}
         fetchPolicy="cache-and-network"
     >
@@ -16,15 +16,20 @@ const TodoList = () => (
             ({ loading, error, data }) => {
                 if (loading) return <p>Loading....</p>
                 if (error) return <p style={{"color": "red"}}>ERROR</p>
-                if (data.allListTodoes) {
+                if (data.allTodoes) {
                     return (
                         <div>
-                            {data.allListTodoes.map(item => (
+                            {data.allTodoes.map(item => (
                                 <TodoItem key={item.id} {...item} />
                             ))}
                         </div>
                     );
                 }
+                return (
+                    <div>
+                        No Data
+                    </div>
+                )
             }
         }
     </Query>

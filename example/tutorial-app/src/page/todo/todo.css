@@ -1,4 +1,40 @@
-.App {
-    text-align: center;
-    margin: 100px;
+.todo_form {
+    background-color: #e0e0e0;
+    padding: 10px;
+}
+
+.todo__locale_switcher_container {
+    position: relative;
+    white-space: nowrap;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+.todo__locale_switcher {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px;
+    min-width: 100px;
+    background: #fff;
+    color: #42b549;
+    border: 1px solid #f0f0f0;
+}
+
+.todo__locale_switcher:global(.active) {
+    background: #42b549;
+    color: #fff;
+}
+
+.todo__locale_switcher:first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.todo__locale_switcher:last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.todo__locale_switcher:global(.active):hover {
+    color: #FFF;
 }

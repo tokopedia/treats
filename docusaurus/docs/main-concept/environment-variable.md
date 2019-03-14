@@ -15,7 +15,7 @@ Treats Server can receive several environment variables:
   debug, 
   silly
 ```
-3. `TREATS_CONFIG_DIR` - To specify runtime config file path, Defaults to `<PROJECT_ROOT_DIR>/treat.runtime-config.json/`. If file is non-existant then runtime config won't be initialized.
+3. `TREATS_CONFIG_DIR` - To specify runtime config file path, Defaults to `<PROJECT_ROOT_DIR>/treats.runtime-config.json/`. If file is non-existant then runtime config won't be initialized.
 
 All environment variables will be available in `process.env.**` object in our code. There's also several build environment variables that we can use if for example we want our code to only exists in specific build target or build environment.
 1. `NODE_ENV` - To check which environment are our build currently targetting. Environment can be specified using `env` flag on `treats build` CLI, for example:

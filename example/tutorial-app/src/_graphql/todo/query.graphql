@@ -1,5 +1,6 @@
-query GetAllListTodoes {
-  allListTodoes {
+# src/_graphql/query.graphql
+query GetAllTodoes {
+  allTodoes {
     id,
     todoAction,
     status

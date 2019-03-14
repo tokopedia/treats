@@ -1,6 +1,4 @@
 {
-    "welcome_page__description1": "Sebuah development kit untuk membuat pengalaman anda dalam membangun sebuah aplikasi {React} yang sangat mudah dikustomisasi dengan Server-side rendering, Code-splitting, i18n, {Redux} dan {GraphQL} jadi lebih manis!",
-    "welcome_page__description2": "Untuk memulai, sunting {Source} dan simpan untuk me-reload, atau pelajari lebih lanjut di {Documentation} kami.",
-    "mypage_title": "Halaman Saya",
-    "mypage_description": "Ini adalah deskripsi saya. Ini value1: {value1}. Ini value2: {value2}"
+    "todo_title": "Rencana Saya. Nama saya: {name}. Saya dari: {nation}",
+    "submit": "Simpan"
 }
