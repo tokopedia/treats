@@ -22,16 +22,16 @@ module.exports = ({
             wdsPort,
             webpack: { define: webpackDefineEnv }
         } = extractEnv(process.env),
+        { workbox: workboxConfig } = webpackConfig,
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         assetsOutputPath = webpackConfig.assetsOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
-        },
-        webpackConfigPlugin = webpackConfig.plugins || {};
+        };
 
-    let workboxPlugin;
-    if (webpackConfigPlugin.workbox) {
-        workboxPlugin = configureWorkbox(webpackConfigPlugin.workbox);
+    let workboxPlugin = [];
+    if (workboxConfig) {
+        workboxPlugin = configureWorkbox(workboxConfig);
     }
     const defaultConfig = {
         name: "client",
@@ -284,7 +284,7 @@ module.exports = ({
                         if (workboxPlugin.length > 0) {
                             stats.assetsByChunkName = {
                                 ...stats.assetsByChunkName,
-                                "service-worker": getSWFilename(webpackConfigPlugin.workbox)
+                                "service-worker": workboxPlugin[0].config.swDest
                             };
                         }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);

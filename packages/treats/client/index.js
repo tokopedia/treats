@@ -4,7 +4,6 @@ import React from "react";
 import { AppContainer } from "react-hot-loader";
 import { hydrate, render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import $ from "jquery";
 
 import Provider from "@treats/component/provider";
 import { isFunction } from "@treats/util/typecheck";
@@ -43,7 +42,8 @@ const initClient = params => {
             navigator.language ||
             navigator.userLanguage ||
             "en-US",
-        guardedRootDiv = rootDiv || "treats-root";
+        guardedRootDiv = rootDiv || "treats-root",
+        swScript = document.querySelectorAll("script[treats-sw-script]");
 
     let reduxStore, apolloConfig, apolloClient;
 
@@ -66,8 +66,8 @@ const initClient = params => {
             language
         };
 
-    if ($("#service-worker").length > 0 && "serviceWorker" in navigator) {
-        const serviceWorkerPath = $("#service-worker").prop("src");
+    if (swScript.length > 0 && "serviceWorker" in navigator) {
+        const serviceWorkerPath = swScript[0].getAttribute("src");
         window.addEventListener("load", () => {
             navigator.serviceWorker
                 .register(serviceWorkerPath, { scope: "./" })

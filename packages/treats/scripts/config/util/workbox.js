@@ -7,11 +7,7 @@ const cancelWorkboxInit = () => {
 };
 
 const configureWorkbox = workboxConfig => {
-    const { pluginMode, serviceWorkerFilename: swFilename, options } = workboxConfig,
-        guardedOptions = {
-            ...options,
-            swDest: swFilename || "service-worker.js"
-        };
+    const { pluginMode, options } = workboxConfig;
 
     if (!(pluginMode in WorkboxWebpackPlugin)) {
         logger("warn", `${pluginMode} is not a valid workblox plugin.`);
@@ -19,7 +15,7 @@ const configureWorkbox = workboxConfig => {
     }
 
     if (pluginMode === "InjectManifest") {
-        const { swSrc } = guardedOptions,
+        const { swSrc } = options,
             isSwSrcExist = !!swSrc;
 
         if (!isSwSrcExist) {
@@ -28,7 +24,7 @@ const configureWorkbox = workboxConfig => {
         }
     }
 
-    return [new WorkboxWebpackPlugin[pluginMode](guardedOptions)];
+    return [new WorkboxWebpackPlugin[pluginMode](options)];
 };
 
 const getSWFilename = workboxConfig => workboxConfig.serviceWorkerFilename || "service-worker.js";

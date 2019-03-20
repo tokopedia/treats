@@ -184,7 +184,7 @@ const renderer = async (req, res, routerContext, customRenderers) => {
         files
             .map(file => {
                 if (file === swFilename) {
-                    return `<script id="service-worker" type="text/javascript" src="${publicPath}/${file}"></script>`;
+                    return `<script treats-sw-script type="text/javascript" src="${publicPath}/${file}"></script>`;
                 }
 
                 return `<script type="text/javascript" src="${publicPath}/${file}"></script>`;

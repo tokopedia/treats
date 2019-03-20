@@ -23,16 +23,16 @@ module.exports = ({
             wdsPort,
             webpack: { define: webpackDefineEnv, op: webpackOp }
         } = extractEnv(process.env),
+        { workbox: workboxConfig } = webpackConfig,
         publicPath = webpackConfig.publicPath || "/static/",
         clientOutputPath = webpackConfig.clientOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css"]
-        },
-        webpackConfigPlugin = webpackConfig.plugins || {};
+        };
 
-    let workboxPlugin;
-    if (webpackConfigPlugin.workbox) {
-        workboxPlugin = configureWorkbox(webpackConfigPlugin.workbox);
+    let workboxPlugin = [];
+    if (workboxConfig) {
+        workboxPlugin = configureWorkbox(workboxConfig);
     }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
@@ -271,7 +271,7 @@ module.exports = ({
                         if (workboxPlugin.length > 0) {
                             stats.assetsByChunkName = {
                                 ...stats.assetsByChunkName,
-                                "service-worker": getSWFilename(webpackConfigPlugin.workbox)
+                                "service-worker": workboxPlugin[0].config.swDest
                             };
                         }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
