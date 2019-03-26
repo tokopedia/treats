@@ -2,7 +2,7 @@
 import type { $Application } from "express";
 import type { HelperInterfaceType } from "@treats/flow-typed/helper";
 import fs from "fs-extra";
-
+import { isArray } from "@treats/util/typecheck";
 import directory from "./directory";
 
 type AssetsHelperType = {
@@ -13,7 +13,7 @@ type AssetsHelperType = {
 };
 
 let chokidar;
-if(process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
     chokidar = require("chokidar");
 }
 
@@ -26,6 +26,26 @@ const assets: AssetsHelperType = {
                 `[Assets] Trying to get Asset Stats from ${directory.STATS_DIR}/stats.json`
             );
             const assetsStats = JSON.parse(fs.readFileSync(`${directory.STATS_DIR}/stats.json`));
+            if (assetsStats.assetsByChunkName) {
+                assetsStats.chunkNameByAssets = Object.keys(assetsStats.assetsByChunkName).reduce(
+                    (acc: Object, chunkName: string | Array<string>): Object => {
+                        const currentChunk = assetsStats.assetsByChunkName[chunkName];
+                        if (isArray(currentChunk)) {
+                            currentChunk.forEach((chunkAsset: string) => {
+                                acc[chunkAsset] = chunkName;
+                            });
+                        } else {
+                            acc[currentChunk] = chunkName;
+                        }
+                        return acc;
+                    },
+                    {}
+                );
+            } else {
+                console.warn(
+                    "[Assets] assetsByChunkName is not defined, your stats might be corrupted!"
+                );
+            }
             this.stats = assetsStats;
             console.verbose("[Assets] Get Asset Stats finished");
         } catch (err) {
@@ -54,15 +74,17 @@ const assets: AssetsHelperType = {
                     this.set();
                     if (process.env.NODE_ENV === "development" && this.stats) {
                         const openBrowser = require("react-dev-utils/openBrowser");
-                        if(!process.env.TREATS_BROWSER_OPEN) {
+                        if (!process.env.TREATS_BROWSER_OPEN) {
                             process.env.TREATS_BROWSER_OPEN = true;
                             openBrowser(`${process.env.TREATS_HOST}:${process.env.TREATS_PORT}`);
                         }
                     }
-                    const watcher = chokidar.watch(`${directory.STATS_DIR}/stats.json`, { ignoreInitial: true }).on("all", () => {
-                        console.verbose("Stats File changed, reloading...");
-                        this.set();
-                    });
+                    const watcher = chokidar
+                        .watch(`${directory.STATS_DIR}/stats.json`, { ignoreInitial: true })
+                        .on("all", () => {
+                            console.verbose("Stats File changed, reloading...");
+                            this.set();
+                        });
                     clearInterval(getStatsInterval);
                     return;
                 } else if (retries > 50) {

@@ -13,6 +13,7 @@ import Provider from "@treats/component/provider";
 import locale from "@@BUILD_LOCALE_PATH@@";
 import App from "@@BUILD_REACT_APP_PATH@@";
 import templates from "./template";
+import { JS_TAG_TEMPLATE } from "./const";
 
 let withReduxStore,
     withApolloClient,
@@ -83,6 +84,21 @@ const renderReactMarkup = (reactApp, customRenderers) => {
         result = renderToString(reactApp);
     }
     return result;
+};
+
+//Custom js files tag generator based on webpack-flush-chunks API to modify service worker script tag
+const jsTagGenerator = (flushedChunks, assetsStats) => {
+    const { scripts: jsFiles, publicPath } = flushedChunks,
+        { chunkNameByAssets } = assetsStats;
+    return jsFiles
+        .map(fileName => {
+            const chunkName = chunkNameByAssets[fileName],
+                filePath = `${publicPath}/${fileName}`;
+            return JS_TAG_TEMPLATE[chunkName]
+                ? JS_TAG_TEMPLATE[chunkName](filePath)
+                : JS_TAG_TEMPLATE.default(filePath);
+        })
+        .join("\n");
 };
 
 /**
@@ -176,22 +192,9 @@ const renderer = async (req, res, routerContext, customRenderers) => {
             before: ["manifest", "vendor", "service-worker"],
             after: ["main"]
         }),
-        { styles, cssHash: css, scripts: jsFiles, publicPath } = flushedChunks,
-        swFilename = assetsStats.assetsByChunkName["service-worker"];
+        { styles, cssHash: css } = flushedChunks;
 
-    //Custom js files tag generator based on webpack-flush-chunks API to modify service worker script tag
-    const jsTagGenerator = files =>
-        files
-            .map(file => {
-                if (file === swFilename) {
-                    return `<script treats-sw-script type="text/javascript" src="${publicPath}/${file}"></script>`;
-                }
-
-                return `<script type="text/javascript" src="${publicPath}/${file}"></script>`;
-            })
-            .join("\n");
-
-    const jsTags = jsTagGenerator(jsFiles),
+    const jsTags = jsTagGenerator(flushedChunks, assetsStats),
         cssTags = styles.toString(),
         cssHash = css.toString(),
         helmetData = Helmet.renderStatic(),

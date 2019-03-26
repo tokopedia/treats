@@ -43,7 +43,7 @@ const initClient = params => {
             navigator.userLanguage ||
             "en-US",
         guardedRootDiv = rootDiv || "treats-root",
-        swScript = document.querySelectorAll("script[treats-sw-script]");
+        swScript = document.querySelectorAll("link[data-treats-sw-script]");
 
     let reduxStore, apolloConfig, apolloClient;
 

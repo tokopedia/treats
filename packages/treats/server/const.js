@@ -17,3 +17,9 @@ export const DEFAULT_ENV = {
  * Treats assets path.
  */
 export const ASSETS_PATH = path.join(__dirname, "../public");
+
+export const JS_TAG_TEMPLATE = {
+    "service-worker": filepath =>
+        `<link rel="preconnect" data-treats-sw-script src="${filepath}" />`,
+    default: filepath => `<script type="text/javascript" src="${filepath}"></script>`
+};
