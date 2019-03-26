@@ -1,7 +1,7 @@
 {
     "name": "eslint-config-treats",
     "license": "Apache-2.0",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Eslint config for opinonated development with Treats",
     "main": "index.js",
     "scripts": {

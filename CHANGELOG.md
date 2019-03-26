@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/tokopedia/treats/compare/v0.2.0...v0.3.0) (2019-03-26)
+
+
+### Bug Fixes
+
+* fix vulnerable dependencies ([#31](https://github.com/tokopedia/treats/issues/31)) ([8dcf5dc](https://github.com/tokopedia/treats/commit/8dcf5dc))
+
+
+### Features
+
+* **workbox-webpack-plugin:** added workbox-webpack-plugin ([#26](https://github.com/tokopedia/treats/issues/26)) ([89bc48e](https://github.com/tokopedia/treats/commit/89bc48e))
+
+
+
 <a name="0.2.0"></a>
 # 0.2.0 (2019-02-26)
 
