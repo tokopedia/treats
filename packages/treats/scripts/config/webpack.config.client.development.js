@@ -7,7 +7,8 @@ const webpack = require("webpack"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    { configureWorkbox, getSWFilename } = require("./util/workbox");
 
 module.exports = ({
     alias,
@@ -21,12 +22,17 @@ module.exports = ({
             wdsPort,
             webpack: { define: webpackDefineEnv }
         } = extractEnv(process.env),
+        { workbox: workboxConfig } = webpackConfig,
         publicPath = webpackConfig.publicPath || "/__TREATS_WDS__/",
         assetsOutputPath = webpackConfig.assetsOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css", ".json", ".wasm", ".mjs"]
         };
 
+    let workboxPlugin = [];
+    if (workboxConfig) {
+        workboxPlugin = configureWorkbox(workboxConfig);
+    }
     const defaultConfig = {
         name: "client",
         target: "web",
@@ -255,6 +261,7 @@ module.exports = ({
                 reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
                 cssModules: true // if you use cssModules, this can help.
             }),
+            ...workboxPlugin,
             {
                 apply: compiler => {
                     compiler.plugin("after-emit", (compilation, done) => {
@@ -278,6 +285,12 @@ module.exports = ({
                             publicPath: true
                         });
                         delete stats.assets;
+                        if (workboxPlugin.length > 0) {
+                            stats.assetsByChunkName = {
+                                ...stats.assetsByChunkName,
+                                "service-worker": workboxPlugin[0].config.swDest
+                            };
+                        }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }
@@ -291,7 +304,8 @@ module.exports = ({
             hot: true,
             open: true,
             headers: {
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "*",
+                "Service-Worker-Allowed": "/"
             },
             stats: { colors: true, children: false },
             overlay: true,

@@ -1,0 +1,27 @@
+{
+    "name": "app-with-workbox",
+    "version": "0.0.1",
+    "description": "My First Treats App",
+    "license": "ISC",
+    "scripts": {
+        "start": "treats start",
+        "build:client": "treats build --target client",
+        "build:server": "treats build --target server",
+        "build": "treats build",
+        "clean": "treats clean",
+        "generate": "treats generate",
+        "analyze:client": "treats build --target client --analyze",
+        "analyze:server": "treats build --target server --analyze",
+        "profile": "yarn build:server && node --prof dist/server.js",
+        "documentation:build": "treats documentation build src/",
+        "documentation:lint": "treats documentation lint src/",
+        "documentation:phriction": "treats documentation export src/ --target phriction",
+        "documentation:flush": "treats documentation flush src/",
+        "test": "treats test",
+        "test:watch": "treats test --watchAll",
+        "test:coverage": "treats test --coverage"
+    },
+    "dependencies": {
+        "treats": "0.2.0"
+    }
+}

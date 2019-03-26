@@ -8,7 +8,8 @@ const webpack = require("webpack"),
     webpackMerge = require("webpack-merge"),
     babelMerge = require("babel-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    { configureWorkbox, getSWFilename } = require("./util/workbox");
 
 module.exports = ({
     alias,
@@ -22,11 +23,17 @@ module.exports = ({
             wdsPort,
             webpack: { define: webpackDefineEnv, op: webpackOp }
         } = extractEnv(process.env),
+        { workbox: workboxConfig } = webpackConfig,
         publicPath = webpackConfig.publicPath || "/static/",
         clientOutputPath = webpackConfig.clientOutputPath || "public",
         resolve = {
             extensions: [".ts", ".tsx", ".js", ".css"]
         };
+
+    let workboxPlugin = [];
+    if (workboxConfig) {
+        workboxPlugin = configureWorkbox(workboxConfig);
+    }
 
     const bundleAnalyzerPlugin = webpackOp === "analyze" ? [new BundleAnalyzerPlugin()] : [];
 
@@ -241,6 +248,7 @@ module.exports = ({
                 orderWarning: true, // Disable to remove warnings about conflicting order between imports
                 cssModules: true // if you use cssModules, this can help.
             }),
+            ...workboxPlugin,
             {
                 apply: compiler => {
                     compiler.plugin("after-emit", (compilation, done) => {
@@ -264,6 +272,12 @@ module.exports = ({
                             publicPath: true
                         });
                         delete stats.assets;
+                        if (workboxPlugin.length > 0) {
+                            stats.assetsByChunkName = {
+                                ...stats.assetsByChunkName,
+                                "service-worker": workboxPlugin[0].config.swDest
+                            };
+                        }
                         fs.outputFile("stats/stats.json", JSON.stringify(stats), done);
                     });
                 }

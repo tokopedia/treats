@@ -34,9 +34,11 @@ There's several configuration that could be setup here:
     - `publicPath` - This value would override publicPath definition for your asset files.
     - `client` - This value would be merged to Treats client Webpack configuration using [webpack-merge][webpack-merge-website]
     - `server` - This value would be merged to Treats server Webpack configuration using [webpack-merge][webpack-merge-website]
+    - `workbox` - This configuration can be used to enable and setting workbox configuration in treats. More info on workbox configuration can be seen on [here][workbox-build-configuration]
 - `postcss` -This configuration can be used to extends Treats PostCSS setup
 - `babel` -This configuration can be used to extends Treats Babel setup. All values would be merged to treats babel config using [babel-merge][babel-merge-website]
 
 
 [webpack-merge-website]: https://www.npmjs.com/package/webpack-merge
 [babel-merge-website]: https://www.npmjs.com/package/babel-merge
+[workbox-build-configuration]: ./workbox.html

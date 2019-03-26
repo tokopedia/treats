@@ -42,7 +42,8 @@ const initClient = params => {
             navigator.language ||
             navigator.userLanguage ||
             "en-US",
-        guardedRootDiv = rootDiv || "treats-root";
+        guardedRootDiv = rootDiv || "treats-root",
+        swScript = document.querySelectorAll("link[data-treats-sw-script]");
 
     let reduxStore, apolloConfig, apolloClient;
 
@@ -64,6 +65,21 @@ const initClient = params => {
             apolloClient,
             language
         };
+
+    if (swScript.length > 0 && "serviceWorker" in navigator) {
+        const serviceWorkerPath = swScript[0].getAttribute("src");
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register(serviceWorkerPath, { scope: "./" })
+                .then(registration =>
+                    //eslint-disable-next-line no-console
+                    console.log(
+                        `Service worker registration on ${serviceWorkerPath} is successfull`,
+                        registration
+                    ))
+                .catch(error => console.error("Service worker registrations failed", error));
+        });
+    }
 
     loadLocaleData(language).then(messages =>
         hydrate(

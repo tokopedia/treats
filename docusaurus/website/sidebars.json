@@ -29,7 +29,8 @@
             "main-concept/generator",
             "main-concept/scripts",
             "main-concept/addons",
-            "main-concept/typescript"
+            "main-concept/typescript",
+            "main-concept/workbox"
         ],
         "API Reference": [
             "api-reference/overview",
