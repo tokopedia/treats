@@ -13,6 +13,7 @@ const chalk = require("chalk"),
     checkTypescript = require("./util/checkTypescript"),
     generateTSConfig = require("./util/generateTSConfig"),
     isTSFileExists = require("./util/isTSFileExists"),
+    setupDevModules = require("./util/setup-dev-modules"),
     clean = require("./clean"),
     RESOLVER = require("../resolver"),
     WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils"),
@@ -143,6 +144,12 @@ const start = argv => {
     const useTypescript = isTSFileExists();
     checkTypescript(useTypescript);
 
+    //Setup routes & modules for development on-demand modules bundling
+    if ((!argv.env || argv.env === "development")) {
+        logger("log", "Generating on-demand modules");
+        setupDevModules(useTypescript, argv.module);
+    }
+
     getProcessForPort(userPort);
     WebpackDevServerUtils.choosePort("localhost", userPort).then(resolvedPort => {
         if(resolvedPort !== null) {
@@ -156,7 +163,11 @@ const start = argv => {
                 }
 
                 const entryFiles = Object.keys(RESOLVER).reduce((accumulator, key) => {
-                        const buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
+                        let buildPath = useTypescript ? RESOLVER[key].customTypescript : RESOLVER[key].custom;
+                        if (process.env.NODE_ENV === "development" &&
+                            (key === "BUILD_ROUTE_PATH" || key === "BUILD_ROUTE_MODULE_PATH")) {
+                            buildPath = useTypescript ? RESOLVER[key].developmentTypescript : RESOLVER[key].development;
+                        }
                         accumulator.push(buildPath);
                         return accumulator;
                     }, []),
