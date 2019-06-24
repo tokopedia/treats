@@ -1,6 +1,5 @@
 const path = require("path"),
-    ROOT_PATH = process.cwd(),
-    alias = require(path.join(ROOT_PATH, "./node_modules/treats/alias")),
+    alias = require(path.resolve(__dirname, "../treats/alias")),
     resolver = {
         map: Object.entries(alias),
         extensions: [".ts", ".js", ".jsx", ".json"]
