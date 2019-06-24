@@ -1,6 +1,6 @@
 {
     "name": "typescript-app",
-    "version": "0.0.1",
+    "version": "0.4.0",
     "description": "My First Treats App with Typescript Language!",
     "license": "ISC",
     "scripts": {
