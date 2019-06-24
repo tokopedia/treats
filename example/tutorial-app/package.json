@@ -24,6 +24,6 @@
     "dependencies": {
         "@treats/addons-base": "0.3.0",
         "axios": "^0.18.0",
-        "treats": "0.3.0"
+        "treats": "0.4.0"
     }
 }
