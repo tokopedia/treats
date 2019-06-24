@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "styled-components": "4.1.1",
-        "treats": "0.3.0"
+        "treats": "0.4.0"
     },
     "devDependencies": {
         "babel-plugin-styled-components": "1.8.0"
