@@ -1,7 +1,7 @@
 {
     "name": "treats",
     "license": "Apache-2.0",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Tokopedia React Development Kits",
     "author": "Tokopedia Engineering",
     "types": "./lib/treats.d.ts",
@@ -123,7 +123,7 @@
         "ts-loader": "5.3.2",
         "unfetch": "3.0.0",
         "webpack": "4.23.1",
-        "webpack-bundle-analyzer": "3.0.3",
+        "webpack-bundle-analyzer": "3.3.2",
         "webpack-dev-server": "3.1.11",
         "webpack-flush-chunks": "1.2.3",
         "webpack-merge": "4.1.4",
