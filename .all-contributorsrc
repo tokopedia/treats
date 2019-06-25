@@ -25,6 +25,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/16898682?v=3",
       "profile": "https://github.com/martinock",
       "contributions": [
+        "code",
         "doc",
         "question",
         "example",
@@ -37,9 +38,34 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/416498?v=4",
       "profile": "https://github.com/fadlinux",
       "contributions": [
+        "code",
         "doc",
         "question",
         "example",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "salmanalfariz24",
+      "name": "Salman Al Fariz",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/23188218?v=4",
+      "profile": "https://github.com/salmanalfariz24",
+      "contributions": [
+        "code",
+        "doc",
+        "question",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "RiftSplitter",
+      "name": "William Candra",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33221847?v=4",
+      "profile": "https://github.com/RiftSplitter",
+      "contributions": [
+        "code",
+        "doc",
+        "question",
         "tutorial"
       ]
     },
@@ -49,6 +75,7 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/31308706?v=3",
       "profile": "https://github.com/alchristleo",
       "contributions": [
+        "code",
         "doc",
         "example",
         "tutorial"
