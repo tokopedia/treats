@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.1"></a>
+# 0.4.1 (2019-08-21)
+
+
+### Bug Fixes
+
+* fix vulnerable dependencies ([#35](https://github.com/tokopedia/treats/issues/35)) ([3115568](https://github.com/tokopedia/treats/commit/3115568))
+
 <a name="0.4.0"></a>
 # 0.4.0 (2019-06-24)
 

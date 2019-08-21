@@ -1,12 +1,12 @@
 {
     "name": "@treats/addons-base",
     "license": "Apache-2.0",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "Treats Addons Base",
     "main": "index.js",
     "author": "Tokopedia Engineering",
     "peerDependencies": {
-        "treats": "0.4.0"
+        "treats": "0.4.1"
     },
     "dependencies": {
         "bluebird": "3.5.1",
