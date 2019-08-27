@@ -9,6 +9,6 @@
   },
   "author": "Tokopedia Engineering",
   "peerDependencies": {
-      "treats": "0.4.1"
+      "treats": "0.4.2"
   }
 }

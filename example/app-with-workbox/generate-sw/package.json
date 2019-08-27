@@ -22,6 +22,6 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "treats": "0.4.1"
+        "treats": "0.4.2"
     }
 }

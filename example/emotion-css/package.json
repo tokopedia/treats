@@ -1,6 +1,6 @@
 {
     "name": "emotion-css",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "Emotion CSS Example",
     "license": "ISC",
     "scripts": {
@@ -22,7 +22,7 @@
         "emotion": "9.2.12",
         "emotion-server": "9.2.12",
         "react-emotion": "9.2.12",
-        "treats": "0.4.1"
+        "treats": "0.4.2"
     },
     "devDependencies": {
         "babel-plugin-emotion": "9.2.11"

@@ -1,6 +1,6 @@
 {
     "name": "my-treats-app",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "My First Treats App",
     "license": "ISC",
     "scripts": {
@@ -20,6 +20,6 @@
     },
     "dependencies": {
         "@treats/my-first-addons": "^1.0.0",
-        "treats": "0.4.1"
+        "treats": "0.4.2"
     }
 }
