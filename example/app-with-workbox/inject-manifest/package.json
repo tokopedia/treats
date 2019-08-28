@@ -1,6 +1,6 @@
 {
     "name": "app-with-workbox",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "My First Treats App",
     "license": "ISC",
     "scripts": {
