@@ -1,6 +1,6 @@
 {
     "name": "todo",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "first todo app",
     "license": "ISC",
     "scripts": {
@@ -22,8 +22,8 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "@treats/addons-base": "0.4.1",
+        "@treats/addons-base": "0.4.2",
         "axios": "^0.18.0",
-        "treats": "0.4.1"
+        "treats": "0.4.2"
     }
 }
