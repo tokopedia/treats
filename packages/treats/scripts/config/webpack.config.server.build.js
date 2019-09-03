@@ -9,7 +9,8 @@ const webpack = require("webpack"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    nodeExternals = require("webpack-node-externals");
 
 module.exports = ({
     alias,
@@ -40,13 +41,12 @@ module.exports = ({
             ...resolve,
             alias
         },
-        externals: fs
-            .readdirSync("./node_modules")
-            .filter(x => !/\.bin|react-universal-component|webpack-flush-chunks|treats/.test(x))
-            .reduce((externals, mod) => {
-                externals[mod] = `commonjs ${mod}`;
-                return externals;
-            }, {}),
+        externals: nodeExternals({
+            whitelist: [
+                /\.bin|react-universal-component|webpack-flush-chunks|treats/,
+                /babel-plugin-universal-import|react-universal-component/
+            ]
+        }),
         node: {
             __dirname: false
         },
