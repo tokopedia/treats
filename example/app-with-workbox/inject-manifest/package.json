@@ -1,6 +1,6 @@
 {
     "name": "app-with-workbox",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "My First Treats App",
     "license": "ISC",
     "scripts": {
@@ -22,6 +22,6 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "treats": "0.4.2"
+        "treats": "0.4.3"
     }
 }

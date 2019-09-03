@@ -1,6 +1,6 @@
 {
     "name": "sass-css",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "description": "Sass CSS example",
     "license": "ISC",
     "scripts": {
@@ -19,7 +19,7 @@
         "documentation:flush": "treats documentation flush src/"
     },
     "dependencies": {
-        "treats": "0.4.2",
+        "treats": "0.4.3",
         "node-sass": "4.10.0"
     }
 }

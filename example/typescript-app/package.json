@@ -1,6 +1,6 @@
 {
     "name": "typescript-app",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "description": "My First Treats App with Typescript Language!",
     "license": "ISC",
     "scripts": {
@@ -22,7 +22,7 @@
         "test:coverage": "treats test --coverage"
     },
     "dependencies": {
-        "treats": "0.4.2",
+        "treats": "0.4.3",
         "typescript": "3.2.2",
         "@types/enzyme": "3.1.15",
         "@types/jest": "23.3.10",
