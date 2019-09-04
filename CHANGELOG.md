@@ -2,12 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="0.4.2"></a>
+<a name="0.4.3"></a>
+# 0.4.3 (2019-09-03)
 
 
 ### Bug Fixes
 
-* fix react-router-dom error on production build. ([#36](https://github.com/tokopedia/treats/pull/35))
+* Fix webpack production build with react-router-dom version 5.0.0. ([#37](https://github.com/tokopedia/treats/pull/37)) ([26afba7](https://github.com/tokopedia/treats/commit/26afba7)) This fix the temporary solution from ([#36](https://github.com/tokopedia/treats/pull/36)).
+
+
+
+<a name="0.4.2"></a>
+# 0.4.2 (2019-09-02)
+
+
+### Bug Fixes
+
+* fix react-router-dom error on production build. ([#36](https://github.com/tokopedia/treats/pull/36))
 
 
 
@@ -18,6 +29,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * fix vulnerable dependencies ([#35](https://github.com/tokopedia/treats/issues/35)) ([3115568](https://github.com/tokopedia/treats/commit/3115568))
+
+
 
 <a name="0.4.0"></a>
 # 0.4.0 (2019-06-24)

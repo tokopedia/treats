@@ -8,7 +8,8 @@ const webpack = require("webpack"),
     babelMerge = require("babel-merge"),
     webpackMerge = require("webpack-merge"),
     extractEnv = require("./util/extract-env"),
-    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json"));
+    useTypescript = fs.pathExistsSync(path.resolve(process.cwd(), "./tsconfig.json")),
+    nodeExternals = require("webpack-node-externals");
 
 module.exports = ({
     alias,
@@ -33,13 +34,13 @@ module.exports = ({
         mode: "development",
         devtool: "cheap-eval-source-map",
         entry: ["webpack/hot/signal?1000", path.join(alias["@treats/server"], "./entry")],
-        externals: fs
-            .readdirSync("./node_modules")
-            .filter(x => !/\.bin|react-universal-component|webpack-flush-chunks|treats/.test(x))
-            .reduce((externals, mod) => {
-                externals[mod] = `commonjs ${mod}`;
-                return externals;
-            }, {}),
+        externals: nodeExternals({
+            whitelist: [
+                /\.bin|react-universal-component|webpack-flush-chunks|treats/,
+                /babel-plugin-universal-import|react-universal-component/,
+                "webpack/hot/signal?1000"
+            ]
+        }),
         watch: true,
         resolve: {
             ...resolve,

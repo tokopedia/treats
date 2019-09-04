@@ -1,6 +1,6 @@
 {
     "name": "less-css",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "description": "Less CSS example",
     "license": "ISC",
     "scripts": {
@@ -19,7 +19,7 @@
         "documentation:flush": "treats documentation flush src/"
     },
     "dependencies": {
-        "treats": "0.4.2",
+        "treats": "0.4.3",
         "less": "2.3.1"
     }
 }
