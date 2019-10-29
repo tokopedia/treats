@@ -1,5 +1,5 @@
 # Tokopedia React Development Kits (Treats)
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 [![CircleCI](https://circleci.com/gh/tokopedia/treats/tree/master.svg?style=svg&circle-token=c731ca16a0ba50297243da9283308a0b1e1ef38c)](https://circleci.com/gh/tokopedia/treats/tree/master)
 
