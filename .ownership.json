@@ -1,0 +1,14 @@
+{
+	"repository_name": "treats",
+	"description": "Tokopedia React Development Kits",
+	"security_owner": "alchristleo",
+	"app": [
+		{
+			"name": "treats",
+			"description": "Tokopedia React Development Kits",
+			"owner": "alchristleo",
+			"slack_channel": "mobile-web-hub"
+		}
+	],
+	"last_update": "17/04/2020"
+}
