@@ -90,7 +90,7 @@
         "less-loader": "4.1.0",
         "lodash.merge": "4.6.2",
         "morgan": "1.9.1",
-        "node-fetch": "2.1.2",
+        "node-fetch": "2.6.1",
         "path": "0.12.7",
         "path-to-regexp": "2.2.1",
         "postcss-icss-keyframes": "0.2.1",
