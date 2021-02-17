@@ -118,7 +118,7 @@
         "rimraf": "2.6.2",
         "sass-loader": "7.1.0",
         "semver": "5.5.0",
-        "serialize-javascript": "3.0.0",
+        "serialize-javascript": "5.0.1",
         "thread-loader": "1.2.0",
         "ts-loader": "5.3.2",
         "unfetch": "3.0.0",
