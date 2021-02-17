@@ -20,6 +20,6 @@
     },
     "dependencies": {
         "treats": "0.4.3",
-        "node-sass": "4.10.0"
+        "node-sass": "4.14.1"
     }
 }
