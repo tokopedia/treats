@@ -75,7 +75,7 @@
     "react-dom": "16.8.0",
     "react-hot-loader": "4.6.0",
     "react-test-renderer": "16.4.2",
-    "standard-version": "^4.4.0",
+    "standard-version": "^9.0.0",
     "stylelint": "8.4.0",
     "stylelint-config-css-modules": "1.2.0",
     "stylelint-config-prettier": "1.0.2",
