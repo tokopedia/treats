@@ -1,7 +1,7 @@
 const path = require("path"),
     ROOT_PATH = process.cwd();
 
-/** 
+/**
  * Treats filesystem hooks with 3 config [custom, customTypescript, default].
  * custom or customTypescript will be used when you define them on your projects
  */
@@ -19,11 +19,15 @@ const RESOLVER = {
     BUILD_ROUTE_PATH: {
         custom: path.resolve(ROOT_PATH, "./src/_route/route.js"),
         customTypescript: path.resolve(ROOT_PATH, "./src/_route/route.ts"),
+        development: path.resolve(ROOT_PATH, "./src/_route/route.development.js"),
+        developmentTypescript: path.resolve(ROOT_PATH, "./src/_route/route.development.ts"),
         default: path.resolve(__dirname, "./default/_route/route.js")
     },
     BUILD_ROUTE_MODULE_PATH: {
         custom: path.resolve(ROOT_PATH, "./src/_route/module.js"),
         customTypescript: path.resolve(ROOT_PATH, "./src/_route/module.ts"),
+        development: path.resolve(ROOT_PATH, "./src/_route/module.development.js"),
+        developmentTypescript: path.resolve(ROOT_PATH, "./src/_route/module.development.ts"),
         default: path.resolve(__dirname, "./default/_route/module.js")
     },
     BUILD_SERVER_TEMPLATE_PATH: {

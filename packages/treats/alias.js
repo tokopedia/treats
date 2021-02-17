@@ -50,7 +50,14 @@ const CORE_PATH = path.resolve(__dirname),
     useTypescript = isTSFileExists(),
     //Filesystem hooks scan
     resolvedAlias = Object.keys(RESOLVER).reduce((accumulator, key) => {
-        if (process.env.NODE_ENV !== "test") {
+        if (
+            process.env.NODE_ENV === "development" &&
+            (key === "BUILD_ROUTE_PATH" || key === "BUILD_ROUTE_MODULE_PATH")
+        ) {
+            accumulator[`@@${key}@@`] = useTypescript
+                ? RESOLVER[key].developmentTypescript
+                : RESOLVER[key].development;
+        } else if (process.env.NODE_ENV !== "test") {
             accumulator[`@@${key}@@`] = selectPath(useTypescript, RESOLVER[key]);
         } else {
             accumulator[`@@${key}@@`] = RESOLVER[key].default;

@@ -13,3 +13,5 @@ profile
 packages/**/*.md
 **/*.DS_Store
 .cache-loader
+*.development.js
+*.development.ts
