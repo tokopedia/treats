@@ -25,7 +25,7 @@ You don't need to configure webpack, babel, or any other build tools by yourself
 3. Server-side rendering, code-splitting and hot-module replacement configured out-of-the-box.
 4. CSS Modules support with CSS, LESS, or SASS syntax with autoprefixer, or use any CSS-in-JS library that you like!
 5. A build script to bundle JS, CSS, images and other medias for production.
-6. Built-in code generator so you wouldn't need to wrote another boilerplate codes.
+6. Built-in code generator so you wouldn't need to write another boilerplate codes.
 7. Work out of the box with zero configuration for light usage, but easily customizable for power users. Treats is customizable with:
     - Custom Helpers (Server-side)
     - Custom Middlewares (Server-side)
