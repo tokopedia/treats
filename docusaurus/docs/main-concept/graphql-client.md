@@ -179,7 +179,7 @@ https://www.npmjs.com/package/apollo-link-batch-http
 [link-http-website]:
 https://www.npmjs.com/package/apollo-link-http
 [link-error-website]:
-https://www.apollographql.com/docs/react/features/error-handling.html
+https://www.apollographql.com/docs/apollo-server/data/errors/#gatsby-focus-wrapper
 [api-reference-filesystem-graphql]:
 ../api-reference/filesystem-hooks.html#graphql-link-statejs
 [build-config]: build-config.html
